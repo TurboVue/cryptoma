@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;500;700&display=swap');
+body {
+    font-family: 'DM Sans', sans-serif;
+    color: #04172A;
+    // font-size: 80%;
+    background-color: white;
+}
+
+.work {
+    font-family: 'Work Sans', sans-serif;
+}
+
+.card-container .card {
+    //background-image: url('/img/card-back.svg')
+}
+
+.upload {
+    background-image: url('/img/card-back.svg')
+}
+
+#sign-page {
+    background-color: white;
+    background-image: url('/img/sign-back.png');
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    #wrapper {
+        width: 80%;
+        margin: 0 auto;
+        padding: 2em 0;
+    }
+}
+
+.signup .input-box {
+    margin: .5em 0 1em 0 !important
+}
+
+;
+#sign {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .ads h3 {
+        color: #010946;
+        font-size: 2.5em;
+        font-family: 'Work Sans', sans-serif;
+        font-weight: 700;
+    }
+    .form-container {
+        width: 100%;
+        max-width: 500px;
+        h4 {
+            font-size: 1.4em;
+        }
+        form {}
+    }
+    .input-box {
+        margin: 1em 0 2em 0;
+        input {
+            border: .5px solid #E5E5E5;
+            font-weight: 600;
+        }
+        button {
+            filter: drop-shadow(0px 0px 15px #E4E8EF);
+            box-shadow: 0px 0px 15px #E4E8EF;
+        }
+        input,
+        button {
+            width: 100%;
+            padding: 1em 1em;
+            border-radius: .4em;
+        }
+        input::placeholder {
+            font-weight: 500;
+        }
+        input:focus,
+        input:active {
+            outline: none;
+        }
+        .bg-grey {
+            background-color: #f8f8f8
+        }
+    }
+    .submit {
+        margin-bottom: 1em;
+    }
+    .right {
+        float: right;
+    }
+    .direction {
+        padding: 0 0 .5em 0;
+        direction: rtl;
+        .forgot-password {
+            padding: 0 0 1em 0
+        }
+    }
+}
+
+@media(max-width: 768px) {
+    .ads {
+        display: none;
+    }
+    #sign-page {
+        background-image: none;
+        #wrapper {
+            width: 90%
+        }
+    }
+    #sign {
+        justify-content: center;
+    }
+    #sign .input-box {
+        margin: .5em 0 1em 0
+    }
+    .p-toast {
+        width: 100%;
+        max-width: 20em;
+    }
+}
+
+.custom.p-toast .p-toast-message.p-toast-message-success {
+    background: #00C2FF !important;
+    color: white;
+    border: solid #00C2FF;
+}
+
+.codes {
+    position: absolute;
+    overflow: auto;
+    left: 0;
+    transition: 0.5s ease-in-out;
+    max-height: 8em;
+}
+
+input {
+    appearance: none !important;
+}
+
+.custom.p-toast .p-toast-message.p-toast-message-success .p-toast-message-icon,
+.custom.p-toast .p-toast-message.p-toast-message-success .p-toast-icon-close {
+    color: white;
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
+    font-size: 1em;
+    margin-top: .3em;
+}
+
+.custom.p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
+    font-size: 1em;
+    margin-top: .3em;
+}

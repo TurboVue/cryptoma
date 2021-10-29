@@ -1,0 +1,189 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;500;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: #04172A;
+  background-color: white;
+}
+
+.work {
+  font-family: 'Work Sans', sans-serif;
+}
+
+.upload {
+  background-image: url("/img/card-back.svg");
+}
+
+#sign-page {
+  background-color: white;
+  background-image: url("/img/sign-back.png");
+  background-repeat: no-repeat;
+  background-position: left bottom;
+}
+
+#sign-page #wrapper {
+  width: 80%;
+  margin: 0 auto;
+  padding: 2em 0;
+}
+
+.signup .input-box {
+  margin: .5em 0 1em 0 !important;
+}
+
+#sign {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#sign .ads h3 {
+  color: #010946;
+  font-size: 2.5em;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 700;
+}
+
+#sign .form-container {
+  width: 100%;
+  max-width: 500px;
+}
+
+#sign .form-container h4 {
+  font-size: 1.4em;
+}
+
+#sign .input-box {
+  margin: 1em 0 2em 0;
+}
+
+#sign .input-box input {
+  border: .5px solid #E5E5E5;
+  font-weight: 600;
+}
+
+#sign .input-box button {
+  -webkit-filter: drop-shadow(0px 0px 15px #E4E8EF);
+          filter: drop-shadow(0px 0px 15px #E4E8EF);
+  -webkit-box-shadow: 0px 0px 15px #E4E8EF;
+          box-shadow: 0px 0px 15px #E4E8EF;
+}
+
+#sign .input-box input,
+#sign .input-box button {
+  width: 100%;
+  padding: 1em 1em;
+  border-radius: .4em;
+}
+
+#sign .input-box input::-webkit-input-placeholder {
+  font-weight: 500;
+}
+
+#sign .input-box input:-ms-input-placeholder {
+  font-weight: 500;
+}
+
+#sign .input-box input::-ms-input-placeholder {
+  font-weight: 500;
+}
+
+#sign .input-box input::placeholder {
+  font-weight: 500;
+}
+
+#sign .input-box input:focus,
+#sign .input-box input:active {
+  outline: none;
+}
+
+#sign .input-box .bg-grey {
+  background-color: #f8f8f8;
+}
+
+#sign .submit {
+  margin-bottom: 1em;
+}
+
+#sign .right {
+  float: right;
+}
+
+#sign .direction {
+  padding: 0 0 .5em 0;
+  direction: rtl;
+}
+
+#sign .direction .forgot-password {
+  padding: 0 0 1em 0;
+}
+
+@media (max-width: 768px) {
+  .ads {
+    display: none;
+  }
+  #sign-page {
+    background-image: none;
+  }
+  #sign-page #wrapper {
+    width: 90%;
+  }
+  #sign {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  #sign .input-box {
+    margin: .5em 0 1em 0;
+  }
+  .p-toast {
+    width: 100%;
+    max-width: 20em;
+  }
+}
+
+.custom.p-toast .p-toast-message.p-toast-message-success {
+  background: #00C2FF !important;
+  color: white;
+  border: solid #00C2FF;
+}
+
+.codes {
+  position: absolute;
+  overflow: auto;
+  left: 0;
+  -webkit-transition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
+  max-height: 8em;
+}
+
+input {
+  -webkit-appearance: none !important;
+     -moz-appearance: none !important;
+          appearance: none !important;
+}
+
+.custom.p-toast .p-toast-message.p-toast-message-success .p-toast-message-icon,
+.custom.p-toast .p-toast-message.p-toast-message-success .p-toast-icon-close {
+  color: white;
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
+  font-size: 1em;
+  margin-top: .3em;
+}
+
+.custom.p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
+  font-size: 1em;
+  margin-top: .3em;
+}
+/*# sourceMappingURL=main.css.map */
