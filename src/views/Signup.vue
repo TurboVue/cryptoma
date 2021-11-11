@@ -54,7 +54,7 @@
                             <div class="relative">
                                 <div
                                 
-                                    @click="toggleList"
+                                    
                                     class="activeCode flex items-center pointer justify-center"
                                 ><img :src="selectedCountry.flag" class="w-6 " /> <span class="px-1 uppercase text-tiny">{{selectedCountry.name}}</span><span class="text-gray-400">&#x25BE;</span> </div> 
                              <ul v-if="isShow" class="codes rounded border shadow bg-white w-64 p-2  overflow-hidden">
@@ -195,7 +195,7 @@ export default {
       selectedCountry: {
         name: "Nga",
         code: "234",
-        flag: "https://www.countryflags.io/ng/flat/64.png",
+        flag: "/img/ngn-icon.svg",
       },
     };
   },
@@ -227,8 +227,8 @@ export default {
          }
         //  else {}
        },
-    register(event){
-        this.isLoading = !this.isLoading;
+    async register(event){
+        this.isLoading = true;
         const {name,email,phone,password,confirmpassword} = Object.fromEntries(new FormData(event.target));
          this.details.fullname = name;
          this.details.email = email;
@@ -236,8 +236,8 @@ export default {
          this.details.password = password;
          this.details.password_confirmation = confirmpassword
          console.log(this.details)
-         this.signUp(this.details).then(this.isAuthenticated()).catch(() => {
-                     
+         
+         await this.signUp(this.details).then(() => this.isAuthenticated()).catch(() => {
                 console.log('failed')
             })
             this.isLoading = !this.isLoading;
