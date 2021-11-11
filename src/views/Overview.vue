@@ -85,7 +85,7 @@ export default {
     },
     mounted() {
         //this.isCard();
-    this.isAuthenticated();
+    
     this.fetchCard();
     this.$toast.add({severity:'success', summary: 'Welcome Back',detail:'Nice to see you again',life: 3000});
     // this.fetch()
@@ -95,6 +95,9 @@ export default {
     //  this.setTimers();
     
   },
+  created(){
+      this.isAuthenticated();
+  }
 }
 </script>
 <style lang="scss" scoped>
