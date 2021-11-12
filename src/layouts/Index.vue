@@ -17,14 +17,14 @@
     </div>
 </template>
 <script>
-import Header from '../components/Header.vue';
+import Header from './Header.vue';
 import AccountForm from '../components/Acount-Form'; 
 import Toast from 'primevue/toast';
 import Spinner from '../components/Spinner.vue'
-import {mapActions} from 'vuex'
-import {mapGetters} from 'vuex'
-import Sidenav from '../components/Sidenav.vue';
-import Footer from '../components/Footer.vue'
+import {} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
+import Sidenav from './Sidenav.vue';
+import Footer from './Footer.vue'
 import SuccessModal from '@/components/SuccessModal.vue'
 // import axios from 'axios'
 export default {

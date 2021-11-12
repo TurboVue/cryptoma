@@ -40,7 +40,7 @@
 </template>
 <script>
 // import {ref} from 'vue'
-import axios from 'axios'
+// import axios from 'axios'
 import {mapActions} from 'vuex'
 import Input from '../components/Input'
 export default {
@@ -80,10 +80,11 @@ export default {
         // <!-- WE APPEND THE AVATAR TO THE FORMDATA WE'RE GONNA POST -->
             formData.append('shot', this.img)
             formData.append('amount', this.amount)
-            await axios.post('users/proof-make', formData,
-            { headers: {
-              'Content-Type': 'multipart/form-data'
-            }}).then(response => console.log(response))
+            console.log(formData)
+            // await axios.post('users/proof-make', formData,
+            // { headers: {
+            //   'Content-Type': 'multipart/form-data'
+            // }}).then(response => console.log(response))
             this.isSpin()
             this.showSuccess.val = !this.showSuccess.val
         }

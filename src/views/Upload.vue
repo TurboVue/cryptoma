@@ -4,9 +4,8 @@
     class="flex-grow md:py-2 pt-10 px-6 md:px-2"
   >
     <div class="flex flex-row justify-between items-center mx-4">
-      <div class=" my-1">
-        <a
-          href="#"
+      <div @click="$router.go(-1)" class=" my-1">
+        <div
           class="py-2 text-gray-600 text-tiny flex items-center font-medium uppercase "
         >
           <span>
@@ -26,7 +25,7 @@
               </svg>
           </span>
           <span class="font-bold sm:hidden px-1">Back</span>
-          </a>
+          </div>
       </div>
       <div class="">
         <h2
