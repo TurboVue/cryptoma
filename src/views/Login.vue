@@ -34,9 +34,9 @@
                             >
                         </div>
 
-                        <div class="input-box">
+                        <div class="input-box relative">
                             <input
-                                type="password"
+                                :type="passwordType ? 'password' : 'text'"
                                 class="bg-grey"
                                 name="password"
                                 v-model="user.password"
@@ -44,6 +44,7 @@
                                 required
                                 placeholder="password"
                             />
+                            <EyeIcon :show="passwordType" @click="togglePassword()"/>
                         </div>
                         <div class="input-box submit">
 
@@ -84,6 +85,7 @@ export default {
   data() {
     return {
       isSpin: false,
+      passwordType: true,
       user: new User("", ""),
     };
   },
@@ -97,6 +99,9 @@ export default {
       ...mapActions({
             signIn: 'auth/USER_LOGIN'
         }),
+        togglePassword(){
+            this.passwordType = this.TogglePassword(this.passwordType)
+        },
         isAuthenticated(){
          if(this.authenticated){
            this.$router.replace({

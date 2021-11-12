@@ -17,14 +17,18 @@ import PrimeVue from "primevue/config";
 import Ripple from 'primevue/ripple';
 require('@/store/subscriber')
 import BtnSpinner from '@/components/BtnSpinner.vue'
+import EyeIcon from '@/components/reusables_/EyeIcon.vue'
 // axios.defaults.baseURL = 'http://127.0.0.1:8000/api/v1'
 axios.defaults.baseURL = 'https://cryptoexbe.herokuapp.com/api/v1'
 store.dispatch('auth/attempt', JSON.parse(localStorage.getItem('token')));
+import TogglePassword from '@/mixins/TogglePassword'
 // import store from './store'
 const app = createApp(App);
 app.component("BtnSpinner", BtnSpinner)
+app.component("EyeIcon", EyeIcon)
     // .use(VueSplide)
 app.use(VueClickAway)
+    .mixin(TogglePassword)
     .directive('ripple', Ripple)
     .use(PrimeVue, { ripple: true })
     .use(store)
