@@ -153,3 +153,16 @@ input {
     font-size: 1em;
     margin-top: .3em;
 }
+
+.rotate {
+    animation: rotate .35s ease-in
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg)
+    }
+    100% {
+        transform: rotate(360deg)
+    }
+}

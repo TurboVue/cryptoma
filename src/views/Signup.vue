@@ -28,17 +28,20 @@
                     <form action="#" @submit.prevent="register">
                         <div class="input-box">
                             <input
+                                v-model="user.fullname"
                                 type="name"
                                 class="bg-grey"
                                 name="name"
                                 id="name"
                                 autocomplete="no"
                                 placeholder="Fullname"
-                            > <p class="text-red-500 text-sm" >{{errors.fullname[0]}}</p>
+                            >
+                             <p class="text-red-500 text-sm" >{{errors.fullname[0] || ''}}</p>
                         </div>
                        
                         <div class="input-box">
                             <input
+                                v-model="user.email"
                                 type="email"
                                 class="bg-grey"
                                 name="email"
@@ -57,65 +60,18 @@
                                     
                                     class="activeCode flex items-center pointer justify-center"
                                 ><img :src="selectedCountry.flag" class="w-6 " /> <span class="px-1 uppercase text-tiny">{{selectedCountry.name}}</span><span class="text-gray-400">&#x25BE;</span> </div> 
-                             <ul v-if="isShow" class="codes rounded border shadow bg-white w-64 p-2  overflow-hidden">
-                                    <li class="px-2 py-2 hover:bg-gray-100 flex items-center relative cursor-pointer" v-for="(code, index) in countries" @click="selectCountry({
-                                        name: code.alpha3Code,
-                                        code: code.callingCodes[0],
-                                        flag: code.flag
-                                    })" :key="index">
-                                    <img :src="code.flag" class="w-6 " />
-                                        <div class="font-medium px-2 text-tiny text-gray-800">{{code.name}} </div>
-                                        <div class="font-medium text-sm px-2 absolute bottom-0 right-0 text-gray-400 right-0">+{{code.callingCodes[0]}}</div>
-                                    </li>
-                                </ul>
-                            <!-- <Dropdown
-                                v-model="selectedCountry"
-                                :options="countries"
-                                optionLabel="name"
-                                :filter="true"
-                                placeholder="Select a Country"
-                                :showClear="true"
-                            >
-                                <template #value="slotProps">
-                                    <div
-                                        class="country-item country-item-value flex items-center"
-                                        v-if="slotProps.value"
-                                    >
-                                        <img :src="slotProps.value.flag" class="w-8 px-2" />
-                                        <div>{{slotProps.value.name}}</div>
-                        </div>
-                        <span v-else>
-                            {{slotProps.placeholder}}
-                        </span>
-                        </template>
-                        <template #option="slotProps">
-                            <div
-                                class="country-item flex items-center"
-                                @click="selectCountry({
-                                        name: slotProps.option.alpha3Code,
-                                        code: slotProps.option.callingCodes[0],
-                                        flag: slotProps.option.flag
-                                    })"
-                            >
-                                <img
-                                    :src="slotProps.option.flag"
-                                    class="w-8 px-2"
-                                />
-                                <div>{{slotProps.option.name}}</div>
-                </div>
-                </template>
-                </Dropdown> -->
+                           
+                           
                 </div>
                 <div>
                 <input
+                    v-model="user.phone"
                     type="tel"
                     class="bg-grey"
                     name="phone"
                     id="Phone number"
                     autocomplete="off"
-                    
                     title="Please complete number"
-                    :value = "'+' + selectedCountry.code"
                     placeholder="Phone number"
                 />
                 
@@ -123,6 +79,7 @@
                 </div><p class="text-red-500 text-sm" >{{errors.phone[0]}}</p></div>
                 <div class="input-box">
                     <input
+                        v-model="user.password"
                         type="password"
                         class="bg-grey"
                         name="password"
@@ -134,10 +91,11 @@
                 </div>
                 <div class="input-box">
                     <input
+                        v-model="user.password_confirmation"
                         type="password"
                         class="bg-grey"
-                        name="confirmpassword"
-                        id="confirmpassword"
+                        name="password_confirmation"
+                        id="password_confirmation"
                         placeholder="Confirm Password"
                     />
 
@@ -177,6 +135,7 @@ import axios from "axios";
 // import Dropdown from "primevue/dropdown";
 import {mapGetters} from 'vuex'
 import {mapActions} from 'vuex' 
+import User from "../models/user";
 import ProgressSpinner from "primevue/progressspinner";
 export default {
   name: "Login",
@@ -185,13 +144,7 @@ export default {
       isLoading: false,
       countries: [],
       isShow: false,
-      details: {
-          fullname: "",
-          email: "",
-          phone: "",
-          password: "",
-          password_confirmation: ""
-      },
+      user: new User("","","","",""),
       selectedCountry: {
         name: "Nga",
         code: "234",
@@ -227,19 +180,12 @@ export default {
          }
         //  else {}
        },
-    async register(event){
+     register(){
         this.isLoading = true;
-        const {name,email,phone,password,confirmpassword} = Object.fromEntries(new FormData(event.target));
-         this.details.fullname = name;
-         this.details.email = email;
-         this.details.phone = phone;
-         this.details.password = password;
-         this.details.password_confirmation = confirmpassword
-         console.log(this.details)
-         
-         await this.signUp(this.details).then(() => this.isAuthenticated()).catch(() => {
-                console.log('failed')
-            })
+        console.log(this.user)
+           this.signUp(this.user).then(() => this.isAuthenticated()).catch(() => {
+                 console.log('failed')
+             })
             this.isLoading = !this.isLoading;
     },
     selectCountry(any) {

@@ -27,7 +27,7 @@
                                 type="email"
                                 class="bg-grey"
                                 name="email"
-                                v-model="details.email"
+                                v-model="user.email"
                                 id="email"
                                 required
                                 placeholder="Email address"
@@ -39,7 +39,7 @@
                                 type="password"
                                 class="bg-grey"
                                 name="password"
-                                v-model="details.password"
+                                v-model="user.password"
                                 id="password"
                                 required
                                 placeholder="password"
@@ -53,11 +53,10 @@
                                 name="submit"
                                 id="submit"
                             >
-                                <ProgressSpinner
-                                    v-if="isSpin"
-                                    style="width:20px;height:20px; stroke:white "
-                                    strokeWidth="5"
-                                />
+                            
+                               <div v-if="isSpin">
+                                  <BtnSpinner />
+                               </div>
                                 <div v-else>Login</div>
                                 </button>
                         </div>
@@ -76,18 +75,16 @@
 <script>
 import {mapGetters} from 'vuex'
 // import axios from 'axios'
+import User from "../models/user";
 import Toast from 'primevue/toast';
 import {mapActions} from 'vuex' 
-import ProgressSpinner from "primevue/progressspinner";
+// import ProgressSpinner from "primevue/progressspinner";
 export default {
   name: "Login",
   data() {
     return {
       isSpin: false,
-      details: {
-          email: "",
-          password: ""
-      }
+      user: new User("", ""),
     };
   },
   computed: {
@@ -109,19 +106,20 @@ export default {
          }
         
        },
-      logIn(){
-             this.isSpin = !this.isSpin;
-             console.log('me')
-            this.signIn(this.details).then(() => {
-                this.$router.replace({path: '/' }) }).catch(() => {
-                     this.$toast.add({severity:'error', summary: 'Check Connection'});
-                     this.isSpin = !this.isSpin;
+      async logIn(){
+             this.isSpin = true;
+           await this.signIn(this.user).then(() => {
+                this.$router.replace({path: '/' }) 
+                }).catch((err) => {
+                    console.log(err.response)
+                     
                 console.log(this.message)
             })
+            this.isSpin = false;
         }
   },
   components: {
-    ProgressSpinner,
+  
     Toast
   },
   mounted() {

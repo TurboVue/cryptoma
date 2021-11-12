@@ -1,12 +1,15 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import Dashboard from '../views/Overview.vue'
 import Main from '../views/Main.vue'
 import Settings from '../views/Settings.vue'
 import Upload from '../views/Upload.vue'
+import store from '../store'
+
 const routes = [{
         path: '/',
         name: 'Dashboard',
         component: Dashboard,
+        meta: { requiresAuth: true },
         children: [{
                 path: '',
                 name: 'Main',
@@ -139,9 +142,21 @@ const routes = [{
 ]
 
 const router = createRouter({
-    history: createWebHashHistory(),
+    history: createWebHistory(process.env.BASE_URL),
     routes,
 
 })
+router.beforeEach((to, from, next) => {
+
+    if (to.matched.some((record) => record.meta.requiresAuth)) {
+        if (store.getters["auth/user"]) {
+            next();
+            return;
+        }
+        next("/login");
+    } else {
+        next();
+    }
+});
 
 export default router

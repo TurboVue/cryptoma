@@ -1,11 +1,11 @@
-import axios from 'axios';
+import auth from '@/services/auth'
+// import axios from 'axios'
+
 export default {
     namespaced: true,
     state: {
         token: null,
-        user: {
-            fullname: 'user'
-        },
+        user: null,
         validation: {
             fullname: [''],
             email: [''],
@@ -18,9 +18,10 @@ export default {
     },
     mutations: {
         SET_USER(state, data) {
-            state.user = data.user || data.user_attributes
-
-            state.message = data.message
+            if (data) {
+                state.user = data.user || data.user_attributes
+                state.message = data.message
+            } else state.user = data
         },
         SET_TOKEN(state, data) {
 
@@ -48,6 +49,7 @@ export default {
         authenticated(state) {
             return state.token
         },
+
         errors(state) {
             return state.validation
         },
@@ -66,90 +68,92 @@ export default {
     },
     actions: {
         async USER_LOGIN({ dispatch, commit }, credentials) {
-            console.log(credentials)
-            await axios.post('login', credentials)
-                .then((response) => {
-                    console.log(response.data);
-                    return dispatch('attempt', response.data.token)
-                        //      console.log(response.status);
-                        //      console.log(response.statusText);
-                        //      console.log(response.headers);
-                        //      console.log(response.config);
-                }).catch(err => commit('SET_MESSAGE', err.response.data.message));
-            //     var formdata = new FormData();
-            //     formdata.append("email", credentials.email);
-            //     formdata.append("password", credentials.password);
-
-            //     var requestOptions = {
-            //         method: 'POST',
-            //         body: formdata,
-            //         redirect: 'follow'
-            //     };
-            //     let obj = [];
-            //     await fetch("https://bloodhq-be.herokuapp.com/api/v1/login", requestOptions)
-            //         .then(response => response.json())
-
-            //         .then(result => obj.push(result))
-            //         .catch(error => this.error = error);
-
-
-
-
-
+            return auth.login(credentials).then(
+                (res) => {
+                    return dispatch('attempt', res.data.token)
+                },
+                (error) => {
+                    console.log(error.response)
+                    commit('SET_MESSAGE', error.response.data.message)
+                        // console.log(JSON.parse(JSON.stringify(error)))
+                    return Promise.reject(error)
+                }
+            );
         },
         toggleForm({ commit }) {
             commit('SET_ISFORM')
         },
-        async attempt({ commit }, any) {
-            commit('SET_TOKEN', any)
-            try {
-                let response = await axios.post('users/user', {
-                    headers: {
-                        'Authorization': 'Bearer ' + any
-                    }
-                })
-                console.log(response.data)
-                commit('SET_USER', response.data)
-            } catch (e) {
-                commit('SET_TOKEN', null)
-                commit('SET_USER', {
-                    fullname: 'user'
-                })
-                commit('SET_MESSAGE', null)
-                    //dispatch('attempt', state.token)
-            }
+        attempt({ commit }, credentials) {
+            commit('SET_TOKEN', credentials)
+            return auth.attempt(credentials).then(
+                (res) => {
+                    // console.log(res.data);
+                    commit('SET_USER', res.data)
+                    return Promise.resolve(res);
+                },
+                (error) => () => {
+                    commit('SET_TOKEN', null)
+                    Promise.reject(error)
+                }
+            );
+
+            // commit('SET_TOKEN', any)
+            // commit('SET_TOKEN', any)
+            // try {
+            //     let response = await axios.post('users/user', {
+            //         headers: {
+            //             'Authorization': 'Bearer ' + any
+            //         }
+            //     })
+            //     console.log(response.data)
+            //     commit('SET_USER', response.data)
+            // } catch (e) {
+            //     commit('SET_TOKEN', null)
+            //     commit('SET_USER', {
+            //         fullname: 'user'
+            //     })
+            //     commit('SET_MESSAGE', null)
+            //         //dispatch('attempt', state.token)
+            // }
 
         },
-        async logout({ commit }) {
-            // let data = {
-            //     "token": null,
-            //     "user": null,
-            // }
+        logout({ commit }) {
             localStorage.removeItem('token')
             console.log('logout')
             commit('SET_TOKEN', null)
+            commit('SET_USER', null)
             commit('SET_MESSAGE', null)
         },
-        async signUp({ dispatch, commit }, data) {
+        signUp({ dispatch, commit }, credentials) {
+            return auth.register(credentials).then(
+                (res) => {
+                    return dispatch('attempt', res.data.token)
+                },
+                (error) => {
+                    console.log(error.response)
+                    commit('SET_ERROR', error.response.data.errors)
+                        // console.log(JSON.parse(JSON.stringify(error)))
+                    return Promise.reject(error)
+                }
+            );
+
+            // await axios.post('register', data)
+            //     .then((response) => {
+            //         console.log(response.data);
+            //         return dispatch('attempt', response.data.token)
+            //             //      console.log(response.status);
+            //             //      console.log(response.statusText);
+            //             //      console.log(response.headers);
+            //             //      console.log(response.config);
+            //     }).catch(err => {
+            //         console.log('failed')
+            //         commit('SET_ERROR', err.response.data.errors)
 
 
-            await axios.post('register', data)
-                .then((response) => {
-                    console.log(response.data);
-                    return dispatch('attempt', response.data.token)
-                        //      console.log(response.status);
-                        //      console.log(response.statusText);
-                        //      console.log(response.headers);
-                        //      console.log(response.config);
-                }).catch(err => {
-                    console.log('failed')
-                    commit('SET_ERROR', err.response.data.errors)
-
-
-                });
+            //     });
 
         },
 
 
     }
-}
+} //     });
