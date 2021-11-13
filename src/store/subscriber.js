@@ -10,10 +10,10 @@
                   axios.defaults.headers.common['Authorization'] = `Bearer ${mutation.payload}`;
                   let data = mutation.payload
                   let myJson = JSON.stringify(data)
-                  localStorage.setItem('token', myJson)
+                  sessionStorage.setItem('token', myJson)
               } else {
                   //   axios.defaults.headers.common['Authorization'] = `Bearer ${mutation.payload.token}`;
-                  localStorage.removeItem('token')
+                  sessionStorage.removeItem('token')
               }
 
               break;
