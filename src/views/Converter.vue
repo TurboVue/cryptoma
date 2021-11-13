@@ -11,11 +11,11 @@
                 <h2 class="text-lg work font-semibold p-ripple" v-ripple>Rate Converter</h2>
             </div>
         </div>
-        <div id="converter_container" class="mx-auto md:shadow-none shadow rounded-md md:p-0  p-6">
+        <div id="converter_container" class="mx-auto md:border-0 border rounded-md md:p-0  p-6">
             <div>
                 <p class="font-bold py-2 text-lg work">Current Bitcoin Rate</p>
-                <div id="rate_update_box" class="border bg-cyan mb-4  p-4 work rounded-md text-white w-full ">
-                    <p id="rate" class="font-bold md:text-lg text-xl">N453.00 - N554.00</p>
+                <div id="rate_update_box" class="border  mb-4  p-4 work rounded-md text-white w-full ">
+                    <p id="rate" class="font-bold md:text-lg text-cyan text-xl">N453.00 - N554.00</p>
                     <p id="updated_time" class="md:text-sm">updated: Jan 02, 2022 </p>
                 </div>
                  <div id="calculator_box" class="mb-6">

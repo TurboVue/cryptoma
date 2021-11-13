@@ -2,7 +2,7 @@
   <div>
     <div
       id="barcode_container"
-      class="mx-auto md:shadow-none shadow rounded-md md:p-0  p-6"
+      class="mx-auto md:border-0 border rounded-md md:p-0  p-6"
         >
       <div class="flex flex-row justify-between items-center ">
             <div class="">
