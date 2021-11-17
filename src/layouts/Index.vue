@@ -41,7 +41,7 @@ export default {
     },
     computed:{
         ...mapGetters({
-      authenticated: 'auth/authenticated',
+      
     lists: 'auth/details',
     verify: 'auth/cardForm',
     isSpin: 'cards/isSpin'
@@ -57,15 +57,7 @@ export default {
             
             this.isSideCart = false
         },
-        isAuthenticated(){
-         if(!this.authenticated){
-           this.$router.replace({
-                    name: 'Login',
-
-                })
-         }
         
-       },
        fetchCard() {
            this.getAllCards()
            
@@ -94,9 +86,6 @@ export default {
     // this.events.forEach(event => window.addEventListener(event, this.resetTimers))
     //  this.setTimers();
     
-  },
-  created(){
-      this.isAuthenticated();
   }
 }
 </script>

@@ -1,12 +1,31 @@
 import axios from "axios";
 import authHeader from "./auth_header";
+import Nprogress from "nprogress";
 
 const apiClient = axios.create({
     baseURL: "https://cryptoexbe.herokuapp.com/api/v1",
     withCredentials: false,
     headers: authHeader(),
 });
-
+apiClient.interceptors.request.use(config => {
+    Nprogress.start()
+    return config
+},function (error) {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    Nprogress.done()
+    return Promise.reject(error);
+  })
+apiClient.interceptors.response.use(response => {
+    console.log('mr')
+    Nprogress.done()
+    return response
+},function (error) {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    Nprogress.done()
+    return Promise.reject(error);
+  })
 export default {
     login(data) {
         return apiClient.post("/login", data);

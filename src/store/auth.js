@@ -83,17 +83,18 @@ export default {
         toggleForm({ commit }) {
             commit('SET_ISFORM')
         },
-        attempt({ commit }, credentials) {
+       async attempt({ commit }, credentials) {
             commit('SET_TOKEN', credentials)
-            return auth.attempt(credentials).then(
+            return auth.attempt().then(
                 (res) => {
                     // console.log(res.data);
                     commit('SET_USER', res.data)
                     return Promise.resolve(res);
                 },
-                (error) => () => {
+                (error) => {
                     commit('SET_TOKEN', null)
-                    Promise.reject(error)
+                    // sessionStorage.removeItem('token')
+                    return Promise.reject(error)
                 }
             );
 

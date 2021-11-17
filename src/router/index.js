@@ -16,7 +16,8 @@ const routes = [{
                 // route level code-splitting
                 // this generates a separate chunk (Main.[hash].js) for this route
                 // which is lazy-loaded when the route is visited.
-                component: Main
+                component: Main,
+                meta: { requiresAuth: true },
             }, {
                 path: '/giftcard',
                 name: 'Giftcard',
@@ -24,7 +25,8 @@ const routes = [{
                 // this generates a separate chunk (giftcard.[hash].js) for this route
                 // which is lazy-loaded when the route is visited.
                 component: () =>
-                    import ( /* webpackChunkName: "Giftcard" */ '../views/Giftcard.vue')
+                    import ( /* webpackChunkName: "Giftcard" */ '../views/Giftcard.vue'),
+                    meta: { requiresAuth: true },
             }, {
                 path: '/tradebitcoin',
                 name: 'Bitcoin',
@@ -33,21 +35,25 @@ const routes = [{
                 // which is lazy-loaded when the route is visited.
                 component: () =>
                     import ( /* webpackChunkName: "Bitcoin" */ '../views/Bitcoin.vue'),
+                    meta: { requiresAuth: true },
                 children: [{
                     path: '',
                     name: 'Converter',
                     component: () =>
-                        import ( /* webpackChunkName: "Transactions" */ '../views/Converter.vue')
+                        import ( /* webpackChunkName: "Transactions" */ '../views/Converter.vue'),
+                        meta: { requiresAuth: true },
                 }, {
                     path: 'barcode',
                     name: 'Barcode',
                     component: () =>
-                        import ( /* webpackChunkName: "Transactions" */ '../views/Barcode.vue')
+                        import ( /* webpackChunkName: "Transactions" */ '../views/Barcode.vue'),
+                        meta: { requiresAuth: true },
                 }, {
                     path: 'proof',
                     name: 'Proof',
                     component: () =>
-                        import ( /* webpackChunkName: "Transactions" */ '../views/Proof.vue')
+                        import ( /* webpackChunkName: "Transactions" */ '../views/Proof.vue'),
+                        meta: { requiresAuth: true },
                 }]
             }, {
                 path: '/transactions',
@@ -56,7 +62,8 @@ const routes = [{
                 // this generates a separate chunk (Transactions.[hash].js) for this route
                 // which is lazy-loaded when the route is visited.
                 component: () =>
-                    import ( /* webpackChunkName: "Transactions" */ '../views/Transactions.vue')
+                    import ( /* webpackChunkName: "Transactions" */ '../views/Transactions.vue'),
+                    meta: { requiresAuth: true },
             },
             //{
             //     path: '/mobile',
@@ -71,6 +78,7 @@ const routes = [{
                 path: '/upload/:id',
                 name: 'Upload',
                 component: Upload,
+                meta: { requiresAuth: true },
             },
             {
                 path: '/settings',
@@ -79,21 +87,25 @@ const routes = [{
                 // this generates a separate chunk (Settings.[hash].js) for this route
                 // which is lazy-loaded when the route is visited.
                 component: Settings,
+                meta: { requiresAuth: true },
                 children: [{
                     path: '',
                     name: 'Profile',
                     component: () =>
-                        import ( /* webpackChunkName: "Transactions" */ '../views/Profile.vue')
+                        import ( /* webpackChunkName: "Transactions" */ '../views/Profile.vue'),
+                        meta: { requiresAuth: true },
                 }, {
                     path: 'paymentdetails',
                     name: 'Payment',
                     component: () =>
-                        import ( /* webpackChunkName: "Transactions" */ '../views/Payment.vue')
+                        import ( /* webpackChunkName: "Transactions" */ '../views/Payment.vue'),
+                        meta: { requiresAuth: true },
                 }, {
                     path: 'security',
                     name: 'Security',
                     component: () =>
-                        import ( /* webpackChunkName: "Transactions" */ '../views/Security.vue')
+                        import ( /* webpackChunkName: "Transactions" */ '../views/Security.vue'),
+                        meta: { requiresAuth: true },
                 }]
             }
         ]
@@ -141,7 +153,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
 
     if (to.matched.some((record) => record.meta.requiresAuth)) {
-        if (store.getters["auth/user"]) {
+        if (store.getters["auth/authenticated"]) {
             next();
             return;
         }

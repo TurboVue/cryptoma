@@ -127,7 +127,7 @@ export default {
   
     Toast
   },
-  mounted() {
+  created() {
     this.isAuthenticated();
   }
 };
