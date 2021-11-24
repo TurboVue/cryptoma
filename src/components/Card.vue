@@ -1,6 +1,6 @@
 <template>
 <router-link class="m-4" :to="'/upload/' + card.card.uuid">
-    <div class="card border flex flex-col justify-center items-center 0 fade-in p-4 w-full lg:w-full bg-white  rounded-md" :style='{"--order": index }'>
+    <div class="card  border shadow flex flex-col justify-center items-center 0 fade-in p-4 w-full lg:w-full bg-white  rounded-md" :style='{"--order": index }'>
             <div class="card-logo w-16 my-3">
                 <img class="w-full" :src="'/img/cards/' + imgType + '.png'" alt="">
             </div>
