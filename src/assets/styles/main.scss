@@ -1,8 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;500;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;500;700&family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;600;700&display=swap');
 body {
     font-family: 'DM Sans', sans-serif;
     color: #04172A;
@@ -101,6 +101,23 @@ body {
 
 .dark {
     background-color: #04172A;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.ibm {
+    font-family: "IBM Plex Mono", monospace;
+}
+
+
+/* Firefox */
+
+input[type="number"] {
+    -moz-appearance: textfield;
 }
 
 @media(max-width: 768px) {

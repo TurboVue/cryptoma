@@ -1,5 +1,5 @@
 <template>
-    <label for="id" class="grid hover:ring-2 items-center w-full border-cyan-200 border text-tiny px-4 py-2 rounded-md focus:border-cyan-500 focus:shadow-outline outline-none outline-none">
+    <label for="id" class="grid hover:ring-2 items-center w-full hover:border-cyan-200 border text-tiny px-4 py-2 rounded-md focus:border-cyan-500 focus:shadow-outline outline-none outline-none">
         <div class="flex ">
             <img :src="logo" class="" alt="btc"> <span class="text-base px-2 work align-baseline">{{title}}</span>
         </div>

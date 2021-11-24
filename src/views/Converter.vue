@@ -14,18 +14,15 @@
         <div id="converter_container" class="mx-auto md:border-0 border rounded-md md:p-0  p-6">
             <div>
                 <p class="font-bold py-2 text-lg work">Current Bitcoin Rate</p>
-                <div id="rate_update_box" class="border  mb-4  p-4 work rounded-md text-white w-full ">
-                    <p id="rate" class="font-bold md:text-lg text-cyan text-xl">N453.00 - N554.00</p>
-                    <p id="updated_time" class="md:text-sm">updated: Jan 02, 2022 </p>
-                </div>
-                <div>
+        
+                <div class="flex justify-between border  mb-4  p-4 work rounded-md w-full">
                     <div>
-                        <p>BTC to USD</p>
-                        <p>$55,995.66 / BTC</p>
+                        <p class="font-light text-md text-grey-700">BTC to USD</p>
+                        <p class="font-medium text-lg">$55,995.66 / BTC</p>
                     </div>
                     <div>
-                        <p>USD to Naira</p>
-                        <p>550 / USD</p>
+                        <p class="font-light text-md text-grey-700">USD to Naira</p>
+                        <p class="font-medium text-lg">550 / USD</p>
                     </div>
                 </div>
                  <div id="calculator_box" class="mb-6">
