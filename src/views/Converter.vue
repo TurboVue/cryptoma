@@ -18,6 +18,16 @@
                     <p id="rate" class="font-bold md:text-lg text-cyan text-xl">N453.00 - N554.00</p>
                     <p id="updated_time" class="md:text-sm">updated: Jan 02, 2022 </p>
                 </div>
+                <div>
+                    <div>
+                        <p>BTC to USD</p>
+                        <p>$55,995.66 / BTC</p>
+                    </div>
+                    <div>
+                        <p>USD to Naira</p>
+                        <p>550 / USD</p>
+                    </div>
+                </div>
                  <div id="calculator_box" class="mb-6">
                     <div id="input_box" class="mb-4">
                         <p class="font-medium work">You want to send</p>
