@@ -5,7 +5,7 @@
                 <p class="text-grey-600 font-medium">Lets Make Trading easy for you</p>
             <div class="grid_container my-4 lg:block grid gap-4 grid-cols-2">
             <div class="menu_btn_container my-4">
-                <div @click="$router.push({path: '/giftcard'})" class="action_btn rounded-md flex flex-col justify-center items-center p-4 bg-white border shadow-md giftcard_btn p-ripple lightcyan" v-ripple>
+                <div @click="$router.push({path: '/giftcard'})" class="action_btn  select-none rounded-md flex flex-col justify-center items-center p-4 bg-white border shadow-md giftcard_btn p-ripple lightcyan" v-ripple>
                                 <div class="card-logo w-16 my-3">
                         <img class="w-full" src="/img/cards/gift.svg" alt="">
                     </div>
@@ -14,7 +14,7 @@
                         <p class="relative tracking-wider work big text-black font-medium">Giftcards</p>
                     </div>
                 </div>
-                <div @click="$router.push({path: '/tradebitcoin'})" class="action_btn rounded-md flex flex-col justify-center dark items-center p-4 bg-white border shadow-md bitcoin_btn p-ripple lightcyan" v-ripple>
+                <div @click="$router.push({path: '/tradebitcoin'})" class="action_btn select-none  rounded-md flex flex-col justify-center dark items-center p-4 bg-white border shadow-md bitcoin_btn p-ripple lightcyan" v-ripple>
                     <div class="card-logo w-16 my-3"> 
                         <img class="w-full" src="/img/cards/bitcoin.svg" alt="">
                     </div>

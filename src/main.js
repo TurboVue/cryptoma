@@ -20,6 +20,7 @@ import Ripple from 'primevue/ripple';
 require('@/store/subscriber')
 import BtnSpinner from '@/components/BtnSpinner.vue'
 import EyeIcon from '@/components/reusables_/EyeIcon.vue'
+import GoBack from '@/components/reusables_/GoBack.vue'
 // axios.defaults.baseURL = 'http://127.0.0.1:8000/api/v1'
 axios.defaults.baseURL = 'https://cryptoexbe.herokuapp.com/api/v1'
 refresh()
@@ -28,6 +29,7 @@ import TogglePassword from '@/mixins/TogglePassword'
 const app = createApp(App);
 app.component("BtnSpinner", BtnSpinner)
 app.component("EyeIcon", EyeIcon)
+app.component("GoBack", GoBack)
     // .use(VueSplide)
 app.use(VueClickAway)
     .mixin(TogglePassword)
