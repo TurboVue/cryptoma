@@ -43,7 +43,7 @@
                   @click="toggleList"
                   class="w-full border text-base work px-4 py-3 capitalize rounded-md focus:border-cyan-500 focus:shadow-outline outline-none outline-none"
                 >
-                  select card type
+                  {{selectedType.type ? selectedType.type : 'select card type' }}
           </div>
           <ul
             v-if="isShow"
@@ -75,6 +75,7 @@
           <input
             id="amount"
             autocomplete="off"
+            v-model="amt"
             @input="filter"
             class="hover:ring-2 items-center w-full border-cyan-200 border text-base work px-4 py-3 rounded-md focus:border-cyan-500 focus:shadow-outline outline-none outline-none"
             type="text"
@@ -88,7 +89,7 @@
       <div class="w-11/12 sm:w-10/12 mx-auto">
         <div class="my-4">
           <span class="block work">You will receive</span>
-          <span class="font-bold text-green-500 text-lg">₦45,000</span>
+          <span class="font-bold text-green-500 text-lg">{{isTotal}}</span>
         </div>
         <div class="input_box mx-auto my-2 ">
           <label
@@ -161,6 +162,7 @@ export default {
   name: "Upload",
   data() {
     return {
+      amt: 0,
       isShow: false,
       isUploaded: false,
       selectedType: {},
@@ -180,7 +182,14 @@ export default {
       allcards: "cards/allCards",
 
       names: "cards/allNames"
-    })
+    }),
+    isTotal(){
+      if(this.selectedType.rate) return this.amt * this.selectedType.rate
+      else return 0
+    }
+    // selectedTyptName (){
+
+    // }
   },
   methods: {
     toggleList() {
