@@ -89,7 +89,7 @@
       <div class="w-11/12 sm:w-10/12 mx-auto">
         <div class="my-4">
           <span class="block work">You will receive</span>
-          <span class="font-bold text-green-500 text-lg">{{isTotal}}</span>
+          <span class="font-bold text-green-500 text-lg">{{formatCurrency(isTotal)}}</span>
         </div>
         <div class="input_box mx-auto my-2 ">
           <label
