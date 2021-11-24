@@ -7,7 +7,7 @@
       <GoBack />
       <div class="">
         <h2
-          class="text-lg work font-semibold p-ripple"
+          class="text-lg work font-semibold capitalize p-ripple"
           v-ripple
         >{{selectedCard.card.name}} Card</h2>
       </div>
@@ -43,7 +43,7 @@
                   @click="toggleList"
                   class="w-full border text-base work px-4 py-3 capitalize rounded-md focus:border-cyan-500 focus:shadow-outline outline-none outline-none"
                 >
-                  {{selectedType.type ? selectedType.type : 'select card type' }}
+                  {{selectedType.type ? selectedType.type : 'select card type' }} {{selectedType.priceRange ? selectedType.priceRange : ''}}
           </div>
           <ul
             v-if="isShow"
@@ -61,7 +61,7 @@
               :key="index"
             >
               <div class="font-medium px-2 text-base work text-gray-800">
-                {{ type.card.type }}
+                {{ type.card.type }} {{type.card.priceRange}}
               </div>
               </li>
               </ul>
@@ -89,7 +89,7 @@
       <div class="w-11/12 sm:w-10/12 mx-auto">
         <div class="my-4">
           <span class="block work">You will receive</span>
-          <span class="font-bold text-green-500 text-lg">{{formatCurrency(isTotal)}}</span>
+          <span class="font-bold text-green-500 ibm text-xl">&#8358;{{formatCurrency(isTotal)}}</span>
         </div>
         <div class="input_box mx-auto my-2 ">
           <label
@@ -162,7 +162,7 @@ export default {
   name: "Upload",
   data() {
     return {
-      amt: 0,
+      amt: null,
       isShow: false,
       isUploaded: false,
       selectedType: {},
