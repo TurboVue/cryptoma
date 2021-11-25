@@ -160,12 +160,11 @@
             >Upload Card or Receipt</span
           >
           <div>
-            <template v-if="isUploaded">
+            
               <div
                 class="
                   border-dashed
                   my-4
-                  relative
                   px-4
                   py-6
                   rounded
@@ -176,47 +175,19 @@
                   border-4
                 "
               >
-                <div
-                  @click="isUploaded = !isUploaded"
-                  class="
-                    flex
-                    justify-center
-                    top-0
-                    right-0
-                    absolute
-                    h-8
-                    w-8
-                    items-center
-                    cursor-pointer
-                    rounded-2xl
-                    bg-red-500
-                    text-white
-                  "
-                >
-                  <i class="pi pi-times"></i>
+              <div v-if="allImages.length >= 1" id="preview" class="flex ">
+                <div v-for="(img, index) in allImages" :key="index" class="box">
+                  <img  class="w-full p-2"   :src="img"/>
                 </div>
-                <img id="preview" />
+                
               </div>
-            </template>
-            <template v-else>
-              <div
-                class="
-                  border-dashed
-                  my-4
-                  px-4
-                  py-6
-                  rounded
-                  flex flex-col
-                  text-center
-                  justify-between
-                  items-center
-                  border-4
-                "
-              >
-                <img src="/img/proof.svg" />
+              <div v-else class="items-center py-4">
+                <img src="/img/proof.svg" class="mx-auto"/>
                 <p class="py-4 work">
                   Kindly Upload a Picture of Your Giftcard
                 </p>
+              </div>
+                
                 <label
                   for="image"
                   class="
@@ -240,11 +211,12 @@
                   type="file"
                   ref="file"
                   accept="image/*"
-                  @change="preview"
+                  multiple= ""
+                  @change="handleChange"
                   hidden
                 />
               </div>
-            </template>
+            
           </div>
           <input type="file" class="hidden" id="file" name="file" />
         </div>
@@ -259,8 +231,10 @@
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
+// import {r}
 import { ExactCardImg } from "../utils/cards";
 import BigCard from "../components/Big-Card.vue";
+import {ref} from 'vue'
 export default {
   name: "Upload",
   data() {
@@ -272,6 +246,30 @@ export default {
       cardTypes: [],
       selectedCard: { card: { name: "" } },
     };
+  },
+  setup(){
+    const allImages = ref([])
+    const file = ref(null)
+    const handleChange = () => {
+      console.log(file.value.files)
+      if(file.value.files){
+        const allFiles = file.value.files
+        // let arr = []
+        for(let singleFile of allFiles){
+          const reader = new FileReader()
+          reader.onload = () => {
+            allImages.value.push(reader.result)
+          }
+          
+          reader.readAsDataURL(singleFile)
+        }
+      }
+    }
+    return {
+      allImages,
+      file,
+      handleChange
+    }
   },
   components: {
     BigCard,
@@ -348,5 +346,10 @@ export default {
 <style lang="scss">
 .p-ripple.grey .p-ink {
   background: grey;
+}
+#preview {
+  .box {
+    max-width: 15em;
+  }
 }
 </style>
