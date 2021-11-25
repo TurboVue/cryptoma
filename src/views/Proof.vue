@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Cropper v-if="cropImg" :img="cropImg" @hideCropper="hideCropper"/> 
     <div class="flex flex-row justify-between items-center">
       <div class="my-1">
         <GoBack />
@@ -94,9 +95,9 @@
                 name="image"
                 id="image"
                 type="file"
-                ref="file"
+                ref="imgInput"
                 accept="image/*"
-                @change="preview"
+                @change="crop"
                 hidden
               />
             </div>
@@ -124,12 +125,14 @@
         </div>
       </div>
     </div>
+    
   </div>
 </template>
 <script>
-// import {ref} from 'vue'
+import {ref} from 'vue'
 // import axios from 'axios'
-import { mapActions } from "vuex";
+import { useStore } from "vuex";
+import Cropper from '@/components/reusables_/Cropper.vue'
 import Input from "../components/Input";
 export default {
   name: "Proof",
@@ -138,26 +141,62 @@ export default {
       isUploaded: false,
 
       amount: 0,
-
+      // cropImg: null,
       img: null,
     };
   },
   components: {
     Input,
+    Cropper
   },
   inject: ["showSuccess"],
+  setup(){
+    const store = useStore()
+    const cropImg = ref(null)
+    const imgInput = ref(null)
+      const hideCropper = () => {
+      cropImg.value = null 
+    }
+    
+     const crop = async () => {
+    store.dispatch('cards/ToggleLoader')
+      const img = imgInput.value.files[0];
+      console.log(img)
+      const reader = new FileReader();
+      // const crpImg = 
+      await new Promise((resolve) =>
+        setTimeout(() => {
+          resolve(
+            reader.onload = () => {
+          cropImg.value = reader.result
+         store.dispatch('cards/ToggleLoader')
+        // addImg(reader.result)
+      }
+          )}), 1000)
+       
+      reader.readAsDataURL(img);
+      
+    }
+    return {
+      imgInput,
+      cropImg,
+      crop,
+      hideCropper
+    }
+  },
   methods: {
-    ...mapActions({
-      isSpin: "cards/ToggleLoader",
-    }),
+    // ...mapActions({
+    //   isSpin: "cards/ToggleLoader",
+    // }),
     preview() {
       const img = this.$refs.file.files[0];
       this.img = img;
-      this.isUploaded = true;
+      // this.isUploaded = true;
       var reader = new FileReader();
       reader.onload = () => {
-        let preview_box = document.getElementById("preview");
-        preview_box.src = reader.result;
+        // let preview_box = document.getElementById("preview");
+        // preview_box.src = reader.result;
+        this.cropImg = reader.result
       };
       reader.readAsDataURL(img);
     },
