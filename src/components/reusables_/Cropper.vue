@@ -30,12 +30,11 @@ export default {
 			// but there we just get a cropped image, that can be used 
 			// as src for <img/> to preview result
 			image.value = canvas.toDataURL();
-            close(image.value)
+            context.emit('hideCropper', image.value)
+            // close()
 		}
-        const close = (any) => {
-            if(any)
-            context.emit("hideCropper", any)
-            else context.emit("hideCropper")
+        const close = () => {
+            context.emit("hideCropper")
         }
         return {
             // img,
@@ -60,6 +59,9 @@ export default {
             <cropper
 		:src="img"
         ref="cropper"
+        :stencil-props="{
+                aspectRatio: 16/8,
+            }"
 		@change="change"
 	/>
         </div>

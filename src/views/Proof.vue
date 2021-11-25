@@ -11,7 +11,7 @@
     </div>
     <div
       id="proof_container"
-      class="mx-auto my-2 md:shadow-none shadow border rounded-md md:p-0 p-6"
+      class="mx-auto my-2 md:shadow-none shadow md:border rounded-md md:p-0 p-6"
     >
       <div
         id="proof_box"
@@ -31,7 +31,7 @@
                 text-center
                 justify-between
                 items-center
-                border-4
+                border-2
               "
             >
               <div
@@ -57,8 +57,8 @@
               <div v-if="croppedImg">
                 <img id="preview" :src="croppedImg" />
               </div>
-              <div v-else>
-                <img src="/img/proof.svg" />
+              <div v-else class="items-center py-4">
+                <img src="/img/proof.svg" class="mx-auto"/>
               <p class="py-4 work">
                 Kindly Upload a Screenshot of successful Transaction
               </p>
@@ -156,7 +156,7 @@ export default {
         isShowCropper.value = false
         if (any) {
           cropImg.value = null
-          
+          console.log(any)
          return croppedImg.value = any
          }
       return cropImg.value = null 
@@ -231,7 +231,7 @@ export default {
     // border: 1px solid grey;
   }
   #proof_box {
-    max-width: 20em;
+    max-width: 30em;
     margin: 0 auto;
     // background-color: #
     background: #ffffff;
