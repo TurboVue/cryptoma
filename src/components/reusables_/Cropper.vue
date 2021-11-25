@@ -30,9 +30,12 @@ export default {
 			// but there we just get a cropped image, that can be used 
 			// as src for <img/> to preview result
 			image.value = canvas.toDataURL();
+            close(image.value)
 		}
-        const close = () => {
-            context.emit("hideCropper")
+        const close = (any) => {
+            if(any)
+            context.emit("hideCropper", any)
+            else context.emit("hideCropper")
         }
         return {
             // img,

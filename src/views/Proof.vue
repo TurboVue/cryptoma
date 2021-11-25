@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Cropper v-if="cropImg" :img="cropImg" @hideCropper="hideCropper"/> 
+    <Cropper v-if="isShowCropper" :img="cropImg" @hideCropper="hideCropper"/> 
     <div class="flex flex-row justify-between items-center">
       <div class="my-1">
         <GoBack />
@@ -11,20 +11,20 @@
     </div>
     <div
       id="proof_container"
-      class="mx-auto my-2 md:shadow-none shadow rounded-md md:p-0 p-6"
+      class="mx-auto my-2 md:shadow-none shadow border rounded-md md:p-0 p-6"
     >
       <div
         id="proof_box"
         class="flex flex-col text-center justify-between items-center"
       >
         <div>
-          <template v-if="isUploaded">
+          
             <div
               class="
                 border-dashed
                 my-10
-                relative
                 px-4
+                relative
                 py-6
                 rounded
                 flex flex-col
@@ -35,6 +35,7 @@
               "
             >
               <div
+              v-if="croppedImg"
                 @click="isUploaded = !isUploaded"
                 class="
                   flex
@@ -53,29 +54,18 @@
               >
                 <i class="pi pi-times"></i>
               </div>
-              <img id="preview" />
-            </div>
-          </template>
-          <template v-else>
-            <div
-              class="
-                border-dashed
-                my-10
-                px-4
-                py-6
-                rounded
-                flex flex-col
-                text-center
-                justify-between
-                items-center
-                border-4
-              "
-            >
-              <img src="/img/proof.svg" />
+              <div v-if="croppedImg">
+                <img id="preview" :src="croppedImg" />
+              </div>
+              <div v-else>
+                <img src="/img/proof.svg" />
               <p class="py-4 work">
                 Kindly Upload a Screenshot of successful Transaction
               </p>
-              <label
+              </div>
+              
+              <div>
+                <label
                 for="image"
                 class="
                   bg-cyan
@@ -86,6 +76,10 @@
                   items-center
                   cursor-pointer
                   rounded-2xl
+                  absolute
+                  bottom
+                  mb-10
+                  plus_icon
                   text-white
                   work
                 "
@@ -100,8 +94,10 @@
                 @change="crop"
                 hidden
               />
+              </div>
+              
             </div>
-          </template>
+          
         </div>
         <!-- //{{amount + ',' + img}} -->
         <Input :logo="'/img/btc-icon.svg'" :title="'BTC'" v-model="amount" />
@@ -152,10 +148,18 @@ export default {
   inject: ["showSuccess"],
   setup(){
     const store = useStore()
+    const isShowCropper = ref(false)
+    const croppedImg = ref(null)
     const cropImg = ref(null)
     const imgInput = ref(null)
-      const hideCropper = () => {
-      cropImg.value = null 
+      const hideCropper = (any) => {
+        isShowCropper.value = false
+        if (any) {
+          cropImg.value = null
+          
+         return croppedImg.value = any
+         }
+      return cropImg.value = null 
     }
     
      const crop = async () => {
@@ -169,6 +173,7 @@ export default {
           resolve(
             reader.onload = () => {
           cropImg.value = reader.result
+          isShowCropper.value = true
          store.dispatch('cards/ToggleLoader')
         // addImg(reader.result)
       }
@@ -181,7 +186,9 @@ export default {
       imgInput,
       cropImg,
       crop,
-      hideCropper
+      croppedImg,
+      hideCropper,
+      isShowCropper
     }
   },
   methods: {
@@ -229,5 +236,8 @@ export default {
     // background-color: #
     background: #ffffff;
   }
+}
+.plus_icon {
+  transform: translateY(-20px)
 }
 </style>
