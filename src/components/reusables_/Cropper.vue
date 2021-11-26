@@ -70,7 +70,7 @@ export default {
 		:src="img || selectedImgData.img"
         ref="cropper"
         :stencil-props="{
-                aspectRatio: 16/8,
+                aspectRatio: 4/3,
             }"
 		@change="change"
 	/>
