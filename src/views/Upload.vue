@@ -178,9 +178,9 @@
               >
               <div v-if="allImages.length >= 1" id="preview" class="grid grid-cols-3 ">
 
-                <div v-for="(img, index) in allImages" @click="cropImage(index)" :key="index" class="box relative">
+                <div v-for="(img, index) in allImages" :key="index" class="box relative">
                   <div
-             
+             @click="deleteImg(index)"
                 class="
                   flex
                   justify-center
@@ -190,6 +190,7 @@
                   h-4
                   w-4
                   p-0.5
+                  z-10
                   items-center
                   cursor-pointer
                   rounded-2xl
@@ -202,7 +203,7 @@
                 </svg>
 
               </div>
-                  <img  class="w-full p-2"   :src="img"/>
+                  <img  @click="cropImage(index)"  class="w-full p-2"   :src="img"/>
                 </div>
                 
               </div>
@@ -295,6 +296,9 @@ export default {
         }
       }
     }
+    const deleteImg = (id) => {
+      allImages.value.splice(id, 1)
+    }
      const hideCropper = (any) => {
        if(any){
          console.log(any)
@@ -325,6 +329,7 @@ export default {
       handleChange,
       cropImage,
       hideCropper,
+      deleteImg,
       selectedImgData
     }
   },
