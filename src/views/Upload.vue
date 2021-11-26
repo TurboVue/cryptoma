@@ -194,7 +194,7 @@
                   items-center
                   cursor-pointer
                   rounded-2xl
-                  bg-yellow-500
+                  bg-red-400
                   text-white
                 "
               >
