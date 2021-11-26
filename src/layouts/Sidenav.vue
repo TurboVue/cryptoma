@@ -24,7 +24,8 @@
         md:border-gray-100
       "
     >
-      <li
+      <li 
+        class="link_box"
         v-if="
           $route.name === 'Main' ||
           $route.name === 'Giftcard' ||
@@ -53,7 +54,8 @@
           <span class="px-2 md:hidden">Overview</span>
         </router-link>
       </li>
-      <li v-else>
+      <li 
+        class="link_box" v-else>
         <router-link
           class="
             py-4
@@ -73,7 +75,8 @@
           <span class="px-2 md:hidden">Overview</span>
         </router-link>
       </li>
-      <li v-if="$route.path === '/transactions'">
+      <li 
+        class="link_box" v-if="$route.path === '/transactions'">
         <router-link
           class="
             active
@@ -94,7 +97,8 @@
           <span class="px-2 md:hidden">Transactions</span>
         </router-link>
       </li>
-      <li v-else>
+      <li 
+        class="link_box" v-else>
         <router-link
           class="
             py-4
@@ -116,7 +120,8 @@
         </router-link>
       </li>
 
-      <li
+      <li 
+        class="link_box"
         v-if="
           $route.path === '/settings' ||
           $route.name === 'Payment' ||
@@ -144,7 +149,8 @@
           <span class="px-2 md:hidden">Settings</span>
         </router-link>
       </li>
-      <li v-else>
+      <li 
+        class="link_box" v-else>
         <router-link
           class="
             nav-link
@@ -165,7 +171,8 @@
           <span class="px-2 md:hidden">Settings</span>
         </router-link>
       </li>
-      <li>
+      <li 
+        class="link_box">
         <span
           @click="exit"
           class="
@@ -228,5 +235,12 @@ export default {
 }
 .p-ripple.purple .p-ink {
   background: green !important;
+}
+.link_box {
+  transition: .2s ease-in-out;
+}
+.link_box:hover {
+  border-left: 4px solid #33c2d3;
+  border-left-radius: .6em;
 }
 </style>

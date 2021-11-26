@@ -2,190 +2,187 @@
 @tailwind components;
 @tailwind utilities;
 // @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;500;700&family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;600;700&display=swap");
 body {
-  font-family: "DM Sans", sans-serif;
-  color: #04172a;
-  // font-size: 80%;
-  background-color: white;
+    font-family: "DM Sans", sans-serif;
+    color: #04172a;
+    // font-size: 80%;
+    background-color: white;
 }
 
 .work {
-  font-family: "Work Sans", sans-serif;
+    font-family: "Work Sans", sans-serif;
 }
 
 .card-container .card {
-  //background-image: url('/img/card-back.svg')
+    //background-image: url('/img/card-back.svg')
 }
 
 .upload {
-  background-image: url("/img/card-back.svg");
+    background-image: url("/img/card-back.svg");
 }
 
 #sign-page {
-  background-color: white;
-  background-image: url("/img/sign-back.png");
-  background-repeat: no-repeat;
-  background-position: left bottom;
-  #wrapper {
-    width: 80%;
-    margin: 0 auto;
-    padding: 2em 0;
-  }
+    background-color: white;
+    background-image: url("/img/sign-back.png");
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    #wrapper {
+        width: 80%;
+        margin: 0 auto;
+        padding: 2em 0;
+    }
 }
 
 .signup .input-box {
-  margin: 0.5em 0 1em 0 !important;
+    margin: 0.5em 0 1em 0 !important;
 }
 
 #sign {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  .ads h3 {
-    color: #010946;
-    font-size: 2.5em;
-    font-family: "Work Sans", sans-serif;
-    font-weight: 700;
-  }
-  .form-container {
-    width: 100%;
-    max-width: 500px;
-    h4 {
-      font-size: 1.4em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .ads h3 {
+        color: #010946;
+        font-size: 2.5em;
+        font-family: "Work Sans", sans-serif;
+        font-weight: 700;
     }
-    form {
+    .form-container {
+        width: 100%;
+        max-width: 500px;
+        h4 {
+            font-size: 1.4em;
+        }
+        form {}
     }
-  }
-  .input-box {
-    margin: 1em 0 2em 0;
-    input {
-      border: 0.5px solid #e5e5e5;
-      font-weight: 600;
+    .input-box {
+        margin: 1em 0 2em 0;
+        input {
+            border: 0.5px solid #e5e5e5;
+            font-weight: 600;
+        }
+        button {
+            filter: drop-shadow(0px 0px 15px #e4e8ef);
+            box-shadow: 0px 0px 15px #e4e8ef;
+        }
+        input,
+        button {
+            width: 100%;
+            padding: 1em 1em;
+            border-radius: 0.4em;
+        }
+        input::placeholder {
+            font-weight: 500;
+        }
+        input:focus,
+        input:active {
+            outline: none;
+        }
+        .bg-grey {
+            background-color: #f8f8f8;
+        }
     }
-    button {
-      filter: drop-shadow(0px 0px 15px #e4e8ef);
-      box-shadow: 0px 0px 15px #e4e8ef;
+    .submit {
+        margin-bottom: 1em;
     }
-    input,
-    button {
-      width: 100%;
-      padding: 1em 1em;
-      border-radius: 0.4em;
+    .right {
+        float: right;
     }
-    input::placeholder {
-      font-weight: 500;
+    .direction {
+        padding: 0 0 0.5em 0;
+        direction: rtl;
+        .forgot-password {
+            padding: 0 0 1em 0;
+        }
     }
-    input:focus,
-    input:active {
-      outline: none;
-    }
-    .bg-grey {
-      background-color: #f8f8f8;
-    }
-  }
-  .submit {
-    margin-bottom: 1em;
-  }
-  .right {
-    float: right;
-  }
-  .direction {
-    padding: 0 0 0.5em 0;
-    direction: rtl;
-    .forgot-password {
-      padding: 0 0 1em 0;
-    }
-  }
 }
 
 .dark {
-  background-color: #04172a;
+    background-color: #04172a;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .ibm {
-  font-family: "IBM Plex Mono", monospace;
+    font-family: "IBM Plex Mono", monospace;
 }
+
 
 /* Firefox */
 
 input[type="number"] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 
 @media (max-width: 768px) {
-  .ads {
-    display: none;
-  }
-  #sign-page {
-    background-image: none;
-    #wrapper {
-      width: 90%;
+    .ads {
+        display: none;
     }
-  }
-  #sign {
-    justify-content: center;
-  }
-  #sign .input-box {
-    margin: 0.5em 0 1em 0;
-  }
-  .p-toast {
-    width: 100%;
-    max-width: 20em;
-  }
+    #sign-page {
+        background-image: none;
+        #wrapper {
+            width: 90%;
+        }
+    }
+    #sign {
+        justify-content: center;
+    }
+    #sign .input-box {
+        margin: 0.5em 0 1em 0;
+    }
+    .p-toast {
+        width: 100%;
+        max-width: 20em;
+    }
 }
 
 .custom.p-toast .p-toast-message.p-toast-message-success {
-  background: #00c2ff !important;
-  color: white;
-  border: solid #00c2ff;
+    background: #00c2ff !important;
+    color: white;
+    border: solid #00c2ff;
 }
 
 .codes {
-  position: absolute;
-  overflow: auto;
-  left: 0;
-  transition: 0.5s ease-in-out;
-  max-height: 8em;
+    position: absolute;
+    overflow: auto;
+    left: 0;
+    transition: 0.5s ease-in-out;
+    max-height: 8em;
 }
 
 input {
-  appearance: none !important;
+    appearance: none !important;
 }
 
 .custom.p-toast .p-toast-message.p-toast-message-success .p-toast-message-icon,
 .custom.p-toast .p-toast-message.p-toast-message-success .p-toast-icon-close {
-  color: white;
+    color: white;
 }
 
 .p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
-  font-size: 1em;
-  margin-top: 0.3em;
+    font-size: 1em;
+    margin-top: 0.3em;
 }
 
-.custom.p-toast
-  .p-toast-message
-  .p-toast-message-content
-  .p-toast-message-icon {
-  font-size: 1em;
-  margin-top: 0.3em;
+.custom.p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
+    font-size: 1em;
+    margin-top: 0.3em;
 }
 
 .rotate {
-  animation: rotate 0.35s ease-in;
+    animation: rotate 0.35s ease-in;
 }
 
 @keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

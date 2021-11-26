@@ -7,7 +7,11 @@ export default {
     props: {
         img: {
             type: String,
-            default: ''
+            default: undefined
+        },
+        selectedImgData: {
+            type: Object,
+            default: () => {return {}}
         }
     },
     setup(props, context){
@@ -57,7 +61,7 @@ export default {
         <div class="max" v-click-away="close">
             <button class="crop-button bg-cyan p-1 rounded absolute z-10 m-2 top-0 right-0 text-sm capitalize font-medium px-4 text-white shadow" @click="crop()">crop</button>
             <cropper
-		:src="img"
+		:src="img || selectedImgData.img"
         ref="cropper"
         :stencil-props="{
                 aspectRatio: 16/8,

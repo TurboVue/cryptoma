@@ -1,5 +1,6 @@
 <template>
   <div id="Upload-page" class="flex-grow md:py-2 pt-10 px-6 md:px-2">
+    <Cropper v-if="isShowCropper" :selectedImgData="selectedImgData" @hideCropper="hideCropper"/> 
     <div class="flex flex-row justify-between items-center mx-4">
       <GoBack />
       <div class="">
@@ -176,7 +177,7 @@
                 "
               >
               <div v-if="allImages.length >= 1" id="preview" class="flex ">
-                <div v-for="(img, index) in allImages" :key="index" class="box">
+                <div v-for="(img, index) in allImages" @click="cropImage(index)" :key="index" class="box">
                   <img  class="w-full p-2"   :src="img"/>
                 </div>
                 
@@ -232,6 +233,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 // import {r}
+import Cropper from '@/components/reusables_/Cropper.vue'
 import { ExactCardImg } from "../utils/cards";
 import BigCard from "../components/Big-Card.vue";
 import {ref} from 'vue'
@@ -242,14 +244,18 @@ export default {
       amt: null,
       isShow: false,
       isUploaded: false,
+      
       selectedType: {},
       cardTypes: [],
+      
       selectedCard: { card: { name: "" } },
     };
   },
   setup(){
     const allImages = ref([])
     const file = ref(null)
+    const isShowCropper = ref(false)
+    const selectedImgData = ref(null)
     const handleChange = () => {
       console.log(file.value.files)
       if(file.value.files){
@@ -265,14 +271,38 @@ export default {
         }
       }
     }
+     const hideCropper = () => {
+        isShowCropper.value = false
+      //   if (any) {
+      //     cropImg.value = null
+      //     console.log(any)
+      //    return croppedImg.value = any
+      //    }
+      // return cropImg.value = null 
+    }
+    const cropImage = (id) => {
+      console.log(id)
+      selectedImgData.value = {}
+      
+      selectedImgData.value.img = allImages.value[id]
+      selectedImgData.value.id = id 
+      
+      console.log(selectedImgData)
+      isShowCropper.value = true
+    }
     return {
       allImages,
       file,
-      handleChange
+      isShowCropper,
+      handleChange,
+      cropImage,
+      hideCropper,
+      selectedImgData
     }
   },
   components: {
     BigCard,
+    Cropper
   },
   computed: {
     imgType() {
