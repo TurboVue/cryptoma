@@ -178,7 +178,7 @@
               >
               <div v-if="allImages.length >= 1" id="preview" class="grid grid-cols-3 ">
 
-                <div v-for="(img, index) in allImages" :key="index" class="box relative">
+                <div v-for="(img, index) in allImages" :key="index" class="box m-2 relative">
                   <div
              @click="deleteImg(index)"
                 class="
@@ -194,7 +194,7 @@
                   items-center
                   cursor-pointer
                   rounded-2xl
-                  bg-red-400
+                  bg-red-500
                   text-white
                 "
               >
@@ -203,7 +203,7 @@
                 </svg>
 
               </div>
-                  <img  @click="cropImage(index)"  class="w-full p-2"   :src="img"/>
+                  <img  @click="cropImage(index)"  class="w-full border hover:shadow-lg shadow-md rounded border-cyan-500"   :src="img"/>
                 </div>
                 
               </div>
