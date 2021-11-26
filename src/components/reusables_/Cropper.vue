@@ -34,7 +34,13 @@ export default {
 			// but there we just get a cropped image, that can be used 
 			// as src for <img/> to preview result
 			image.value = canvas.toDataURL();
-            context.emit('hideCropper', image.value)
+             const obj = {
+                 img: image.value,
+                 id: props.selectedImgData.id
+             }
+            //  props.selectedImgData.img = canvas.toDataURL();
+            
+            context.emit('hideCropper',  obj)
             // close()
 		}
         const close = () => {
