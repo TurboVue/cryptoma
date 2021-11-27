@@ -5,7 +5,7 @@
         <GoBack />
       </div>
       <div class="">
-        <h2 class="text-lg work font-semibold p-ripple" v-ripple>
+        <h2 class="text-lg work font-semibold p-ripple" >
           Rate Converter
         </h2>
       </div>

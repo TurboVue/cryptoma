@@ -1,6 +1,6 @@
 <template>
   <div id="sign-page">
-    <Toast />
+    <!-- <Toast /> -->
     <div id="wrapper" class="h-screen">
       <div class="logo w-16">
         <img src="/img/logo.svg" alt="logo" />
@@ -82,7 +82,7 @@
 import { mapGetters } from "vuex";
 // import axios from 'axios'
 import User from "../models/user";
-import Toast from "primevue/toast";
+// // import Toast from "primevue/toast";
 import { mapActions } from "vuex";
 // import ProgressSpinner from "primevue/progressspinner";
 export default {
@@ -129,7 +129,7 @@ export default {
     },
   },
   components: {
-    Toast,
+    // Toast,
   },
   created() {
     this.isAuthenticated();

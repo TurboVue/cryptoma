@@ -9,7 +9,7 @@
           <GoBack />
         </div>
         <div class="">
-          <h2 class="text-lg work font-semibold p-ripple" v-ripple>Qrcode</h2>
+          <h2 class="text-lg work font-semibold p-ripple" >Qrcode</h2>
         </div>
       </div>
       <div id="barcode_box" class="flex my-2 p-4 justify-center items-center">

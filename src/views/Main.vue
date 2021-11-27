@@ -24,7 +24,7 @@
               p-ripple
               lightcyan
             "
-            v-ripple
+            
           >
             <div class="card-logo w-16 my-3">
               <img class="w-full" src="/img/cards/gift.svg" alt="" />
@@ -55,7 +55,7 @@
               p-ripple
               lightcyan
             "
-            v-ripple
+            
           >
             <div class="card-logo w-16 my-3">
               <img class="w-full" src="/img/cards/bitcoin.svg" alt="" />

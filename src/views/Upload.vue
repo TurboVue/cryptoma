@@ -4,7 +4,7 @@
     <div class="flex flex-row justify-between items-center mx-4">
       <GoBack />
       <div class="">
-        <h2 class="text-lg work font-semibold capitalize p-ripple" v-ripple>
+        <h2 class="text-lg work font-semibold capitalize p-ripple" >
           {{ selectedCard.card.name }} Card
         </h2>
       </div>

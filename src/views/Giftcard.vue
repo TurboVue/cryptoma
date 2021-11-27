@@ -5,7 +5,7 @@
         <GoBack />
       </div>
       <div class="">
-        <h2 class="text-lg work font-semibold p-ripple" v-ripple>Giftcard</h2>
+        <h2 class="text-lg work font-semibold p-ripple" >Giftcard</h2>
       </div>
     </div>
     <div class="">
@@ -40,13 +40,13 @@
         flex flex-wrap
       "
     >
-      <Skeleton
+      <!-- <Skeleton
         :style="{ maxWidth: '12em' }"
         width="100%"
         height="12em"
         v-for="i in 12"
         :key="i"
-      ></Skeleton>
+      ></Skeleton> -->
     </div>
     <div
       class="card-container lg:grid grid-cols-4 sm:grid-cols-2 grid flex-wrap"
@@ -76,7 +76,7 @@
   </div>
 </template>
 <script>
-import Skeleton from "primevue/skeleton";
+// import Skeleton from "primevue/skeleton";
 import Card from "../components/Card";
 // import ScrollPanel from 'primevue/scrollpanel';
 // import Upload from '../components/Upload.vue';
@@ -156,7 +156,7 @@ export default {
     //    // Upload,
     //     ScrollPanel,
     Card,
-    Skeleton,
+    // Skeleton,
   },
 };
 </script>

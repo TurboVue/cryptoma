@@ -47,7 +47,7 @@
             flex-row
           "
           :to="{ name: 'Main' }"
-          v-ripple
+          
         >
           <img src="/img/nav-icons/grid-sharp.svg" alt="" />
 
@@ -69,7 +69,7 @@
             flex-row
           "
           :to="{ name: 'Main' }"
-          v-ripple
+          
         >
           <img src="/img/nav-icons/grid.svg" alt="" />
           <span class="px-2 md:hidden">Overview</span>
@@ -91,7 +91,7 @@
             flex-row
           "
           to="/transactions"
-          v-ripple
+          
         >
           <img src="/img/nav-icons/albums-sharp.svg" alt="" />
           <span class="px-2 md:hidden">Transactions</span>
@@ -113,7 +113,7 @@
             flex-row
           "
           to="/transactions"
-          v-ripple
+          
         >
           <img src="/img/nav-icons/albums.svg" alt="" />
           <span class="px-2 md:hidden">Transactions</span>
@@ -143,7 +143,7 @@
             flex-row
           "
           to="/settings"
-          v-ripple
+          
         >
           <img src="/img/nav-icons/settings-sharp.svg" alt="" />
           <span class="px-2 md:hidden">Settings</span>
@@ -165,7 +165,7 @@
             flex-row
           "
           to="/settings"
-          v-ripple
+          
         >
           <img src="/img/nav-icons/settings.svg" alt="" />
           <span class="px-2 md:hidden">Settings</span>
@@ -190,7 +190,7 @@
             flex-row
           "
         >
-          <img v-ripple src="/img/nav-icons/logout.svg" alt="" />
+          <img  src="/img/nav-icons/logout.svg" alt="" />
           <span class="px-2 md:hidden">Logout</span>
         </span>
       </li>

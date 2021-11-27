@@ -15,7 +15,7 @@
   >
     <div
       class="p-ripple grey"
-      v-ripple
+      
       v-if="
         $route.name === 'Main' ||
         $route.name === 'Giftcard' ||
@@ -26,25 +26,25 @@
         <img src="/img/nav-icons/grid-sharp.svg" alt="" class="p-4" />
       </router-link>
     </div>
-    <div class="p-ripple grey" v-ripple v-else>
+    <div class="p-ripple grey"  v-else>
       <router-link to="/">
         <img src="/img/nav-icons/grid.svg" alt="" class="p-4" />
       </router-link>
     </div>
 
-    <div class="p-ripple grey" v-ripple v-if="$route.path === '/transactions'">
+    <div class="p-ripple grey"  v-if="$route.path === '/transactions'">
       <router-link to="/transactions">
         <img src="/img/nav-icons/albums-sharp.svg" alt="" class="p-4" />
       </router-link>
     </div>
-    <div class="p-ripple grey" v-ripple v-else>
+    <div class="p-ripple grey"  v-else>
       <router-link to="/transactions">
         <img src="/img/nav-icons/albums.svg" alt="" class="p-4" />
       </router-link>
     </div>
     <div
       class="p-ripple grey"
-      v-ripple
+      
       v-if="
         $route.path === '/settings' ||
         $route.name === 'Payment' ||
@@ -55,12 +55,12 @@
         <img src="/img/nav-icons/settings-sharp.svg" alt="" class="p-4" />
       </router-link>
     </div>
-    <div class="p-ripple grey" v-ripple v-else>
+    <div class="p-ripple grey"  v-else>
       <router-link to="/settings">
         <img src="/img/nav-icons/settings.svg" alt="" class="p-4" />
       </router-link>
     </div>
-    <div class="p-ripple grey" v-ripple>
+    <div class="p-ripple grey" >
       <span @click="exit">
         <img src="/img/nav-icons/logout.svg" alt="" class="p-4" />
       </span>

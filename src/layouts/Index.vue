@@ -1,7 +1,7 @@
 <template>
   <div id="main" class="relative">
     <Header />
-    <Toast class="custom" />
+    <!-- <Toast class="custom" /> -->
     <Footer />
     <Sidenav />
     <Spinner v-if="isSpin" />
@@ -15,7 +15,7 @@
 <script>
 import Header from "./Header.vue";
 import AccountForm from "../components/Acount-Form";
-import Toast from "primevue/toast";
+// // import Toast from "primevue/toast";
 import Spinner from "../components/Spinner.vue";
 import {} from "vuex";
 import { mapGetters, mapActions } from "vuex";
@@ -62,7 +62,7 @@ export default {
   },
   components: {
     Header,
-    Toast,
+    // Toast,
     Spinner,
     Footer,
     Sidenav,
@@ -73,12 +73,12 @@ export default {
     //this.isCard();
 
     this.fetchCard();
-    this.$toast.add({
-      severity: "success",
-      summary: "Welcome Back",
-      detail: "Nice to see you again",
-      life: 3000,
-    });
+    // this.$toast.add({
+    //   severity: "success",
+    //   summary: "Welcome Back",
+    //   detail: "Nice to see you again",
+    //   life: 3000,
+    // });
     // this.fetch()
 
     // this.events.forEach(event => window.addEventListener(event, this.resetTimers))

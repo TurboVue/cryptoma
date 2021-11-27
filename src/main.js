@@ -9,14 +9,14 @@ import axios from "axios";
 import store from "./store";
 import refresh from "@/services/refresh";
 import VueClickAway from "vue3-click-away";
-import ToastService from "primevue/toastservice";
-import "primevue/resources/themes/bootstrap4-light-blue/theme.css"; //theme
-import "primevue/resources/primevue.min.css"; //core css
+// import ToastService from "primevue/toastservice";
+// import "primevue/resources/themes/bootstrap4-light-blue/theme.css"; //theme
+// // import "primevue/resources/primevue.min.css"; //core css
 import "primeicons/primeicons.css";
 // import "@splidejs/splide/dist/css/themes/splide-skyblue.min.css";
-import PrimeVue from "primevue/config";
+// // import PrimeVue from "primevue/config";
 import "nprogress/nprogress.css";
-import Ripple from "primevue/ripple";
+// import Ripple from "primevue/ripple";
 require("@/store/subscriber");
 import BtnSpinner from "@/components/BtnSpinner.vue";
 import EyeIcon from "@/components/reusables_/EyeIcon.vue";
@@ -32,11 +32,11 @@ app.component("EyeIcon", EyeIcon);
 app.component("GoBack", GoBack);
 // .use(VueSplide)
 app
-  .use(VueClickAway)
-  .mixin(mixins)
-  .directive("ripple", Ripple)
-  .use(PrimeVue, { ripple: true })
-  .use(store)
-  .use(ToastService)
-  .use(router)
-  .mount("#app");
+    .use(VueClickAway)
+    .mixin(mixins)
+    // .directive("ripple", Ripple)
+    // .use(PrimeVue, { ripple: true })
+    .use(store)
+    // .use(ToastService)
+    .use(router)
+    .mount("#app");

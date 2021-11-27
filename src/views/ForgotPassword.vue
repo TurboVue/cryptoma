@@ -44,12 +44,12 @@
                 name="submit"
                 id="submit"
               >
-                <ProgressSpinner
+                <!-- <ProgressSpinner
                   v-if="isLoading"
                   style="width: 20px; height: 20px; stroke: white"
                   strokeWidth="5"
-                />
-                <div v-else>Send</div>
+                /> -->
+                <div >Send</div>
               </button>
             </div>
           </form>
@@ -64,7 +64,7 @@
   </div>
 </template>
 <script>
-import ProgressSpinner from "primevue/progressspinner";
+// import ProgressSpinner from "primevue/progressspinner";
 export default {
   name: "Login",
   data() {
@@ -73,7 +73,7 @@ export default {
     };
   },
   components: {
-    ProgressSpinner,
+    // ProgressSpinner,
   },
 };
 </script>
