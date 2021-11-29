@@ -3,7 +3,7 @@
     <Header />
     <!-- <Toast class="custom" /> -->
     <Footer />
-    <Sidenav />
+    <!-- <Sidenav /> -->
     <Spinner v-if="isSpin" />
     <SuccessModal :isSuccess="isSuccess" />
     <AccountForm v-if="verify" />
@@ -14,12 +14,12 @@
 </template>
 <script>
 import Header from "./Header.vue";
-import AccountForm from "../components/Acount-Form";
+import AccountForm from "@/components/Acount-Form";
 // // import Toast from "primevue/toast";
-import Spinner from "../components/Spinner.vue";
+import Spinner from "@/components/Spinner.vue";
 import {} from "vuex";
 import { mapGetters, mapActions } from "vuex";
-import Sidenav from "./Sidenav.vue";
+// // import Sidenav from "./Sidenav.vue";
 import Footer from "./Footer.vue";
 import SuccessModal from "@/components/SuccessModal.vue";
 // import axios from 'axios'
@@ -65,7 +65,7 @@ export default {
     // Toast,
     Spinner,
     Footer,
-    Sidenav,
+    // Sidenav,
     AccountForm,
     SuccessModal,
   },

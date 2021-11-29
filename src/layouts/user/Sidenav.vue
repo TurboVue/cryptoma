@@ -8,20 +8,20 @@
       bg-white
       left-0
       h-screen
-      md:inset-x-0 md:bottom-0 md:h-auto md:hidden md:w-auto md:fixed
+      h-auto  w-auto fixed
     "
   >
     <ul
       class="
         my-16
-        md:flex md:flex-row md:my-0
+        sm:flex sm:flex-row sm:my-0
         flex-wrap
-        md:justify-evenly
-        md:w-full
-        md:py-4
-        md:bg-white
-        md:border-t-1
-        md:border-gray-100
+        sm:justify-evenly
+        sm:w-full
+        sm:py-4
+        sm:bg-white
+        sm:border-t-1
+        sm:border-gray-100
       "
     >
       <li 
@@ -51,7 +51,7 @@
         >
           <img src="/img/nav-icons/grid-sharp.svg" alt="" />
 
-          <span class="px-2 md:hidden">Overview</span>
+          <span class="px-2 hidden sm:block">Overview</span>
         </router-link>
       </li>
       <li 
@@ -72,7 +72,7 @@
           
         >
           <img src="/img/nav-icons/grid.svg" alt="" />
-          <span class="px-2 md:hidden">Overview</span>
+          <span class="px-2 hidden sm:block">Overview</span>
         </router-link>
       </li>
       <li 
@@ -94,7 +94,7 @@
           
         >
           <img src="/img/nav-icons/albums-sharp.svg" alt="" />
-          <span class="px-2 md:hidden">Transactions</span>
+          <span class="px-2 hidden sm:block">Transactions</span>
         </router-link>
       </li>
       <li 
@@ -116,7 +116,7 @@
           
         >
           <img src="/img/nav-icons/albums.svg" alt="" />
-          <span class="px-2 md:hidden">Transactions</span>
+          <span class="px-2 hidden sm:block">Transactions</span>
         </router-link>
       </li>
 
@@ -146,7 +146,7 @@
           
         >
           <img src="/img/nav-icons/settings-sharp.svg" alt="" />
-          <span class="px-2 md:hidden">Settings</span>
+          <span class="px-2 hidden sm:block">Settings</span>
         </router-link>
       </li>
       <li 
@@ -168,7 +168,7 @@
           
         >
           <img src="/img/nav-icons/settings.svg" alt="" />
-          <span class="px-2 md:hidden">Settings</span>
+          <span class="px-2 hidden sm:block">Settings</span>
         </router-link>
       </li>
       <li 
@@ -191,7 +191,7 @@
           "
         >
           <img  src="/img/nav-icons/logout.svg" alt="" />
-          <span class="px-2 md:hidden">Logout</span>
+          <span class="px-2 hidden sm:block">Logout</span>
         </span>
       </li>
     </ul>

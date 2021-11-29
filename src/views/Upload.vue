@@ -1,5 +1,5 @@
 <template>
-  <div id="Upload-page" class="flex-grow md:py-2 pt-10 px-6 md:px-2">
+  <div id="Upload-page" class="flex-grow py-2 sm:pt-10 sm:px-6 px-2">
     <Cropper v-if="isShowCropper" :selectedImgData="selectedImgData" @hideCropper="hideCropper"/> 
     <div class="flex flex-row justify-between items-center mx-4">
       <GoBack />
@@ -9,9 +9,9 @@
         </h2>
       </div>
     </div>
-    <div class="upload_container md:block grid grid-cols-2 grey">
+    <div class="upload_container block sm:grid grid-cols-2 grey">
       <div class="card_form_container flex flex-col">
-        <div class="w-11/12 sm:w-10/12 mx-auto">
+        <div class="sm:w-11/12 w-10/12 mx-auto">
           <BigCard>
             <div class="card-logo w-16 my-3">
               <img

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Dashboard from "../layouts/Index.vue";
+import UserDashboard from "../layouts/user/Index.vue";
+import AdminDashboard from "../layouts/admin/Index.vue";
 import Main from "../views/Main.vue";
 import Settings from "../views/Settings.vue";
 import Upload from "../views/Upload.vue";
@@ -7,8 +8,8 @@ import store from "../store";
 
 const routes = [{
         path: "/",
-        name: "Dashboard",
-        component: Dashboard,
+        name: "UserDashboard",
+        component: UserDashboard,
         meta: { requiresAuth: true },
         children: [{
                 path: "",
@@ -141,6 +142,17 @@ const routes = [{
         ],
     },
     {
+        path: '/admin',
+        name: 'AdminDashboard',
+        component: AdminDashboard,
+        children: [{
+            path: '',
+            name: 'AdminMain',
+            component: () =>
+                import ( /* webpackChunkName: "AdminMain" */ "../views/admin/Main.vue"),
+        }]
+    },
+    {
         path: "/login",
         name: "Login",
         // route level code-splitting
@@ -148,8 +160,7 @@ const routes = [{
         // which is lazy-loaded when the route is visited.
         component: () =>
             import ( /* webpackChunkName: "Giftcard" */ "../views/Login.vue"),
-    },
-    {
+    }, {
         path: "/createaccount",
         name: "CreateAccount",
         // route level code-splitting
@@ -157,8 +168,7 @@ const routes = [{
         // which is lazy-loaded when the route is visited.
         component: () =>
             import ( /* webpackChunkName: "Giftcard" */ "../views/Signup.vue"),
-    },
-    {
+    }, {
         path: "/forgotpassword",
         name: "ForgotPassword",
         // route level code-splitting
@@ -166,8 +176,7 @@ const routes = [{
         // which is lazy-loaded when the route is visited.
         component: () =>
             import ( /* webpackChunkName: "Giftcard" */ "../views/ForgotPassword.vue"),
-    },
-    {
+    }, {
         path: "/resetpassword",
         name: "ResetPassword",
         // route level code-splitting

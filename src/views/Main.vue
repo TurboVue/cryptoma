@@ -1,11 +1,11 @@
 <template>
   <div id="view">
-    <div class="flex flex-col py-14 md:py-2 px-6">
+    <div class="flex flex-col sm:py-14 py-2 px-4 px-6">
       <h2 class="text-lg pt-4 work big font-bold capitalize">
         Hello, {{ name }}
       </h2>
       <p class="text-grey-600 font-medium">Lets Make Trading easy for you</p>
-      <div class="grid_container my-4 lg:block grid gap-4 grid-cols-2">
+      <div class="grid_container my-4 block md:grid gap-4 grid-cols-2">
         <div class="menu_btn_container my-4">
           <div
             @click="$router.push({ path: '/giftcard' })"

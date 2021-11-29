@@ -1,10 +1,10 @@
 <template>
   <footer
     class="
-      md:flex
+    flex
       flex-row
       justify-evenly
-      hidden
+      sm:hidden
       fixed
       inset-x-0
       bottom-0

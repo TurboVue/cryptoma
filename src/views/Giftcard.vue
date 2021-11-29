@@ -1,5 +1,5 @@
 <template>
-  <div id="Giftcard-page" class="flex-grow md:py-2 py-10 px-6 md:px-2">
+  <div id="Giftcard-page" class="flex-grow py-2 sm:py-10 sm:px-6 px-2">
     <div class="flex flex-row justify-between items-center mx-4">
       <div class="my-1">
         <GoBack />
@@ -49,7 +49,7 @@
       ></Skeleton> -->
     </div>
     <div
-      class="card-container lg:grid grid-cols-4 sm:grid-cols-2 grid flex-wrap"
+      class="card-container grid sm:grid-cols-4 grid-cols-2 grid flex-wrap"
     >
       <template v-if="showAll">
         <Card
