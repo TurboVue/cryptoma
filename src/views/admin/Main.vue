@@ -1,9 +1,11 @@
 <script>
+import ProfilePic from "@/components/reusables_/ProfilePic.vue";
 import CountsCard from '@/components/admin/CountsCard.vue'
 export default {
     name: 'AdminMain',
     components: {
-        CountsCard
+        CountsCard,
+        ProfilePic
     }
     
 }
@@ -11,8 +13,8 @@ export default {
 
 <template>
     <div>
-        <p>Hello {{fullname}}</p>
-        <div class="md:grid gap-10 md:grid-cols-3">
+        <p class="work text-lg font-medium capitalize my-2">Hello {{fullname}}</p>
+        <div class="md:grid gap-10 mt-2 md:grid-cols-3">
 			<CountsCard :total="3" :name = "'Cards'"/>
 			<CountsCard :total="3" :name = "'Cardlets'"/>
 			<CountsCard :total="3" :name = "'Btc Trades'"/>
@@ -36,13 +38,7 @@ export default {
 							<tr>
 								<td class="px-5 py-5 border-b border-gray-200 bg-white ">
 									<div class="flex">
-										<div class="flex-shrink-0 w-10 h-10">
-											<img
-											  class="w-full h-full rounded-full"
-											  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-											  alt=""
-											>
-										</div>
+										<ProfilePic :isSize="'small'" :name="fullname" />
 										<div class="ml-3">
 											<p class="text-gray-900 capitalize whitespace-no-wrap">
 												'user.fullname'
