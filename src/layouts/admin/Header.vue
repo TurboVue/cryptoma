@@ -45,7 +45,7 @@ export default {
     </div>
     <div class="capitalize select-none flex items-center" @click="toggleModal()">
       <ProfilePic :isSize="'small'" :name="fullname" /><span
-        class="hidden sm:block font-medium px-2"
+        class="hidden sm:blo font-medium px-2"
         >{{ fullname }}</span
       >
       <div>

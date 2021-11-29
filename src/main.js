@@ -16,6 +16,8 @@ import "primeicons/primeicons.css";
 // import "@splidejs/splide/dist/css/themes/splide-skyblue.min.css";
 // // import PrimeVue from "primevue/config";
 import "nprogress/nprogress.css";
+import ElementPlus from 'element-plus'
+import '@/element-variables.scss'
 // import Ripple from "primevue/ripple";
 require("@/store/subscriber");
 import BtnSpinner from "@/components/BtnSpinner.vue";
@@ -37,6 +39,7 @@ app
     // .directive("ripple", Ripple)
     // .use(PrimeVue, { ripple: true })
     .use(store)
+    .use(ElementPlus)
     // .use(ToastService)
     .use(router)
     .mount("#app");

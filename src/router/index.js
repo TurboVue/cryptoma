@@ -150,6 +150,11 @@ const routes = [{
             name: 'AdminMain',
             component: () =>
                 import ( /* webpackChunkName: "AdminMain" */ "../views/admin/Main.vue"),
+        }, {
+            path: '/admin/cards',
+            name: 'AdminCards',
+            component: () =>
+                import ( /* webpackChunkName: "AdminMain" */ "../views/admin/Cards.vue"),
         }]
     },
     {
@@ -209,3 +214,4 @@ router.beforeEach((to, from, next) => {
 });
 
 export default router;
+// export default router;

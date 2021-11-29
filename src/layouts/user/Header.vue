@@ -19,6 +19,11 @@ export default {
       // isRequest,
       toggleModal,
       fullname: computed(() => store.getters["auth/user"].fullname),
+       role: computed(() => {
+         const isRole = store.getters['auth/user_role']
+         if (isRole != 'admin') return false 
+         return true
+       })
     };
   },
   components: {
@@ -46,8 +51,10 @@ export default {
     <div class="logo w-10 mx-2">
       <img src="/img/logo.svg" class="w-full" alt="" />
     </div>
-    <div class="capitalize select-none flex items-center" @click="toggleModal()">
-      <ProfilePic :isSize="'small'" :name="fullname" /><span
+    <div class="capitalize select-none flex items-center" >
+      <div class="px-4"><el-button v-if="role" @click="() => $router.push({'path': '/admin'})" color="#1D4ED8" style="color: white">Dashboard</el-button></div>
+      <div class="capitalize select-none flex items-center" @click="toggleModal()">
+        <ProfilePic :isSize="'small'" :name="fullname" /><span
         class="hidden sm:block font-medium px-2"
         >{{ fullname }}</span
       >
@@ -66,6 +73,8 @@ export default {
               fill="#111827"
             />
           </svg>
+      </div>
+      
         </div>
     </div>
     <transition name="fade">

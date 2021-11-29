@@ -14,8 +14,8 @@
         </div>
         <div class="form-container md:my-10">
           <h4 class="font-bold text-gray-800">Welcome Back</h4>
-          <p class="text-red-500 text-sm">{{ message }}</p>
-          <form action="#" @submit.prevent="logIn">
+          <p class="text-red-500 text-thin">{{ errMessage }}</p>
+          <form action="#" @submit.prevent="signIn">
             <div class="input-box">
               <input
                 type="email"
@@ -23,9 +23,22 @@
                 name="email"
                 v-model="user.email"
                 id="email"
-                required
+                
+                @blur="v$.user.email.$touch"
                 placeholder="Email address"
               />
+               <div class="error_box" v-if="v$.user.email.$errors.length">
+              <span class="items-center flex flex-shrink-0 text-red-500">
+                <svg class="mr-2" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 2a6 6 0 100 12A6 6 0 008 2zM0 8a8 8 0 1116 0A8 8 0 010 8zm9-3a1 1 0 11-2 0 1 1 0 012 0zM8 7a1 1 0 00-1 1v3a1 1 0 102 0V8a1 1 0 00-1-1z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <p>Enter a valid email.</p>
+              </span>
+            </div>
             </div>
 
             <div class="input-box relative">
@@ -38,10 +51,12 @@
                 required
                 placeholder="password"
               />
-              <EyeIcon :show="passwordType" @click="togglePassword()" />
+              <EyeIcon :show="passwordType" @click="togglePassword" />
+              
             </div>
             <div class="input-box submit">
               <button
+              :disabled = "isSpin"
                 type="submit"
                 class="
                   bg-cyan
@@ -79,61 +94,70 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-// import axios from 'axios'
+
 import User from "../models/user";
-// // import Toast from "primevue/toast";
-import { mapActions } from "vuex";
-// import ProgressSpinner from "primevue/progressspinner";
+import useVuelidate from "@vuelidate/core";
+import { required, email } from "@vuelidate/validators";
+import { ElNotification } from "element-plus";
+import {ref, computed} from "vue"
+import {useStore} from 'vuex'
+import { useRouter } from 'vue-router'
 export default {
   name: "Login",
-  data() {
+  setup(){
+    const user = ref(new User("", ""))
+    const passwordType = ref(true)
+    const isSpin = ref(false)
+    const store = useStore()
+    const router = useRouter()
+    const errMessage = ref("")
+    const signIn = () => {
+      console.log('me')
+      isSpin.value = true;
+      store.dispatch('auth/USER_LOGIN', user.value).then(() => {
+        isSpin.value = false;
+        ElNotification({
+                  title: "Login Successful",
+                  type: "success",
+                  message: "",
+                  duration: 0
+                });
+        router.replace({ path: "/" });
+      }).catch((err) => {
+          isSpin.value = false;
+          errMessage.value = err.response.data.message;
+          console.log(this.message);
+        })
+    }
+    const togglePassword = () => {
+      passwordType.value = !passwordType.value
+    }
     return {
-      isSpin: false,
-      passwordType: true,
-      user: new User("", ""),
+      user,
+      v$: useVuelidate(),
+      passwordType,
+      isSpin,
+      signIn,
+      togglePassword,
+      // message: computed(() => store.getters['auth/message']),
+      errMessage,
+      authenticated: computed(() => store.getters['auth/authenticated'])
+    }
+  },
+ 
+  validations() {
+    return {
+      user: {
+        email: {
+          required,
+          email,
+        }
+      },
     };
   },
-  computed: {
-    ...mapGetters({
-      message: "auth/message",
-      authenticated: "auth/authenticated",
-    }),
-  },
-  methods: {
-    ...mapActions({
-      signIn: "auth/USER_LOGIN",
-    }),
-    togglePassword() {
-      this.passwordType = this.TogglePassword(this.passwordType);
-    },
-    isAuthenticated() {
-      if (this.authenticated) {
-        this.$router.replace({
-          path: "/",
-        });
-      }
-    },
-    async logIn() {
-      this.isSpin = true;
-      await this.signIn(this.user)
-        .then(() => {
-          this.$router.replace({ path: "/" });
-        })
-        .catch((err) => {
-          console.log(err.response);
-
-          console.log(this.message);
-        });
-      this.isSpin = false;
-    },
-  },
-  components: {
-    // Toast,
-  },
-  created() {
-    this.isAuthenticated();
-  },
+  // created() {
+  //   this.isAuthenticated();
+  // },
 };
 </script>
 <style lang="scss">
