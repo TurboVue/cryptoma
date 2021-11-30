@@ -1,9 +1,11 @@
 <template>
   <div id="main" class="relative">
-    <Sidenav />
+    <div class="overlay" :class="isSideBar ? 'active' : ''" @click="toggleSideBar"></div>
+      <Sidenav :isSideBar = "isSideBar"/>
+    
     <div>
       <main>
-      <Header />
+      <Header @toggleSideBar = "toggleSideBar"/>
       <div class="bg-white rounded-lg">
         <router-view />
       </div>
@@ -31,12 +33,23 @@ import Sidenav from "./Sidenav.vue";
 // // import Footer from "./Footer.vue";
 import SuccessModal from "@/components/SuccessModal.vue";
 // import axios from 'axios'
+import {ref} from 'vue'
 export default {
   name: "Overview",
   data() {
     return {
       isSuccess: { val: false },
     };
+  },
+  setup(){
+    const isSideBar = ref(false)
+    const toggleSideBar = () => {
+      isSideBar.value = !isSideBar.value
+    }
+    return {
+      isSideBar,
+      toggleSideBar
+    }
   },
   provide() {
     return {
@@ -109,7 +122,34 @@ main {
 
 @media (min-width: 769px) {
   main {
-    margin-left: 300px;
+    margin-left: 350px;
   }
+}
+// #view {
+//   width: calc(100vw - 260px);
+//   margin-left: 240px;
+//   padding: 1rem 1.2rem;
+// }
+.overlay {
+  background-color: #00000045;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  opacity: 0;
+  transition: 0.5s ease-in-out;
+}
+  @media (max-width: 768px) {
+
+  .overlay.active {
+    opacity: 1;
+    display: block;
+  }
+  // #view {
+  //   width: 100%;
+  //   margin-left: 0px;
+  // }
 }
 </style>
