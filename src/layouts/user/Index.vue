@@ -4,8 +4,10 @@
     <div>
       <main>
       <Header />
+      <div class="bg-white rounded-lg">
+        <router-view />
+      </div>
       
-      <router-view />
     </main>
     </div>
     
