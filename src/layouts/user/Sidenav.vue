@@ -81,6 +81,9 @@ export default {
     background-color: white;
     position: fixed;
     top: 0;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
     left: 0; 
     z-index: 5;
     transition: 0.5s ease-in-out;
@@ -88,7 +91,7 @@ export default {
   }
   .link_list {
     margin: 8em 0;
-    padding-left:4em;
+    // padding-left:4em;
     .link_icon {
           align-self: center;
           display: inline-flex;
