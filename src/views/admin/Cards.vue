@@ -8,14 +8,14 @@
                 <h2  class="text-lg work font-semibold p-ripple">Giftcard</h2>
             </div>
         </div>
-     <div class="flex justify-between items-center ">
+     <div class="flex justify-between items-center my-4">
         <input id="input1" autocomplete="off" class="w-full order-first md:order-last border-cyan-200 border px-4 py-3 work rounded-md focus:border-cyan-500 focus:shadow-outline outline-none" type="text" placeholder="Enter your giftcard" @input="filter" />
-        <button class="bg-cyan font-medium rounded-md text-white py-3 mx-2 px-6" @click="AddCard"><span class="pr-2"><i class="pi pi-plus"></i></span ><span class="hidden sm:block"> Add Card</span></button>
+        <button class="bg-cyan font-medium rounded-md flex text-white py-3 mx-2 px-6" @click="AddCard"><span class="pr-2"><i class="pi pi-plus"></i></span ><span class="hidden sm:block"> Add Card</span></button>
     </div>
     <!-- <div v-if="skeleton" class="card-container sm:grid sm:grid-cols-2 md:grid-cols-4 gap-4  flex flex-wrap">
         <Skeleton v-for="i in 12" :key="i" :style="{maxWidth: '12em'}" width="100%" height="12em"></Skeleton>
         </div> -->
-    <div class="card-container gap-4 my-2 sm:grid md:grid-cols-5 sm:grid-cols-2 flex flex-wrap">
+    <div class="card-container gap-4 my-2 mt-4 sm:grid md:grid-cols-5 sm:grid-cols-2 flex flex-wrap">
         <template v-if="showAll">
             <Card v-for="(card, index) in cards" :key="index" :card = 'card' :index = 'index' @toggleSide = 'toggleSide'/>
         

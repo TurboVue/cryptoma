@@ -1,5 +1,5 @@
 <template>
-<router-link class="" :to="'/category/' + card.card.uuid">
+<router-link class="" :to="'/admin/category/' + card.card.uuid">
     <div class="card
         border
         hover:shadow-lg

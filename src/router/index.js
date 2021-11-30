@@ -155,6 +155,22 @@ const routes = [{
             name: 'AdminCards',
             component: () =>
                 import ( /* webpackChunkName: "AdminMain" */ "../views/admin/Cards.vue"),
+        }, {
+            path: '/admin/category/:id',
+            name: 'Category',
+            component: () =>
+                import ( /* webpackChunkName: "cardlet" */ '../views/admin/Category.vue'),
+            children: [{
+                path: '/admin/add-card',
+                name: 'AddCard',
+                component: () =>
+                    import ( /* webpackChunkName: "about" */ '../views/admin/AddCard.vue')
+            }, {
+                path: '/admin/update/:id',
+                name: 'UpdateCard',
+                component: () =>
+                    import ( /* webpackChunkName: "about" */ '../views/admin/UpdateCard.vue')
+            }]
         }]
     },
     {
