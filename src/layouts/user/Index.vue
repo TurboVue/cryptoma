@@ -107,7 +107,7 @@ main {
 
 @media (min-width: 769px) {
   main {
-    margin-left: 220px;
+    margin-left: 300px;
   }
 }
 </style>
