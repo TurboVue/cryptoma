@@ -72,6 +72,7 @@ All rights reserved</p>
     position: fixed;
     top: 0;
     left: 0; 
+    border-right: 2px solid #f8f9fb
   }
   .link_list {
     margin: 8em 0;
