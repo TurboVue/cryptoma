@@ -16,7 +16,7 @@
 <script>
 import { ref } from "vue";
 import { useStore} from 'vuex'
-import {useRouter} from 'vue-router'
+import {useRouter, useRoute} from 'vue-router'
 import CategoryCard from "@/components/admin/CategoryCard.vue";
 // import LoanFormModal from "@/components/reusables_/LoanFormModal.vue";
 
@@ -35,16 +35,17 @@ export default {
     const selectedType = ref({})
     const cardTypes = ref([])
     const router = useRouter()
+    const route = useRoute()
     const selectedCard = ref({ card: { name: "" } })
     const fetchName = () => {
     //   this.isSpin();
-      const params = this.$route.params.id;
+      const params = route.params.id;
       
           selectedCard.value = store.getters['admin/names'].find(
             card => card.card.uuid.toLowerCase() === params.toLowerCase()
           );
           const isSel = selectedCard.value;
-          console.log(this.cards)
+          // console.log(this.cards)
           cardTypes.value = store.getters['admin/cards'].filter(
             card =>
               card.card.name
@@ -55,6 +56,7 @@ export default {
         //   this.isSpin();
        
     }
+    fetchName()
     const AddCard = () => {
             router.push({'name': 'AddCard'})
         }

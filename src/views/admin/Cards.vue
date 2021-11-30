@@ -52,7 +52,8 @@ export default {
         const selectedCard = ref('card')
         const skeleton = ref(false)
         const fetchNames = () => {
-            store.dispatch('data/getAllNames')
+            store.dispatch('admin/getAllNames')
+            store.dispatch('admin/getAllCards')
         }
         fetchNames()
         return {
