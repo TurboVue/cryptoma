@@ -3,9 +3,9 @@
     <div
       class="
         card
-        border
+        
         hover:shadow-lg
-        shadow
+       border
         flex flex-col
         justify-center
         items-center

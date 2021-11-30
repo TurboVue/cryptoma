@@ -38,11 +38,11 @@ export default {
       flex
       py-5
       px-4
-      bg-white
+      
       static
-      sm:fixed
+      
       inset-x-0
-      top-0
+    
       w-full
       justify-between
       items-center

@@ -1,15 +1,21 @@
 <template>
   <div id="main" class="relative">
-    <Header />
+    <Sidenav />
+    <div>
+      <main>
+      <Header />
+      
+      <router-view />
+    </main>
+    </div>
+    
     <!-- <Toast class="custom" /> -->
-    <Footer />
-    <!-- <Sidenav /> -->
+    <!-- <Footer /> -->
+      
     <Spinner v-if="isSpin" />
     <SuccessModal :isSuccess="isSuccess" />
     <AccountForm v-if="verify" />
-    <main>
-      <router-view />
-    </main>
+    
   </div>
 </template>
 <script>
@@ -17,10 +23,10 @@ import Header from "./Header.vue";
 import AccountForm from "@/components/Acount-Form";
 // // import Toast from "primevue/toast";
 import Spinner from "@/components/Spinner.vue";
-import {} from "vuex";
+// import {} from "vuex";
 import { mapGetters, mapActions } from "vuex";
-// // import Sidenav from "./Sidenav.vue";
-import Footer from "./Footer.vue";
+import Sidenav from "./Sidenav.vue";
+// // import Footer from "./Footer.vue";
 import SuccessModal from "@/components/SuccessModal.vue";
 // import axios from 'axios'
 export default {
@@ -64,8 +70,8 @@ export default {
     Header,
     // Toast,
     Spinner,
-    Footer,
-    // Sidenav,
+    // Footer,
+    Sidenav,
     AccountForm,
     SuccessModal,
   },
@@ -94,14 +100,11 @@ input {
 
 main {
   transition: 0.5s ease-in-out;
-  margin-top: 40px;
+  // margin-top: 40px;
   margin-bottom: 50px;
+  // position: relative;
 }
-@media (max-width: 768px) {
-  main {
-    margin-top: 0;
-  }
-}
+
 @media (min-width: 769px) {
   main {
     margin-left: 220px;
