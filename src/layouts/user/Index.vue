@@ -1,7 +1,7 @@
 <template>
   <div id="main" class="relative">
     <div class="overlay" :class="isSideBar ? 'active' : ''" @click="toggleSideBar"></div>
-      <Sidenav :isSideBar = "isSideBar"/>
+      <Sidenav :isSideBar = "isSideBar" @toggleSideBar = "toggleSideBar"/>
     
     <div>
       <main>
@@ -14,7 +14,7 @@
     </div>
     
     <!-- <Toast class="custom" /> -->
-     <Footer />
+    <!-- <Footer /> -->
       
     <Spinner v-if="isSpin" />
     <SuccessModal :isSuccess="isSuccess" />
@@ -30,7 +30,7 @@ import Spinner from "@/components/Spinner.vue";
 // import {} from "vuex";
 import { mapGetters, mapActions } from "vuex";
 import Sidenav from "./Sidenav.vue";
-import Footer from "./Footer.vue";
+// // import Footer from "./Footer.vue";
 import SuccessModal from "@/components/SuccessModal.vue";
 // import axios from 'axios'
 import {ref} from 'vue'
@@ -85,7 +85,7 @@ export default {
     Header,
     // Toast,
     Spinner,
-     Footer,
+    // Footer,
     Sidenav,
     AccountForm,
     SuccessModal,
