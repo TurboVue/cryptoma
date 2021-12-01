@@ -9,8 +9,8 @@
             </div>
         </div>
      <div class="flex justify-between items-center my-4">
-        <input id="input1" autocomplete="off" class="w-full order-first md:order-last border-cyan-200 border px-4 py-3 work rounded-md focus:border-cyan-500 focus:shadow-outline outline-none" type="text" placeholder="Enter your giftcard" @input="filter" />
-        <button class="bg-cyan font-medium rounded-md flex text-white py-3 mx-2 px-6" @click="AddCard"><span class="pr-2"><i class="pi pi-plus"></i></span ><span class="hidden sm:block"> Add Card</span></button>
+        <!-- <input id="input1" autocomplete="off" class="w-full order-first md:order-last border-cyan-200 border px-4 py-3 work rounded-md focus:border-cyan-500 focus:shadow-outline outline-none" type="text" placeholder="Enter your giftcard" @input="filter" />
+        <button class="bg-cyan font-medium rounded-md flex text-white py-3 mx-2 px-6" @click="AddCard"><span class="pr-2"><i class="pi pi-plus"></i></span ><span class="hidden sm:block"> Add Card</span></button> -->
     </div>
     <!-- <div v-if="skeleton" class="card-container sm:grid sm:grid-cols-2 md:grid-cols-4 gap-4  flex flex-wrap">
         <Skeleton v-for="i in 12" :key="i" :style="{maxWidth: '12em'}" width="100%" height="12em"></Skeleton>

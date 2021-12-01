@@ -3,8 +3,16 @@ import Role from '@/services/role'
 import UserDashboard from "../layouts/user/Index.vue";
 import AdminDashboard from "../layouts/admin/Index.vue";
 import Main from "../views/Main.vue";
+import AdminCards from "../views/admin/Cards.vue";
+import Category from "../views/admin/Category.vue";
+import Giftcard from "../views/Giftcard.vue";
 import Settings from "../views/Settings.vue";
+import Bitcoin from "../views/Bitcoin.vue";
 import Upload from "../views/Upload.vue";
+import Barcode from "../views/Barcode.vue";
+import Transactions from "../views/Transactions.vue";
+import Proof from "../views/Proof.vue";
+import Converter from "../views/Converter.vue";
 import store from "../store";
 
 const routes = [{
@@ -27,8 +35,7 @@ const routes = [{
                 // route level code-splitting
                 // this generates a separate chunk (giftcard.[hash].js) for this route
                 // which is lazy-loaded when the route is visited.
-                component: () =>
-                    import ( /* webpackChunkName: "Giftcard" */ "../views/Giftcard.vue"),
+                component: Giftcard,
                 meta: { authorize: [Role.User, Role.Admin] },
             },
             {
@@ -37,37 +44,24 @@ const routes = [{
                 // route level code-splitting
                 // this generates a separate chunk (Bitcoin.[hash].js) for this route
                 // which is lazy-loaded when the route is visited.
-                component: () =>
-                    import ( /* webpackChunkName: "Bitcoin" */ "../views/Bitcoin.vue"),
+                component: Bitcoin,
                 meta: { authorize: [Role.User, Role.Admin] },
                 children: [{
                         path: "",
                         name: "Converter",
-                        component: () =>
-                            import (
-                                /* webpackChunkName: "Transactions" */
-                                "../views/Converter.vue"
-                            ),
+                        component: Converter,
                         meta: { authorize: [Role.User, Role.Admin] },
                     },
                     {
                         path: "barcode",
                         name: "Barcode",
-                        component: () =>
-                            import (
-                                /* webpackChunkName: "Transactions" */
-                                "../views/Barcode.vue"
-                            ),
+                        component: Barcode,
                         meta: { authorize: [Role.User, Role.Admin] },
                     },
                     {
                         path: "proof",
                         name: "Proof",
-                        component: () =>
-                            import (
-                                /* webpackChunkName: "Transactions" */
-                                "../views/Proof.vue"
-                            ),
+                        component: Proof,
                         meta: { authorize: [Role.User, Role.Admin] },
                     },
                 ],
@@ -78,11 +72,7 @@ const routes = [{
                 // route level code-splitting
                 // this generates a separate chunk (Transactions.[hash].js) for this route
                 // which is lazy-loaded when the route is visited.
-                component: () =>
-                    import (
-                        /* webpackChunkName: "Transactions" */
-                        "../views/Transactions.vue"
-                    ),
+                component: Transactions,
                 meta: { authorize: [Role.User, Role.Admin] },
             },
             //{
@@ -156,14 +146,12 @@ const routes = [{
         }, {
             path: '/admin/cards',
             name: 'AdminCards',
-            component: () =>
-                import ( /* webpackChunkName: "AdminMain" */ "../views/admin/Cards.vue"),
+            component: AdminCards,
                 meta: { authorize: [Role.Admin] }
         }, {
             path: '/admin/category/:id',
             name: 'Category',
-            component: () =>
-                import ( /* webpackChunkName: "cardlet" */ '../views/admin/Category.vue'),
+            component: Category,
                 meta: { authorize: [Role.Admin] },
             children: [{
                 path: '/admin/add-card',

@@ -1,5 +1,13 @@
 <template>
   <div>
+  <div class="flex flex-row  justify-between items-center ">
+            <div class=" my-1">
+                <GoBack />
+            </div>
+            <div class="">
+                <h2  class="text-lg work font-semibold p-ripple">Catergory</h2>
+            </div>
+        </div>
     <div class="float-right">
       <button class="flex items-center p-2 border inline-block rounded" @click="AddCard()" >
        <span class="px-2" >Add New Type</span>
@@ -7,7 +15,14 @@
     </div>
     <div class="stocks_list clear-right">
       <p class="p-2 font-bold">Card Types:</p>
-      <CategoryCard v-for="(card, index) in cardTypes" :key="index" :card = 'card' :index = 'index' />
+      <template v-if="cardTypes.length > 0">
+          <CategoryCard v-for="(card, index) in cardTypes" :key="index" :card = 'card' :index = 'index' />
+        </template>
+
+        <template v-else>
+          <Empty>No categories</Empty>
+        </template>
+      
     </div>
 <router-view />
     <!-- <LoanFormModal @toggleModal="toggleModal" v-if="isRequest" /> -->
@@ -17,6 +32,7 @@
 import { ref } from "vue";
 import { useStore} from 'vuex'
 import {useRouter, useRoute} from 'vue-router'
+import Empty from "@/components/Empty.vue";
 import CategoryCard from "@/components/admin/CategoryCard.vue";
 // import LoanFormModal from "@/components/reusables_/LoanFormModal.vue";
 
@@ -24,7 +40,7 @@ export default {
   name: "Category",
     components: {
       CategoryCard,
-      
+      Empty
     },
   setup() {
     const isRequest = ref(false);
