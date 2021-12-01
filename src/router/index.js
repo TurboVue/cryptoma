@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import Role from '@/services/role'
 import UserDashboard from "../layouts/user/Index.vue";
 import AdminDashboard from "../layouts/admin/Index.vue";
 import Main from "../views/Main.vue";
@@ -10,7 +11,7 @@ const routes = [{
         path: "/",
         name: "UserDashboard",
         component: UserDashboard,
-        meta: { requiresAuth: true },
+        // meta: { requiresAuth: true },
         children: [{
                 path: "",
                 name: "Main",
@@ -18,7 +19,7 @@ const routes = [{
                 // this generates a separate chunk (Main.[hash].js) for this route
                 // which is lazy-loaded when the route is visited.
                 component: Main,
-                meta: { requiresAuth: true },
+                meta: { authorize: [Role.User, Role.Admin] },
             },
             {
                 path: "/giftcard",
@@ -28,7 +29,7 @@ const routes = [{
                 // which is lazy-loaded when the route is visited.
                 component: () =>
                     import ( /* webpackChunkName: "Giftcard" */ "../views/Giftcard.vue"),
-                meta: { requiresAuth: true },
+                meta: { authorize: [Role.User, Role.Admin] },
             },
             {
                 path: "/tradebitcoin",
@@ -38,7 +39,7 @@ const routes = [{
                 // which is lazy-loaded when the route is visited.
                 component: () =>
                     import ( /* webpackChunkName: "Bitcoin" */ "../views/Bitcoin.vue"),
-                meta: { requiresAuth: true },
+                meta: { authorize: [Role.User, Role.Admin] },
                 children: [{
                         path: "",
                         name: "Converter",
@@ -47,7 +48,7 @@ const routes = [{
                                 /* webpackChunkName: "Transactions" */
                                 "../views/Converter.vue"
                             ),
-                        meta: { requiresAuth: true },
+                        meta: { authorize: [Role.User, Role.Admin] },
                     },
                     {
                         path: "barcode",
@@ -57,7 +58,7 @@ const routes = [{
                                 /* webpackChunkName: "Transactions" */
                                 "../views/Barcode.vue"
                             ),
-                        meta: { requiresAuth: true },
+                        meta: { authorize: [Role.User, Role.Admin] },
                     },
                     {
                         path: "proof",
@@ -67,7 +68,7 @@ const routes = [{
                                 /* webpackChunkName: "Transactions" */
                                 "../views/Proof.vue"
                             ),
-                        meta: { requiresAuth: true },
+                        meta: { authorize: [Role.User, Role.Admin] },
                     },
                 ],
             },
@@ -82,7 +83,7 @@ const routes = [{
                         /* webpackChunkName: "Transactions" */
                         "../views/Transactions.vue"
                     ),
-                meta: { requiresAuth: true },
+                meta: { authorize: [Role.User, Role.Admin] },
             },
             //{
             //     path: '/mobile',
@@ -97,7 +98,7 @@ const routes = [{
                 path: "/upload/:id",
                 name: "Upload",
                 component: Upload,
-                meta: { requiresAuth: true },
+                meta: { authorize: [Role.User, Role.Admin] },
             },
             {
                 path: "/settings",
@@ -106,7 +107,7 @@ const routes = [{
                 // this generates a separate chunk (Settings.[hash].js) for this route
                 // which is lazy-loaded when the route is visited.
                 component: Settings,
-                meta: { requiresAuth: true },
+                meta: { authorize: [Role.User, Role.Admin] },
                 children: [{
                         path: "",
                         name: "Profile",
@@ -115,7 +116,7 @@ const routes = [{
                                 /* webpackChunkName: "Transactions" */
                                 "../views/Profile.vue"
                             ),
-                        meta: { requiresAuth: true },
+                        meta: { authorize: [Role.User, Role.Admin] },
                     },
                     {
                         path: "paymentdetails",
@@ -125,7 +126,7 @@ const routes = [{
                                 /* webpackChunkName: "Transactions" */
                                 "../views/Payment.vue"
                             ),
-                        meta: { requiresAuth: true },
+                        meta: { authorize: [Role.User, Role.Admin] },
                     },
                     {
                         path: "security",
@@ -135,7 +136,7 @@ const routes = [{
                                 /* webpackChunkName: "Transactions" */
                                 "../views/Security.vue"
                             ),
-                        meta: { requiresAuth: true },
+                        meta: { authorize: [Role.User, Role.Admin] },
                     },
                 ],
             },
@@ -145,31 +146,37 @@ const routes = [{
         path: '/admin',
         name: 'AdminDashboard',
         component: AdminDashboard,
+        // meta: { requiresAuth: true },
         children: [{
             path: '',
             name: 'AdminMain',
             component: () =>
                 import ( /* webpackChunkName: "AdminMain" */ "../views/admin/Main.vue"),
+                meta: { authorize: [Role.Admin] }
         }, {
             path: '/admin/cards',
             name: 'AdminCards',
             component: () =>
                 import ( /* webpackChunkName: "AdminMain" */ "../views/admin/Cards.vue"),
+                meta: { authorize: [Role.Admin] }
         }, {
             path: '/admin/category/:id',
             name: 'Category',
             component: () =>
                 import ( /* webpackChunkName: "cardlet" */ '../views/admin/Category.vue'),
+                meta: { authorize: [Role.Admin] },
             children: [{
                 path: '/admin/add-card',
                 name: 'AddCard',
                 component: () =>
-                    import ( /* webpackChunkName: "about" */ '../views/admin/AddCard.vue')
+                    import ( /* webpackChunkName: "about" */ '../views/admin/AddCard.vue'),
+                    meta: { authorize: [Role.Admin] }
             }, {
                 path: '/admin/update/:id',
                 name: 'UpdateCard',
                 component: () =>
-                    import ( /* webpackChunkName: "about" */ '../views/admin/UpdateCard.vue')
+                    import ( /* webpackChunkName: "about" */ '../views/admin/UpdateCard.vue'),
+                    meta: { authorize: [Role.Admin] }
             }]
         }]
     },
@@ -218,15 +225,19 @@ const router = createRouter({
     },
 });
 router.beforeEach((to, from, next) => {
-    if (to.matched.some((record) => record.meta.requiresAuth)) {
-        if (store.getters["auth/authenticated"]) {
-            next();
-            return;
+    const {authorize} = to.meta
+    const isLoggedIn = store.getters['auth/authenticated']
+    const userRole = store.getters['auth/user_role']
+    if(authorize){
+        if(!isLoggedIn){
+            next("/login");
         }
-        next("/login");
-    } else {
-        next();
+        if(authorize.length && !authorize.includes(userRole)){
+            next("/");
+        }
     }
+    next();
+    
 });
 
 export default router;

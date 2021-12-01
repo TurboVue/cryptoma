@@ -85,7 +85,7 @@ export default {
       <!-- <img src="/img/logo.svg" class="w-full" alt="" /> -->
     </div>
     <div class="capitalize select-none flex items-center" >
-      <div class="px-4"><el-button v-if="role" @click="() => $router.push({'path': '/admin'})" color="#1D4ED8" style="color: white">Dashboard</el-button></div>
+      <div class="px-4"><el-button  @click="() => $router.push({'path': '/admin'})" color="#1D4ED8" style="color: white">Dashboard</el-button></div>
       <div class="capitalize select-none flex items-center" @click="toggleModal()">
         <ProfilePic :isSize="'small'" :name="fullname" /><span
         class="hidden sm:block font-medium px-2"
