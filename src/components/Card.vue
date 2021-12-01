@@ -6,7 +6,7 @@
         
         hover:shadow-lg
        border
-        flex flex-col
+        
         justify-center
         items-center
         0
@@ -19,10 +19,10 @@
       "
       :style="{ '--order': index }"
     >
-      <div class="card-logo w-14 my-3">
+      <div class="card-logo w-8 my-3">
         <img class="w-full" :src="'/img/cards/' + imgType + '.png'" alt="" />
       </div>
-      <div class="card-details text-center text-white">
+      <div class="card-details text-center mx-2 text-white">
         <p class="relative tracking-wider capitalize work text-gray-700 ">
           {{ card.card.name }}
         </p>
@@ -50,10 +50,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .card {
-  height: 12em;
+  height: 5em;
   transition: .2s ease-in-out;
   background-size: 7em;
   background-position: right bottom;
+  display: flex;
+  flex-direction: row;
   background-repeat: no-repeat;
   p {
     font-size: 1.2rem;

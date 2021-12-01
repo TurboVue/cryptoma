@@ -1,5 +1,5 @@
 <template>
-  <div id="Transactions-page" class="flex-grow md:py-2 py-10 px-6 md:px-2">
+  <div id="Transactions-page" class="flex-grow  px-6 ">
     <div class="flex flex-row justify-between items-center mx-4">
       <div class="my-1">
         <GoBack />
