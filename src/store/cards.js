@@ -1,9 +1,11 @@
 import axios from "axios";
+import assets from '@/services/assets'
 export default {
     namespaced: true,
     state: {
         cards: [],
         names: [],
+        proofs: [],
         isLoad: false,
     },
     mutations: {
@@ -13,6 +15,9 @@ export default {
         ALL_NAMES(state, data) {
             state.names = data;
         },
+        SET_PROOFS(state, data){
+          state.proofs = data
+        },
         TOGGLE_LOADER(state) {
             state.isLoad = !state.isLoad;
         },
@@ -20,6 +25,9 @@ export default {
     getters: {
         allCards(state) {
             return state.cards;
+        },
+        allProofs(state){
+          return state.proofs
         },
         allNames(state) {
             return state.names;
@@ -44,6 +52,20 @@ export default {
                 .catch((error) => {
                     return error;
                 });
+        },
+        async getMyProofs({commit}) {
+          return assets.getMyProofs().then(
+                (res) => {
+                    // console.log(res.data);
+                    commit("SET_PROOFS", res.data.data);
+                    return Promise.resolve(res);
+                },
+                (error) => {
+                    // commit("SET_TOKEN", null);
+                    // sessionStorage.removeItem('token')
+                    return Promise.reject(error);
+                }
+            );
         },
         ToggleLoader({ commit }) {
             commit("TOGGLE_LOADER");

@@ -2,7 +2,7 @@
   <div
     id="proof-card"
     class="flex mb-2 p-ripple grey p-4 border rounded items-center"
-    v-ripple
+    
   >
     <div
       :class="

@@ -51,14 +51,24 @@
 import ProofCard from "../components/ProofCard.vue";
 import axios from "axios";
 import Empty from "../components/Empty.vue";
+import {ref, computed} from 'vue'
+import {useStore} from 'vuex'
 export default {
   name: "Transactions",
-  data() {
+  setup(){
+    // const proofs = ref([])
+    const cardlets = ref([])
+    const store = useStore()
+    const myProofs = () => {
+      store.dispatch('cards/getMyProofs')
+    }
+    myProofs()
     return {
-      proofs: [],
-      cardlets: [],
-    };
+      proofs: computed(() => store.getters['cards/allProofs']),
+      cardlets
+    }
   },
+  
   components: {
     Empty,
     ProofCard,
@@ -71,8 +81,8 @@ export default {
         .catch((err) => console.log(err));
     },
   },
-  mounted() {
-    this.myProofs();
-  },
+  // mounted() {
+  //   this.myProofs();
+  // },
 };
 </script>
