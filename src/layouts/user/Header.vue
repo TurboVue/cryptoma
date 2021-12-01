@@ -52,7 +52,8 @@ export default {
       items-center
     "
   >
-    <div class="logo w-10 mx-2" @click="toggleSideBar">
+    <div class="logo mx-2" @click="toggleSideBar">
+      <div class="sm:hidden">
         <svg
             width="30"
             height="30"
@@ -79,6 +80,8 @@ export default {
               fill="#111827"
             />
             </svg>
+      </div>
+        
       <!-- <img src="/img/logo.svg" class="w-full" alt="" /> -->
     </div>
     <div class="capitalize select-none flex items-center" >

@@ -122,7 +122,7 @@ main {
 
 @media (min-width: 769px) {
   main {
-    margin-left: 350px;
+    margin-left: 325px;
   }
 }
 // #view {

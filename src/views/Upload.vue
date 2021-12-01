@@ -1,5 +1,5 @@
 <template>
-  <div id="Upload-page" class="flex-grow py-2 sm:pt-10 sm:px-6 px-2">
+  <div id="Upload-page" class="flex-grow py-2  px-2">
     <Cropper v-if="isShowCropper" :selectedImgData="selectedImgData" @hideCropper="hideCropper"/> 
     <div class="flex flex-row justify-between items-center mx-4">
       <GoBack />

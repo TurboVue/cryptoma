@@ -1,6 +1,6 @@
 <template>
   <div id="sidebar" :class="isSideBar ? 'active' : ''">
-    <div class="flex justify-center my-5 items-center flex-row">
+    <div class="flex justify-center my-5 items-center select-none flex-row">
       <div>
         <svg width="44" height="41" viewBox="0 0 44 41" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M43.1696 0.376465L43.3767 0.376465L41.0324 7.68837L39.5413 6.09666L30.7935 14.3536L30.6941 14.3039C29.3604 11.278 23.6114 8.71428 19.0139 10.1174C13.8365 11.7091 9.13954 18.1257 12.3537 24.7909L9.86852 27.2282L9.71941 27.1288C9.0277 24.9858 7.47034 22.6251 8.0295 19.2697C8.38363 17.164 8.71499 15.3091 9.62 13.7568C12.1942 9.34225 18.2394 4.54226 25.7735 6.84278C27.8445 7.4749 29.3832 8.47801 30.9509 9.57852L35.8218 5.00236C36.2132 4.61066 37.4662 3.71739 37.0644 3.36092L35.8715 1.96817V1.91843L43.1696 0.376465Z" fill="#00C2FF"/>
@@ -118,6 +118,7 @@ export default {
       margin-bottom: 1.3em;
       cursor: pointer;
       border-top-left-radius: .4em;
+      user-select: none;
       border-bottom-left-radius: .4em;
       span {
         font-family: 'DM SANS';

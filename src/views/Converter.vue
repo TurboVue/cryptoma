@@ -12,7 +12,7 @@
     </div>
     <div
       id="converter_container"
-      class="mx-auto md:border-0 border rounded-md md:p-0 p-6"
+      class="mx-auto border-0 sm:border rounded-md p-0 sm:p-6"
     >
       <div>
         <p class="font-bold py-2 text-lg work">Current Bitcoin Rate</p>

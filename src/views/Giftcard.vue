@@ -1,5 +1,5 @@
 <template>
-  <div id="Giftcard-page" class="flex-grow py-2 sm:py-10 sm:px-6 px-2">
+  <div id="Giftcard-page" class="flex-grow  px-2">
     <div class="flex flex-row justify-between items-center mx-4">
       <div class="my-1">
         <GoBack />

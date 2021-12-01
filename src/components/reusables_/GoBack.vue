@@ -1,7 +1,7 @@
 <template>
   <div
     @click="$router.go(-1)"
-    class="back_btn cursor-default select-none flex items-center"
+    class="back_btn cursor-default rounded hover:bg-gray-100 p-2 select-none flex items-center"
   >
     <svg
       width="24"
@@ -18,7 +18,7 @@
         stroke-linejoin="round"
       />
     </svg>
-    <span class="px-2 block md:hidden font-medium">Back</span>
+    <span class="px-2 sm:block hidden font-medium">Back</span>
   </div>
 </template>
 <script>

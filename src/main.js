@@ -7,7 +7,7 @@ import "./registerServiceWorker";
 import router from "./router";
 import axios from "axios";
 import store from "./store";
-import refresh from "@/services/refresh";
+
 import VueClickAway from "vue3-click-away";
 // import ToastService from "primevue/toastservice";
 // import "primevue/resources/themes/bootstrap4-light-blue/theme.css"; //theme
@@ -25,7 +25,7 @@ import EyeIcon from "@/components/reusables_/EyeIcon.vue";
 import GoBack from "@/components/reusables_/GoBack.vue";
 // axios.defaults.baseURL = 'http://127.0.0.1:8000/api/v1'
 axios.defaults.baseURL = "https://cryptoexbe.herokuapp.com/api/v1";
-refresh();
+// refresh();
 import mixins from "@/mixins/";
 // import store from './store'
 const app = createApp(App);

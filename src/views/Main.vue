@@ -1,6 +1,6 @@
 <template>
   <div id="view">
-    <div class="flex flex-col sm:py-14 py-2 px-4 px-6">
+    <div class="flex flex-col  py-2 px-4 px-6">
       <h2 class="text-lg pt-4 work big font-bold capitalize">
         Hello, {{ name }}
       </h2>
