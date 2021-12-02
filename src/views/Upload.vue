@@ -12,28 +12,8 @@
     <div class="upload_container block sm:grid grid-cols-2 grey">
       <div class="card_form_container flex flex-col">
         <div class="sm:w-11/12 w-10/12 mx-auto">
-          <BigCard>
-            <div class="card-logo w-16 my-3">
-              <img
-                class="w-full"
-                :src="'/img/cards/' + imgType + '.png'"
-                alt=""
-              />
-            </div>
-            <div class="card-details text-center text-white">
-              <p
-                class="
-                  relative
-                  tracking-wider
-                  work
-                  text-black text-lg
-                  font-normal
-                "
-              >
-                {{ selectedCard.card.name }}
-              </p>
-            </div>
-          </BigCard>
+          <BigCard :imgType="imgType" :name="selectedCard.card.name" />
+            
           <div class="input_box my-2 flex flex-col">
             <label for="type" class="text-base work font-medium pb-2"
               >Card Type</label

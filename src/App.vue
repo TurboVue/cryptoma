@@ -1,6 +1,9 @@
 <template>
-<Spinner v-if="isLoading"/>
-  <router-view />
+  <div>
+    <Spinner v-if="isLoading"/>
+    <router-view />
+  </div>
+  
 </template>
 <script >
 import Spinner from '@/components/Spinner.vue'

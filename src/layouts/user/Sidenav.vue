@@ -137,7 +137,7 @@ export default {
         font-size: 1.1em;
         line-height: 22px;
         letter-spacing: -.408px;
-        color: #6c757de2
+        // color: #6c757de2
       }
     }
     li:hover {

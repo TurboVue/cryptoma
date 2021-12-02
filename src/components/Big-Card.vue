@@ -16,7 +16,26 @@
       rounded-md
     "
   >
-    <slot></slot>
+    <div class="card-logo w-16 my-3">
+              <img
+                class="w-full"
+                :src="'/img/cards/' + imgType + '.png'"
+                alt=""
+              />
+            </div>
+            <div class="card-details text-center text-white">
+              <p
+                class="
+                  relative
+                  block
+                  work
+                  text-black text-lg
+                  font-normal
+                "
+              >
+                {{ name }}
+              </p>
+            </div>
   </div>
 </template>
 <script>
@@ -27,7 +46,14 @@ export default {
   },
   computed: {},
   props: {
-    selectedCard: Object,
+    imgType: {
+      type: String,
+      default: 'Logo1'
+    },
+    name: {
+      type: String,
+      default: ''
+      },
   },
 };
 </script>
@@ -38,6 +64,8 @@ export default {
   background-size: 8em;
   background-position: right bottom;
   //background-color: #00C2FF;
+  display: flex;
+  flex-direction: column;
   // box-shadow: 0px 0px 30px #e4e8ef;
   // filter: drop-shadow(0px 0px 15px #e4e8ef);
   background-repeat: no-repeat;
@@ -52,14 +80,5 @@ export default {
     max-width: 18em;
   }
 }
-.tracking-wider-1::before {
-  position: absolute;
-  left: 0;
-  content: "";
-  bottom: 0;
-  width: 5%;
-  background-color: white;
-  height: 1px;
-  transition: 0.5s ease-in-out;
-}
+
 </style>
