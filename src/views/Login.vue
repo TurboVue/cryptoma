@@ -129,7 +129,7 @@ export default {
                   title: "Login Successful",
                   type: "success",
                   message: "",
-                  duration: 0
+                  // duration: 0
                 });
         router.replace({ path: "/" });
       }).catch((err) => {

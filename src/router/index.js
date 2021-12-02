@@ -6,6 +6,7 @@ import Main from "../views/Main.vue";
 import AdminCards from "../views/admin/Cards.vue";
 import Category from "../views/admin/Category.vue";
 import Giftcard from "../views/Giftcard.vue";
+import Account from '../views/Account.vue'
 import Settings from "../views/Settings.vue";
 import Bitcoin from "../views/Bitcoin.vue";
 import Upload from "../views/Upload.vue";
@@ -91,6 +92,12 @@ const routes = [{
                 meta: { authorize: [Role.User, Role.Admin] },
             },
             {
+                path: '/account-details',
+                name: 'AccountDetails',
+                component: Account,
+                meta: { authorize: [Role.User, Role.Admin] },
+            },
+            {
                 path: "/settings",
                 name: "Settings",
                 // route level code-splitting
@@ -142,29 +149,29 @@ const routes = [{
             name: 'AdminMain',
             component: () =>
                 import ( /* webpackChunkName: "AdminMain" */ "../views/admin/Main.vue"),
-                meta: { authorize: [Role.Admin] }
+            meta: { authorize: [Role.Admin] }
         }, {
             path: '/admin/cards',
             name: 'AdminCards',
             component: AdminCards,
-                meta: { authorize: [Role.Admin] }
+            meta: { authorize: [Role.Admin] }
         }, {
             path: '/admin/category/:id',
             name: 'Category',
             component: Category,
-                meta: { authorize: [Role.Admin] },
+            meta: { authorize: [Role.Admin] },
             children: [{
                 path: '/admin/add-card',
                 name: 'AddCard',
                 component: () =>
                     import ( /* webpackChunkName: "about" */ '../views/admin/AddCard.vue'),
-                    meta: { authorize: [Role.Admin] }
+                meta: { authorize: [Role.Admin] }
             }, {
                 path: '/admin/update/:id',
                 name: 'UpdateCard',
                 component: () =>
                     import ( /* webpackChunkName: "about" */ '../views/admin/UpdateCard.vue'),
-                    meta: { authorize: [Role.Admin] }
+                meta: { authorize: [Role.Admin] }
             }]
         }]
     },
@@ -213,19 +220,19 @@ const router = createRouter({
     },
 });
 router.beforeEach((to, from, next) => {
-    const {authorize} = to.meta
+    const { authorize } = to.meta
     const isLoggedIn = store.getters['auth/authenticated']
     const userRole = store.getters['auth/user_role']
-    if(authorize){
-        if(!isLoggedIn){
+    if (authorize) {
+        if (!isLoggedIn) {
             next("/login");
         }
-        if(authorize.length && !authorize.includes(userRole)){
+        if (authorize.length && !authorize.includes(userRole)) {
             next("/");
         }
     }
     next();
-    
+
 });
 
 export default router;
