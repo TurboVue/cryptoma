@@ -18,7 +18,7 @@
         <p class="font-bold py-2 text-lg work">Current Bitcoin Rate</p>
 
         <div
-          class="flex justify-between border mb-4 p-4 work rounded-md w-full"
+          class="flex justify-between border border-gray-300 mb-4 p-4 work rounded-md w-full"
         >
           <div>
             <p class="font-light text-md text-grey-700">BTC to USD</p>

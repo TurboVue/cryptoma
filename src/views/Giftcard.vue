@@ -16,13 +16,13 @@
         class="
           w-full
           m-4
-          border-gray-200 border
+          border-gray-300 border
           px-4
           py-3
           work
-          shadow
+          
           rounded-md
-          focus:border-cyan-500 focus:shadow-outline
+           focus:shadow
           outline-none
         "
         type="text"

@@ -11,7 +11,7 @@
     </div>
     <div class="upload_container block sm:grid grid-cols-2 grey">
       <div class="card_form_container flex flex-col">
-        <div class="sm:w-11/12 w-10/12 mx-auto">
+        <div class="w-11/12 sm:w-10/12 mx-auto">
           <BigCard :imgType="imgType" :name="selectedCard.card.name" />
             
           <div class="input_box my-2 flex flex-col">

@@ -5,7 +5,8 @@
         card
         
         hover:shadow-lg
-       border-2
+       border
+       border-gray-300
         
         justify-center
         items-center
