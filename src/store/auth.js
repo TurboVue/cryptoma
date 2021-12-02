@@ -1,4 +1,5 @@
 import auth from "@/services/auth";
+import assets from "@/services/userAssets";
 // import axios from 'axios'
 
 export default {
@@ -72,6 +73,28 @@ export default {
             return auth.login(credentials).then(
                 (res) => {
                     return dispatch("attempt", res.data.token);
+                },
+                (error) => {
+
+                    return Promise.reject(error);
+                }
+            );
+        },
+        async getBanks() {
+            return assets.getBanks().then(
+                (res) => {
+                    return Promise.resolve(res);
+                },
+                (error) => {
+
+                    return Promise.reject(error);
+                }
+            );
+        },
+        async verifyBankDetails(_, data) {
+            return assets.verifyBankDetails(data).then(
+                (res) => {
+                    return Promise.resolve(res);
                 },
                 (error) => {
 
