@@ -1,6 +1,8 @@
 <template>
   <div id="overlay">
+    <div class="center">
     <div class="lds-ripple"><div></div><div></div></div>
+  </div>
   </div>
 </template>
 <script>
@@ -19,12 +21,18 @@ export default {};
   z-index: 2100;
   width: 100%;
 }
-
+.center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .lds-ripple {
   display: inline-block;
   position: relative;
   width: 80px;
   height: 80px;
+  
 }
 .lds-ripple div {
   position: absolute;
