@@ -107,7 +107,7 @@ export default {
     flex-direction: column;
     align-items: center;
     left: 0; 
-    z-index: 15;
+    
     transition: 0.5s ease-in-out;
     border-right: 2px solid #f8f9fb
   }
@@ -146,6 +146,7 @@ export default {
   }
   @media (max-width: 768px) {
   #sidebar {
+    z-index: 15;
     transform: translateX(-100%);
   }
   #sidebar.active {

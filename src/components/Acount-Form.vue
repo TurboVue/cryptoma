@@ -1,9 +1,27 @@
 <template>
   <div class="flex items-center h-full justify-center">
-    <div id="overlay">
+    <div class="overlay">
       <form class="form">
+        <div @click="close" class="absolute right-0 top-0 m-4">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6 18L18 6M6 6L18 18"
+            stroke="#111827"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+      <p class="font-bold text-lg work">Add Account Details</p>
         <div class="input_box">
-          <label for="bank" class="font-medium">Account Bank</label>
+          <!-- <label for="bank" class="font-medium">Account Bank</label> -->
           <div class="relative" v-click-away="ClickAway">
             <div
               @click="toggleList"
@@ -11,10 +29,9 @@
                 w-full
                 input
                 border-grey-400 border
-                text-tiny
+                p-4
                 capitalize
-                px-4
-                py-4
+                font-medium
                 rounded-sm
                 focus:border-cyan-500 focus:shadow-outline
                 outline-none outline-none
@@ -33,7 +50,7 @@
                 w-full
                 p-2
                 my-2
-                overflow-scroll
+                overflow-auto
               "
             >
               <li
@@ -41,6 +58,10 @@
                   px-2
                   py-3
                   hover:bg-gray-100
+                  hover:shadow
+                  rounded
+                  text-lg font-medium
+                  divide-y 
                   flex
                   items-center
                   relative
@@ -56,13 +77,13 @@
           </div>
         </div>
         <div class="input_box">
-          <label for="number" class="font-medium">Account Number</label>
+          <!--  <label for="number" class="font-medium">Account Number</label> --> 
           <input
             id="number"
             class="
               w-full
               border-grey-400 border
-              text-tiny
+              
               px-4
               py-2
               rounded-sm
@@ -78,14 +99,14 @@
           />
         </div>
         <div class="input_box">
-          <label for="name" class="font-medium capitalize">Account Name</label>
+          <!--  <label for="name" class="font-medium capitalize">Account Name</label> --> 
           <input
             id="name"
             class="
               w-full
               border-grey-400 border
               uppercase
-              text-tiny
+              
               px-4
               py-2
               rounded-sm
@@ -105,7 +126,7 @@
             px-4
             py-2
             cursor-pointer
-            text-tiny
+            
             rounded
             text-white
             bg-cyan-500
@@ -184,22 +205,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-#overlay {
-  position: fixed;
-  width: 100%;
-  height: 100vh;
-  z-index: 300;
-  background-color: #00000026;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  left: 0;
-}
+
 .form {
   max-width: 500px;
   width: 90%;
-  padding: 1em;
+  padding: 2em;
   border-radius: 0.5em;
   background-color: white;
 }
@@ -208,10 +218,9 @@ export default {
   input,
   .input {
     height: 60px;
-    color: grey;
+    
     border-radius: 0.4em;
-    font-size: 1.2rem;
-    font-weight: 300;
+    
   }
 }
 </style>

@@ -112,6 +112,31 @@ input::-webkit-inner-spin-button {
     font-family: "IBM Plex Mono", monospace;
 }
 
+* {
+    transition: .15s ease-in-out;
+}
+
+.modal {
+    max-width: 600px;
+    width: 90%;
+    padding: 1em;
+    background-color: white;
+    max-height: 100%;
+    position: fixed;
+    transition: 0.25s ease-in-out;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    .modal_guts {
+        width: 100%;
+        padding: .5em;
+        height: 100%;
+        background: red;
+        /* let it scroll */
+        overflow: auto;
+    }
+}
+
 
 /* Firefox */
 

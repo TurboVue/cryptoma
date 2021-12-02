@@ -3,11 +3,13 @@
         <div class="flex flex-row justify-between items-center mx-4">
       <GoBack />
       <div class="">
-        <h2 class="text-lg work font-semibold capitalize p-ripple" >
+        <h2 class="text-lg work rounded font-semibold capitalize p-ripple" >
             Account Details
         </h2>
       </div>
     </div>
+    <!-- <AccountForm /> -->
+    <AccountForm />
         <div class="flex space_box justify-center items-center flex-col ">
             <p class="font-medium m-2 text-lg">No Account Details Added yet</p>
                 <el-button @click="() => $router.push({'path': '/admin'})" color="#1D4ED8" style="color: white">Add Account</el-button>
@@ -16,7 +18,8 @@
 </template>
 
 <script setup>
-
+    // import AccountForm from '@/components/AccountForm.vue'
+    import AccountForm from '@/components/Acount-Form.vue'
 </script>
 
 <style lang="scss" scoped>
