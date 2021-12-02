@@ -1,10 +1,20 @@
 <template>
-  <div id="Upload-page" class="flex-grow py-2  px-2">
-    <Cropper v-if="isShowCropper" :selectedImgData="selectedImgData" @hideCropper="hideCropper"/> 
+  <div id="Upload-page" class="flex-grow py-2 px-2">
+    <Cropper
+      v-if="isShowCropper"
+      :selectedImgData="selectedImgData"
+      @hideCropper="hideCropper"
+    />
+    
+      <transition>
+          <ListModal :cardTypes="cardTypes" @ClickAway = "ClickAway" @selectType="selectType" v-if="isTypeModalShow"/>
+    </transition>
+    
+    
     <div class="flex flex-row justify-between items-center mx-4">
       <GoBack />
       <div class="">
-        <h2 class="text-lg work font-semibold capitalize p-ripple" >
+        <h2 class="text-lg work font-semibold capitalize p-ripple">
           {{ selectedCard.card.name }} Card
         </h2>
       </div>
@@ -13,69 +23,53 @@
       <div class="card_form_container flex flex-col">
         <div class="w-11/12 sm:w-10/12 mx-auto">
           <BigCard :imgType="imgType" :name="selectedCard.card.name" />
-            
+
           <div class="input_box my-2 flex flex-col">
             <label for="type" class="text-base work font-medium pb-2"
               >Card Type</label
             >
             <div class="relative" v-click-away="ClickAway">
               <div
-                @click="toggleList"
+                @click="toggleTypeModal"
                 class="
                   w-full
                   border
                   text-base
                   work
                   px-4
+                  flex
+                  justify-between
+                  select-none
                   py-3
                   capitalize
                   rounded-md
-                  focus:border-cyan-500 focus:shadow-outline
+                  shadow
                   outline-none outline-none
                 "
               >
-                {{
-                  selectedType.type ? selectedType.type : "select card type"
-                }}
-                {{ selectedType.priceRange ? selectedType.priceRange : "" }}
+                <p>
+                  {{
+                    selectedType.type ? selectedType.type : "select card type"
+                  }}
+                  {{ selectedType.priceRange ? selectedType.priceRange : "" }}
+                </p>
+                
+                <div>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7.96967 19.5303C7.7034 19.2641 7.6792 18.8474 7.89705 18.5538L7.96967 18.4697L14.439 12L7.96967 5.53033C7.7034 5.26406 7.6792 4.8474 7.89705 4.55379L7.96967 4.46967C8.23594 4.2034 8.6526 4.1792 8.94621 4.39705L9.03033 4.46967L16.0303 11.4697C16.2966 11.7359 16.3208 12.1526 16.1029 12.4462L16.0303 12.5303L9.03033 19.5303C8.73744 19.8232 8.26256 19.8232 7.96967 19.5303Z"
+                      fill="black"
+                    />
+                  </svg>
+                </div>
               </div>
-              <ul
-                v-if="isShow"
-                class="
-                  codes
-                  rounded
-                  border
-                  bg-white
-                  w-full
-                  p-2
-                  my-2
-                  overflow-hidden
-                "
-              >
-                <li
-                  class="
-                    px-2
-                    py-2
-                    hover:bg-gray-100
-                    flex
-                    items-center
-                    relative
-                    cursor-pointer
-                  "
-                  v-for="(type, index) in cardTypes"
-                  @click="
-                    () => {
-                      this.isShow = !this.isShow;
-                      this.selectedType = type.card;
-                    }
-                  "
-                  :key="index"
-                >
-                  <div class="font-medium px-2 text-base work text-gray-800">
-                    {{ type.card.type }} {{ type.card.priceRange }}
-                  </div>
-                </li>
-              </ul>
+               
             </div>
           </div>
           <div class="input_box my-2 flex flex-col">
@@ -141,88 +135,114 @@
             >Upload Card or Receipt</span
           >
           <div>
-            
+            <div
+              class="
+                border-dashed
+                my-4
+                px-4
+                py-6
+                rounded
+                flex flex-col
+                text-center
+                justify-between
+                items-center
+                border-4
+              "
+            >
               <div
-                class="
-                  border-dashed
-                  my-4
-                  px-4
-                  py-6
-                  rounded
-                  flex flex-col
-                  text-center
-                  justify-between
-                  items-center
-                  border-4
-                "
+                v-if="allImages.length >= 1"
+                id="preview"
+                class="grid grid-cols-3"
               >
-              <div v-if="allImages.length >= 1" id="preview" class="grid grid-cols-3 ">
-
-                <div v-for="(img, index) in allImages" :key="index" class="box m-2 relative">
+                <div
+                  v-for="(img, index) in allImages"
+                  :key="index"
+                  class="box m-2 relative"
+                >
                   <div
-             @click="deleteImg(index)"
-                class="
-                  flex
-                  justify-center
-                  top-0
-                  right-0
-                  absolute
-                  h-4
-                  w-4
-                  p-0.5
-                  z-10
-                  items-center
-                  cursor-pointer
-                  rounded-2xl
-                  bg-red-500
-                  text-white
-                "
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 18L18 6M6 6L18 18" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-
-              </div>
-                  <img  @click="cropImage(index)"  class="w-full border hover:shadow-lg shadow-md rounded border-cyan-500"   :src="img"/>
+                    @click="deleteImg(index)"
+                    class="
+                      flex
+                      justify-center
+                      top-0
+                      right-0
+                      absolute
+                      h-4
+                      w-4
+                      p-0.5
+                      z-10
+                      items-center
+                      cursor-pointer
+                      rounded-2xl
+                      bg-red-500
+                      text-white
+                    "
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6 18L18 6M6 6L18 18"
+                        stroke="#fff"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <img
+                    @click="cropImage(index)"
+                    class="
+                      w-full
+                      border
+                      hover:shadow-lg
+                      shadow-md
+                      rounded
+                      border-cyan-500
+                    "
+                    :src="img"
+                  />
                 </div>
-                
               </div>
               <div v-else class="items-center py-4">
-                <img src="/img/proof.svg" class="mx-auto"/>
+                <img src="/img/proof.svg" class="mx-auto" />
                 <p class="py-4 work">
                   Kindly Upload a Picture of Your Giftcard
                 </p>
               </div>
-                
-                <label
-                  for="image"
-                  class="
-                    bg-cyan
-                    flex
-                    justify-center
-                    h-8
-                    w-8
-                    items-center
-                    cursor-pointer
-                    rounded-2xl
-                    text-white
-                    work
-                  "
-                >
-                  <i class="pi pi-plus"></i>
-                </label>
-                <input
-                  name="image"
-                  id="image"
-                  type="file"
-                  ref="file"
-                  accept="image/*"
-                  multiple= ""
-                  @change="handleChange"
-                  hidden
-                />
-              </div>
-            
+
+              <label
+                for="image"
+                class="
+                  bg-cyan
+                  flex
+                  justify-center
+                  h-8
+                  w-8
+                  items-center
+                  cursor-pointer
+                  rounded-2xl
+                  text-white
+                  work
+                "
+              >
+                <i class="pi pi-plus"></i>
+              </label>
+              <input
+                name="image"
+                id="image"
+                type="file"
+                ref="file"
+                accept="image/*"
+                multiple=""
+                @change="handleChange"
+                hidden
+              />
+            </div>
           </div>
           <input type="file" class="hidden" id="file" name="file" />
         </div>
@@ -238,84 +258,102 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 // import {r}
-import Cropper from '@/components/reusables_/Cropper.vue'
+import ListModal from '@/components/reusables_/ListModal.vue'
+import Cropper from "@/components/reusables_/Cropper.vue";
 import { ExactCardImg } from "../utils/cards";
 import BigCard from "../components/Big-Card.vue";
-import {ref} from 'vue'
+import { ref } from "vue";
 export default {
   name: "Upload",
   data() {
     return {
       amt: null,
-      isShow: false,
+      
       isUploaded: false,
+
       
-      selectedType: {},
       cardTypes: [],
-      
+
       selectedCard: { card: { name: "" } },
     };
   },
-  setup(){
-    const allImages = ref([])
-    const file = ref(null)
-    const isShowCropper = ref(false)
-    const selectedImgData = ref(null)
+  setup() {
+    const allImages = ref([]);
+    const file = ref(null);
+    const isTypeModalShow = ref(false);
+    const isShowCropper = ref(false);
+    const selectedImgData = ref(null);
+    const selectedType = ref({})
     const handleChange = () => {
-      console.log(file.value.files)
-      if(file.value.files){
-        const allFiles = file.value.files
+      console.log(file.value.files);
+      if (file.value.files) {
+        const allFiles = file.value.files;
         // let arr = []
-        for(let singleFile of allFiles){
-          const reader = new FileReader()
+        for (let singleFile of allFiles) {
+          const reader = new FileReader();
           reader.onload = () => {
-            allImages.value.push(reader.result)
-          }
-          
-          reader.readAsDataURL(singleFile)
+            allImages.value.push(reader.result);
+          };
+
+          reader.readAsDataURL(singleFile);
         }
       }
-    }
+    };
     const deleteImg = (id) => {
-      allImages.value.splice(id, 1)
-    }
-     const hideCropper = (any) => {
-       if(any){
-         console.log(any)
-         allImages.value[any.id] = any.img
-       }
-        isShowCropper.value = false
+      allImages.value.splice(id, 1);
+    };
+    const hideCropper = (any) => {
+      if (any) {
+        console.log(any);
+        allImages.value[any.id] = any.img;
+      }
+      isShowCropper.value = false;
       //   if (any) {
       //     cropImg.value = null
       //     console.log(any)
       //    return croppedImg.value = any
       //    }
-      // return cropImg.value = null 
+      // return cropImg.value = null
+    };
+   const ClickAway = () => {
+      isTypeModalShow.value = false;
+    }
+     const toggleTypeModal = () => {
+      isTypeModalShow.value = !isTypeModalShow.value;
+    }
+    const selectType = (any) => {
+      selectedType.value = any.card
     }
     const cropImage = (id) => {
-      console.log(id)
-      selectedImgData.value = {}
-      
-      selectedImgData.value.img = allImages.value[id]
-      selectedImgData.value.id = id 
-      
-      console.log(selectedImgData)
-      isShowCropper.value = true
-    }
+      console.log(id);
+      selectedImgData.value = {};
+
+      selectedImgData.value.img = allImages.value[id];
+      selectedImgData.value.id = id;
+
+      console.log(selectedImgData);
+      isShowCropper.value = true;
+    };
     return {
       allImages,
       file,
       isShowCropper,
+      isTypeModalShow,
       handleChange,
+      selectedType,
+      ClickAway,
       cropImage,
+      toggleTypeModal,
       hideCropper,
+      selectType,
       deleteImg,
-      selectedImgData
-    }
+      selectedImgData,
+    };
   },
   components: {
     BigCard,
-    Cropper
+    Cropper,
+    ListModal,
   },
   computed: {
     imgType() {
@@ -336,9 +374,7 @@ export default {
     // }
   },
   methods: {
-    toggleList() {
-      this.isShow = !this.isShow;
-    },
+   
     preview() {
       const img = this.$refs.file.files[0];
       this.img = img;
@@ -350,9 +386,7 @@ export default {
       };
       reader.readAsDataURL(img);
     },
-    ClickAway() {
-      this.isShow = false;
-    },
+   
     ...mapActions({
       getAllNames: "cards/getNames",
       isSpin: "cards/ToggleLoader",
