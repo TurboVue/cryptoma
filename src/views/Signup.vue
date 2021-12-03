@@ -30,14 +30,14 @@
                 type="name"
                 class="bg-grey"
                 name="name"
-                @blur="v$.user.fullname.$touch"
+                @blur="v$.fullname.$touch"
                 id="name"
                 autocomplete="no"
                 placeholder="Fullname"
               />
-              <div class="error_box" v-if="v$.user.fullname.$errors.length">
+              <div class="error_box" v-if="v$.fullname.$errors.length">
                 <span
-                  v-for="(error, index) of v$.user.fullname.$errors"
+                  v-for="(error, index) of v$.fullname.$errors"
                   :key="index"
                   class="items-center flex flex-shrink-0 text-red-500"
                 >
@@ -61,19 +61,19 @@
 
             <div class="input-box">
               <input
-                :class="{ invalid_input: v$.user.email.$errors.length }"
+                :class="{ invalid_input: v$.email.$errors.length }"
                 v-model="user.email"
                 type="email"
                 class="bg-grey"
                 name="email"
                 id="Email Address"
                 autocomplete="no"
-                @blur="v$.user.email.$touch"
+                @blur="v$.email.$touch"
                 placeholder="Email Address"
               />
-              <div class="error_box" v-if="v$.user.email.$errors.length">
+              <div class="error_box" v-if="v$.email.$errors.length">
                 <span
-                  v-for="(error, index) of v$.user.email.$errors"
+                  v-for="(error, index) of v$.email.$errors"
                   :key="index"
                   class="items-center flex flex-shrink-0 text-red-500"
                 >
@@ -110,22 +110,22 @@
 
                 <div>
                   <input
-                    :class="{ invalid_input: v$.user.phone.$errors.length }"
+                    :class="{ invalid_input: v$.phone.$errors.length }"
                     v-model="user.phone"
                     type="tel"
                     class="bg-grey"
                     name="phone"
                     id="Phone number"
                     autocomplete="off"
-                    @blur="v$.user.phone.$touch"
+                    @blur="v$.phone.$touch"
                     title="Please complete number"
                     placeholder="Phone number"
                   />
                 </div>
               </div>
-              <div class="error_box" v-if="v$.user.phone.$errors.length">
+              <div class="error_box" v-if="v$.phone.$errors.length">
                 <span
-                  v-for="(error, index) of v$.user.phone.$errors"
+                  v-for="(error, index) of v$.phone.$errors"
                   :key="index"
                   class="items-center flex flex-shrink-0 text-red-500"
                 >
@@ -149,11 +149,11 @@
             <div class="input-box">
               <div class="relative">
                 <input
-                  :class="{ invalid_input: v$.user.password.$errors.length }"
+                  :class="{ invalid_input: v$.password.$errors.length }"
                   v-model="user.password"
                   :type="passwordType ? 'password' : 'text'"
                   class="bg-grey"
-                  @blur="v$.user.password.$touch"
+                  @blur="v$.password.$touch"
                   name="password"
                   id="password"
                   autocomplete="no"
@@ -162,9 +162,9 @@
                 <EyeIcon :show="passwordType" @click="togglePassword()" />
               </div>
 
-              <div class="error_box" v-if="v$.user.password.$errors.length">
+              <div class="error_box" v-if="v$.password.$errors.length">
                 <span
-                  v-for="(error, index) of v$.user.password.$errors"
+                  v-for="(error, index) of v$.password.$errors"
                   :key="index"
                   class="items-center flex flex-shrink-0 text-red-500"
                 >
@@ -188,22 +188,22 @@
             <div class="input-box">
               <input
                 :class="{
-                  invalid_input: v$.user.password_confirmation.$errors.length,
+                  invalid_input: v$.password_confirmation.$errors.length,
                 }"
                 v-model="user.password_confirmation"
                 type="password"
                 class="bg-grey"
-                @blur="v$.user.password_confirmation.$touch"
+                @blur="v$.password_confirmation.$touch"
                 name="password_confirmation"
                 id="password_confirmation"
                 placeholder="Confirm Password"
               />
               <div
                 class="error_box"
-                v-if="v$.user.password_confirmation.$errors.length"
+                v-if="v$.password_confirmation.$errors.length"
               >
                 <span
-                  v-for="(error, index) of v$.user.password_confirmation
+                  v-for="(error, index) of v$.password_confirmation
                     .$errors"
                   :key="index"
                   class="items-center flex flex-shrink-0 text-red-500"
@@ -257,10 +257,12 @@
         </div>
       </div>
     </div>
+    <router-view />
   </div>
 </template>
-<script>
+<script setup>
 // import Menu from "primevue/menu";
+import TogglePassword from "@/utils/toggle";
 import useVuelidate from "@vuelidate/core";
 import {
   required,
@@ -269,109 +271,105 @@ import {
   numeric,
   maxLength,
 } from "@vuelidate/validators";
-import axios from "axios";
+// import axios from "axios";
 // import Dropdown from "primevue/dropdown";
 import { validName } from "@/utils/validate";
-import { mapActions, mapGetters } from "vuex";
+import { useStore } from "vuex";
+import {ref, reactive} from 'vue'
 import User from "../models/user";
 // import ProgressSpinner from "primevue/progressspinner";
-export default {
-  name: "Login",
-  setup() {
-    return { v$: useVuelidate() };
-  },
-  data() {
-    return {
-      isLoading: false,
-      countries: [],
-      passwordType: true,
-      isShow: false,
-      user: new User("", "", "", "", ""),
-      selectedCountry: {
+
+  
+  const isLoading = ref(false)
+  // const countries = ref([])
+  const passwordType = ref(true)
+  // const isShow = ref(false)
+  const user = ref(new User("", "", "", "", ""))
+  const selectedCountry = reactive({
         name: "Nga",
         code: "234",
         flag: "/img/ngn-icon.svg",
-      },
-    };
-  },
-  computed: {
-    ...mapGetters({
-      message: "auth/message",
-      errors: "auth/errors",
-      authenticated: "auth/authenticated",
-    }),
-  },
-  methods: {
-    toggleList() {
-      this.isShow = !this.isShow;
-    },
-    ...mapActions({
-      signUp: "auth/signUp",
-    }),
-    togglePassword() {
-      this.passwordType = this.TogglePassword(this.passwordType);
-    },
-    ClickAway() {
-      this.isShow = false;
-    },
-    isAuthenticated() {
-      if (this.authenticated) {
-        this.$router.replace({
-          path: "/",
-        });
+      })
+  const store = useStore()
+  // const toggleList = () => {
+  //     isShow.value = !isShow.value;
+  //   }
+  const togglePassword = () => {
+      
+      passwordType.value = TogglePassword(passwordType.value);
+    }
+  // const ClickAway = () => {
+  //     isShow.value = false;
+  //   }
+  // const isAuthenticated = () => {
+  //     if (this.authenticated) {
+  //       this.$router.replace({
+  //         path: "/",
+  //       });
+  //     }
+  //     //  else {}
+  //   },
+    const register = async () => {
+      
+      const result = await v$.value.$validate()
+      // console.log(result);
+      if (!result) {
+        // notify user form is invalid
+        return;
       }
-      //  else {}
-    },
-    register() {
-      this.isLoading = true;
-      console.log(this.user);
-      this.signUp(this.user)
-        .then(() => this.isAuthenticated())
-        .catch(() => {
-          console.log("failed");
-        });
-      this.isLoading = !this.isLoading;
-    },
-    selectCountry(any) {
-      //   console.log(any);
-      this.isShow = !this.isShow;
-      this.selectedCountry = any;
-    },
-    async fetchCode() {
-      axios
-        .get("https://restcountries.eu/rest/v2/all", {
-          headers: {},
-        })
-        .then((response) => (this.countries = response.data))
-        .catch((err) => console.log(err));
-    },
-  },
-  components: {
-    // ProgressSpinner,
-  },
-  mounted() {
-    this.fetchCode();
-    this.isAuthenticated();
-  },
-  validations() {
-    return {
-      user: {
+      // console.log(this.user);
+      isLoading.value = true;
+      await new Promise((resolve) =>
+        setTimeout(() => {
+          resolve(
+            store.dispatch('auth/signUp', user.value)
+              .then(() => {
+                isLoading.value = false;
+                this.$router.push({ name: "EmailVerify" });
+              })
+              .catch((err) => {
+                isLoading.value = false
+                this.errMessage = err.response.data.message;
+              })
+          );
+        }, 1000)
+      );
+      isLoading.value = !isLoading.value;
+    }
+    // const selectCountry = (any) => {
+    //   //   console.log(any);
+    //   isShow.value = !isShow.value;
+    //   selectedCountry.value = any;
+    // }
+    // const fetchCode() {
+    //   axios
+    //     .get("https://restcountries.eu/rest/v2/all", {
+    //       headers: {},
+    //     })
+    //     .then((response) => (this.countries = response.data))
+    //     .catch((err) => console.log(err));
+    // },
+  
+  
+  // mounted() {
+  //   // this.fetchCode();
+  //   this.isAuthenticated();
+  // },
+  const rules = {
         fullname: {
           required,
           name_validation: {
             $validator: validName,
             $message: "Invalid format.",
-          },
+          }
         },
-
         phone: { required, numeric, max: maxLength(11) },
         email: { required, email },
         password: { required, min: minLength(6) },
         password_confirmation: { required },
-      },
-    };
-  },
-};
+      }
+   const v$ = useVuelidate(rules, user) 
+
 </script>
 <style lang="scss">
 .p-dropdown {

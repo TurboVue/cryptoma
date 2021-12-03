@@ -191,6 +191,15 @@ const routes = [{
         // which is lazy-loaded when the route is visited.
         component: () =>
             import ( /* webpackChunkName: "Giftcard" */ "../views/Signup.vue"),
+        children: [{
+            path: "emailverification",
+            name: "EmailVerification",
+            // route level code-splitting
+            // this generates a separate chunk (giftcard.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "Giftcard" */ "../views/EmailVerification.vue"),
+        }, ]
     }, {
         path: "/forgotpassword",
         name: "ForgotPassword",

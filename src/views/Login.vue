@@ -14,7 +14,7 @@
       </div>
         <p class="font-bold opacity-80 px-2">Cryptomania<br />Exchange</p>
     </div>
-      <div id="sign" class="my-10">
+      <div id="sign" class="my-20 sm:my-10">
         <div class="ads">
           <h3>
             Nice To See You <br />

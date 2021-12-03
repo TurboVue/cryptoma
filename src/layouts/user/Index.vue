@@ -1,111 +1,74 @@
 <template>
   <div id="main" class="relative">
-    <div class="overlay" :class="isSideBar ? 'active' : ''" @click="toggleSideBar"></div>
-      <Sidenav :isSideBar = "isSideBar" @toggleSideBar = "toggleSideBar"/>
-    
+    <div
+      class="overlay"
+      :class="isSideBar ? 'active' : ''"
+      @click="toggleSideBar"
+    ></div>
+    <Sidenav :isSideBar="isSideBar" @toggleSideBar="toggleSideBar" />
+
     <div>
       <main>
-      <Header @toggleSideBar = "toggleSideBar"/>
-      <div class="bg-white rounded-lg">
-        <router-view />
-      </div>
-      
-    </main>
+        <Header @toggleSideBar="toggleSideBar" />
+        <div class="bg-white rounded-lg">
+          <router-view />
+        </div>
+      </main>
     </div>
-    
+
     <!-- <Toast class="custom" /> -->
     <!-- <Footer /> -->
-      
+
     <Spinner v-if="isSpin" />
     <SuccessModal :isSuccess="isSuccess" />
     <AccountForm v-if="verify" />
-    
   </div>
 </template>
-<script>
+<script setup>
 import Header from "./Header.vue";
 import AccountForm from "@/components/Acount-Form";
 // // import Toast from "primevue/toast";
 import Spinner from "@/components/Spinner.vue";
 // import {} from "vuex";
-import { mapGetters, mapActions } from "vuex";
+import { useStore } from "vuex";
 import Sidenav from "./Sidenav.vue";
 // // import Footer from "./Footer.vue";
 import SuccessModal from "@/components/SuccessModal.vue";
 // import axios from 'axios'
-import {ref} from 'vue'
-export default {
-  name: "Overview",
-  data() {
-    return {
-      isSuccess: { val: false },
-    };
-  },
-  setup(){
-    const isSideBar = ref(false)
-    const toggleSideBar = () => {
-      isSideBar.value = !isSideBar.value
-    }
-    return {
-      isSideBar,
-      toggleSideBar
-    }
-  },
-  provide() {
-    return {
-      showSuccess: this.isSuccess,
-    };
-  },
-  computed: {
-    ...mapGetters({
-      lists: "auth/details",
-      verify: "auth/cardForm",
-      isSpin: "cards/isSpin",
-    }),
-  },
-  methods: {
-    ...mapActions({
-      getAllCards: "cards/getAllCards",
-      checkPay: "auth/toggleForm",
-    }),
-    toggleSide(any) {
-      console.log(any);
+import { ref } from "vue";
 
-      this.isSideCart = false;
-    },
+const isSuccess = ref({ val: false });
 
-    fetchCard() {
-      this.getAllCards();
-    },
-    // isCard(){
-    //         this.checkPay();
-    // }
-  },
-  components: {
-    Header,
-    // Toast,
-    Spinner,
-    // Footer,
-    Sidenav,
-    AccountForm,
-    SuccessModal,
-  },
-  mounted() {
-    //this.isCard();
-
-    this.fetchCard();
-    // this.$toast.add({
-    //   severity: "success",
-    //   summary: "Welcome Back",
-    //   detail: "Nice to see you again",
-    //   life: 3000,
-    // });
-    // this.fetch()
-
-    // this.events.forEach(event => window.addEventListener(event, this.resetTimers))
-    //  this.setTimers();
-  },
+const isSideBar = ref(false);
+const toggleSideBar = () => {
+  isSideBar.value = !isSideBar.value;
 };
+const isLoading = ref(false);
+const store = useStore();
+// const router = useRouter()
+const loading = async () => {
+  isLoading.value = true;
+  await new Promise((resolve) =>
+    setTimeout(() => {
+      resolve(
+        store
+          .dispatch("auth/attempt", JSON.parse(sessionStorage.getItem("token")))
+          .then(() => {
+            // console.log();
+            isLoading.value = false;
+            // router.push({ path: "/" });
+          })
+          .catch(() => {
+            // console.log(err);
+            isLoading.value = false;
+            // router.push({ path: "/login" });
+          })
+      );
+    }, 1000)
+  );
+};
+
+loading();
 </script>
 <style lang="scss" scoped>
 //
@@ -141,8 +104,7 @@ main {
   opacity: 0;
   transition: 0.5s ease-in-out;
 }
-  @media (max-width: 768px) {
-
+@media (max-width: 768px) {
   .overlay.active {
     opacity: 1;
     display: block;

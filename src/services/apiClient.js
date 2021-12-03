@@ -4,7 +4,7 @@ import authHeader from "./auth_header";
 
 export default function apiClient() {
     const api = axios.create({
-        baseURL: "https://cryptoexbe.herokuapp.com/api/v1",
+        baseURL: "https://cryptoexbeckend.herokuapp.com/api/v1",
         withCredentials: false,
         headers: authHeader(),
     });

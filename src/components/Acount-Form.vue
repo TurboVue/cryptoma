@@ -1,8 +1,8 @@
 <template>
   <div class="flex items-center h-full justify-center">
     <div class="overlay">
-      <form class="form relative" v-click-away="Clickaway">
-        <div @click="Clickaway" class="absolute right-0 top-0 m-4">
+      <form class="form relative" v-click-away="FormClickAway">
+        <div @click="FormClickAway" class="absolute right-0 top-0 m-4">
           <svg
             width="24"
             height="24"
@@ -183,7 +183,7 @@ const rules =  {
   account_no: { required, numeric, min: minLength(10) }
 }
 const v$ = useVuelidate(rules, details)
-const emit = defineEmits(['toggleModal', 'ClickAway'])
+const emit = defineEmits(['toggleModal', 'FormClickAway'])
 const store = useStore();
 const ClickAway = () => {
   isShow.value = false;
@@ -208,8 +208,8 @@ const fetchBanks = () => {
 // const close = () => {
 //       emit("toggleModal");
 //     }
-    const Clickaway = () => {
-      emit("ClickAway");
+    const FormClickAway = () => {
+      emit("FormClickAway");
     }
 const selectBank = (any, code) => {
   isShow.value = !isShow.value;
