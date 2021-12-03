@@ -1,8 +1,8 @@
 <template>
   <div class="flex items-center h-full justify-center">
     <div class="overlay">
-      <form class="form">
-        <div @click="close" class="absolute right-0 top-0 m-4">
+      <form class="form relative" v-click-away="Clickaway">
+        <div @click="Clickaway" class="absolute right-0 top-0 m-4">
           <svg
             width="24"
             height="24"
@@ -92,11 +92,37 @@
             "
             type="text"
             name="accnumber"
+            :disabled = "isNext"
+            @blur="v$.account_no.$touch"
             v-model="details.account_no"
+            placeholder="Account Number"
             @change="verify"
             required
             @click="clear"
           />
+          
+              <div class="error_box" v-if="v$.account_no.$errors.length">
+                <span
+                  v-for="(error, index) of v$.account_no.$errors"
+                  :key="index"
+                  class="items-center flex flex-shrink-0 text-red-500"
+                >
+                  <svg
+                    class="mr-2"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8 2a6 6 0 100 12A6 6 0 008 2zM0 8a8 8 0 1116 0A8 8 0 010 8zm9-3a1 1 0 11-2 0 1 1 0 012 0zM8 7a1 1 0 00-1 1v3a1 1 0 102 0V8a1 1 0 00-1-1z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <p>{{ error.$message }}</p>
+                </span>
+              </div>
         </div>
         <div class="input_box">
           <!--  <label for="name" class="font-medium capitalize">Account Name</label> -->
@@ -115,45 +141,49 @@
             type="text"
             name="name"
             v-model="details.account_name"
+            placeholder="Account Name"
             disabled
             required
           />
         </div>
-        <button
-          class="
-            mx-2
-            px-4
-            py-2
-            cursor-pointer
-            rounded
-            text-white
-            bg-cyan-500
-            focus:outline-none
-            hover:bg-cyan-400
-          "
-          @click.prevent="checkPay()"
-        >
-          Save
-        </button>
+        <div class="mx-auto">
+          <el-button @click="submit()" color="#1D4ED8" style="color: white">Add Account</el-button>
+        </div>
+        
       </form>
     </div>
   </div>
 </template>
 <script setup>
 // import axios from "axios";
-import { ref } from "vue";
+import { ref, reactive, defineEmits } from "vue";
+
+import useVuelidate from "@vuelidate/core";
+import {
+  minLength,
+  numeric,
+  required
+} from "@vuelidate/validators";
+import { ElNotification } from "element-plus";
 import { useStore } from "vuex";
 // import {mapGetters} from 'vuex'
+
 const isShow = ref(false);
+const isNext = ref(true)
 const banks = ref(null);
 const bankCode = ref("");
-const details = ref(
+const details = reactive(
   {
     bank: "Select Bank",
     account_no: "",
     account_name: "",
   },
 );
+const rules =  {
+  account_no: { required, numeric, min: minLength(10) }
+}
+const v$ = useVuelidate(rules, details)
+const emit = defineEmits(['toggleModal', 'ClickAway'])
 const store = useStore();
 const ClickAway = () => {
   isShow.value = false;
@@ -161,30 +191,43 @@ const ClickAway = () => {
 const toggleList = () => {
   isShow.value = !isShow.value;
 };
-
+const submit = () => {
+  ElNotification({
+                  title: "Successful",
+                  type: "success",
+                  message: "Account Details Added Successfully",
+                  // duration: 0
+                });
+}
 const fetchBanks = () => {
   
   store.dispatch("auth/getBanks").then((res) => {
     banks.value = res.data.data
   });
 };
-
+// const close = () => {
+//       emit("toggleModal");
+//     }
+    const Clickaway = () => {
+      emit("ClickAway");
+    }
 const selectBank = (any, code) => {
   isShow.value = !isShow.value;
-  details.value.bank = any;
+  details.bank = any;
   bankCode.value = code;
+  isNext.value = false
   console.log(bankCode.value);
 };
 const verify = () => {
   const data = {
-    account_number: details.value.account_no,
+    account_number: details.account_no,
     account_bank: bankCode.value,
   };
   store
     .dispatch("auth/verifyBankDetails", data)
     .then(
       (response) =>
-        (details.value.account_name = response.data.data.account_name)
+        (details.account_name = response.data.data.account_name)
     )
     .catch((err) => console.log(err));
 };
@@ -203,7 +246,7 @@ fetchBanks();
   input,
   .input {
     height: 60px;
-    background-color: white;
+    background-color: white !important;
     border-radius: 0.4em;
   }
 }
