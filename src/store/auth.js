@@ -21,8 +21,9 @@ export default {
     mutations: {
         SET_USER(state, data) {
             if (data) {
-                state.user = data.user || data.user_attributes;
-                state.message = data.message;
+                state.user = data.bio;
+                state.paymentDetails = data.bank_account;
+                state.cardlets = data.cardlets
                 state.role = data.user_role[0]
             } else state.user = data;
         },
@@ -109,8 +110,8 @@ export default {
             commit("SET_TOKEN", credentials);
             return auth.attempt().then(
                 (res) => {
-                    // console.log(res.data);
-                    commit("SET_USER", res.data);
+                    console.log(res.data.data);
+                    commit("SET_USER", res.data.data);
                     return Promise.resolve(res);
                 },
                 (error) => {

@@ -19,7 +19,7 @@
     <!-- <Toast class="custom" /> -->
     <!-- <Footer /> -->
 
-    <Spinner v-if="isSpin" />
+    <Spinner v-if="isLoading" />
     <SuccessModal :isSuccess="isSuccess" />
     <AccountForm v-if="verify" />
   </div>
@@ -48,6 +48,7 @@ const store = useStore();
 // const router = useRouter()
 const loading = async () => {
   isLoading.value = true;
+  console.log("me")
   await new Promise((resolve) =>
     setTimeout(() => {
       resolve(
