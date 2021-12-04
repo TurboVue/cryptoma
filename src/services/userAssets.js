@@ -7,5 +7,8 @@ export default {
     },
     verifyBankDetails(data) {
         return apiClient().post("/banks", data, { headers: authHeader() });
+    },
+    uploadPaymentDetails(data) {
+        return apiClient().post("/users/account", data, { headers: authHeader() });
     }
 }

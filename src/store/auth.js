@@ -103,6 +103,17 @@ export default {
                 }
             );
         },
+        async uploadPaymentDetails(_, data) {
+            return assets.uploadPaymentDetails(data).then(
+                (res) => {
+                    return Promise.resolve(res);
+                },
+                (error) => {
+
+                    return Promise.reject(error);
+                }
+            );
+        },
         toggleForm({ commit }) {
             commit("SET_ISFORM");
         },

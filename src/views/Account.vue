@@ -9,7 +9,7 @@
       </div>
     </div>
     <!-- <AccountForm /> -->
-    <AccountForm @FormClickAway = "ClickAway" @selectType="selectType" v-if="isShowForm"/>
+    <AccountForm @FormClickAway = "ClickAway" v-if="isShowForm"/>
         <div class="flex space_box justify-center items-center flex-col ">
             <p class="font-medium m-2 text-lg">No Account Details Added yet</p>
                 <el-button @click="toggleForm" color="#1D4ED8" style="color: white">Add Account</el-button>
