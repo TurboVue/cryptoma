@@ -21,7 +21,7 @@
 
     <Spinner v-if="isLoading" />
     <SuccessModal :isSuccess="isSuccess" />
-    <AccountForm v-if="verify" />
+    <AccountForm @FormClickAway = "ClickAway" v-if="isShowForm"/>
   </div>
 </template>
 <script setup>
@@ -46,6 +46,20 @@ const toggleSideBar = () => {
 const isLoading = ref(false);
 const store = useStore();
 // const router = useRouter()
+const isShowForm = ref(false)
+    // const toggleForm = () => {
+    //     isShowForm.value = !isShowForm.value
+    // }
+    const ClickAway = () => {
+        console.log('jf')
+        isShowForm.value = false
+    }
+    const checkAccountDetails = () => {
+      const account = store.getters['auth/payment_details']
+      if(account.account_name === 'none'){
+       return isShowForm.value = true
+      }
+    }
 const loading = async () => {
   isLoading.value = true;
   console.log("me")
@@ -70,6 +84,7 @@ const loading = async () => {
 };
 
 loading();
+checkAccountDetails()
 </script>
 <style lang="scss" scoped>
 //

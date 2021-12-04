@@ -13,7 +13,7 @@ export default {
             phone: [""],
             password: [""],
         },
-        paymentDetail: ["{}"],
+        paymentDetail: null,
         isFormShow: false,
         message: null,
         role: null
@@ -22,7 +22,7 @@ export default {
         SET_USER(state, data) {
             if (data) {
                 state.user = data.bio;
-                state.paymentDetails = data.bank_account;
+                state.paymentDetail = data.bank_account;
                 state.cardlets = data.cardlets
                 state.role = data.user_role[0]
             } else state.user = data;
@@ -62,7 +62,7 @@ export default {
         message(state) {
             return state.message;
         },
-        details(state) {
+        payment_details(state) {
             return state.paymentDetail;
         },
         cardForm(state) {

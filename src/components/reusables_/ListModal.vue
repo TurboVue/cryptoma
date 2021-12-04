@@ -68,7 +68,7 @@
   max-width: 600px;
   width: 90%;
   padding: 1em;
-  background-color: white;
+  // background-color: white;
   
   max-height: 100%;
   position: fixed;
@@ -81,9 +81,7 @@
       width: 100%;
       padding:.5em;
   height: 100%;
-  // background: red;
-
-  /* let it scroll */
+  background-color: white;
   overflow: auto;
 
   }

@@ -2,7 +2,7 @@
   <div class="flex items-center h-full justify-center">
     <div class="overlay">
       <form class="form relative" v-click-away="FormClickAway">
-        <div @click="FormClickAway" class="absolute right-0 top-0 m-4">
+        <div v-if="$route.path !== '/'" @click="FormClickAway" class="absolute right-0 top-0 m-4">
           <svg
             width="24"
             height="24"
@@ -209,6 +209,7 @@ const fetchBanks = () => {
 //       emit("toggleModal");
 //     }
     const FormClickAway = () => {
+      console.log('jf')
       emit("FormClickAway");
     }
 const selectBank = (any, code) => {
