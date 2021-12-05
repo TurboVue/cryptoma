@@ -1,19 +1,16 @@
-import { createStore } from 'vuex';
-
-import cards from './cards';
-import auth from './auth'
+import { createStore } from "vuex";
+import createPersistedState from "vuex-persistedstate";
+import cards from "./cards";
+import auth from "./auth";
+import admin from "./admin";
 export default createStore({
-    state: {
-
-    },
-    mutations: {
-
-    },
-    actions: {
-
-    },
+    state: {},
+    mutations: {},
+    actions: {},
     modules: {
         cards,
-        auth
-    }
-})
+        auth,
+        admin
+    },
+    plugins: [createPersistedState()],
+});

@@ -1,214 +1,380 @@
 <template>
-  <div
-    id="Upload-page"
-    class="flex-grow md:py-2 pt-10 px-6 md:px-2"
-  >
+  <div id="Upload-page" class="flex-grow py-2 px-2">
+    <Cropper
+      v-if="isShowCropper"
+      :selectedImgData="selectedImgData"
+      @hideCropper="hideCropper"
+    />
+    
+      <transition>
+          <ListModal :cardTypes="cardTypes" @ClickAway = "ClickAway" @selectType="selectType" v-if="isTypeModalShow"/>
+    </transition>
+    
+    
     <div class="flex flex-row justify-between items-center mx-4">
-      <div class=" my-1">
-        <a
-          href="#"
-          class="py-2 text-gray-600 text-tiny flex items-center font-medium uppercase "
-        >
-          <span>
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M11.707 18.707C11.5195 18.8946 11.2652 19 11 19C10.7349 19 10.4806 18.8946 10.293 18.707L4.29303 12.7016C4.10556 12.5139 4.00024 12.2594 4.00024 11.994C4.00024 11.7286 4.10556 11.474 4.29303 11.2863L10.293 5.28096C10.4816 5.09864 10.7342 4.99776 10.9964 5.00004C11.2586 5.00232 11.5094 5.10758 11.6948 5.29316C11.8803 5.47873 11.9854 5.72977 11.9877 5.9922C11.99 6.25463 11.8892 6.50746 11.707 6.69623L7.41403 10.9931H19C19.2652 10.9931 19.5196 11.0985 19.7071 11.2862C19.8947 11.4739 20 11.7285 20 11.994C20 12.2594 19.8947 12.514 19.7071 12.7017C19.5196 12.8894 19.2652 12.9949 19 12.9949H7.41403L11.707 17.2917C11.8945 17.4794 11.9998 17.7339 11.9998 17.9993C11.9998 18.2647 11.8945 18.5193 11.707 18.707Z"
-                fill="#192434"
-              />
-              </svg>
-          </span>
-          <span class="font-bold sm:hidden px-1">Back</span>
-          </a>
-      </div>
+      <GoBack />
       <div class="">
-        <h2
-          class="text-lg work font-semibold p-ripple"
-          v-ripple
-        >{{selectedCard.card.name}} Card</h2>
+        <h2 class="text-lg work font-semibold capitalize p-ripple">
+          {{ selectedCard.card.name }} Card
+        </h2>
       </div>
-
     </div>
-    <div class="upload_container md:block grid grid-cols-2 grey">
+    <div class="upload_container block sm:grid grid-cols-2 grey">
       <div class="card_form_container flex flex-col">
         <div class="w-11/12 sm:w-10/12 mx-auto">
-          <BigCard>
-            <div class="card-logo w-16 my-3">
-              <img
-                class="w-full"
-                :src="'/img/cards/' + imgType + '.png'"
-                alt=""
-              />
-            </div>
-            <div class="card-details text-center text-white">
-              <p class="relative tracking-wider work text-black text-lg font-normal">
-                {{ selectedCard.card.name }}
-              </p>
-            </div>
-          </BigCard>
-          <div class="input_box  my-2  flex flex-col">
-            <label
-              for="type"
-              class="text-base work font-medium pb-2"
-            >Card Type</label>
-              <div
-                class="relative"
-                v-click-away="ClickAway"
-              >
-                <div
-                  @click="toggleList"
-                  class="w-full border text-base work px-4 py-3 capitalize rounded-md focus:border-cyan-500 focus:shadow-outline outline-none outline-none"
-                >
-                  select card type
-          </div>
-          <ul
-            v-if="isShow"
-            class="codes rounded border bg-white w-full p-2 my-2  overflow-hidden"
-          >
-            <li
-              class="px-2 py-2 hover:bg-gray-100 flex items-center relative cursor-pointer"
-              v-for="(type, index) in cardTypes"
-              @click="
-                    () => {
-                      this.isShow = !this.isShow;
-                      this.selectedType = type.card;
-                    }
-                  "
-              :key="index"
+          <BigCard :imgType="imgType" :name="selectedCard.card.name" />
+
+          <div class="input_box my-2 flex flex-col">
+            <label for="type" class="text-base work font-medium pb-2"
+              >Card Type</label
             >
-              <div class="font-medium px-2 text-base work text-gray-800">
-                {{ type.card.type }}
+            <div class="relative" v-click-away="ClickAway">
+              <div
+                @click="toggleTypeModal"
+                class="
+                  w-full
+                  border
+                  text-base
+                  work
+                  px-4
+                  flex
+                  justify-between
+                  select-none
+                  py-3
+                  capitalize
+                  rounded-md
+                  shadow
+                  outline-none outline-none
+                "
+              >
+                <p>
+                  {{
+                    selectedType.type ? selectedType.type : "select card type"
+                  }}
+                  {{ selectedType.priceRange ? selectedType.priceRange : "" }}
+                </p>
+                
+                <div>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7.96967 19.5303C7.7034 19.2641 7.6792 18.8474 7.89705 18.5538L7.96967 18.4697L14.439 12L7.96967 5.53033C7.7034 5.26406 7.6792 4.8474 7.89705 4.55379L7.96967 4.46967C8.23594 4.2034 8.6526 4.1792 8.94621 4.39705L9.03033 4.46967L16.0303 11.4697C16.2966 11.7359 16.3208 12.1526 16.1029 12.4462L16.0303 12.5303L9.03033 19.5303C8.73744 19.8232 8.26256 19.8232 7.96967 19.5303Z"
+                      fill="black"
+                    />
+                  </svg>
+                </div>
               </div>
-              </li>
-              </ul>
+               
+            </div>
+          </div>
+          <div class="input_box my-2 flex flex-col">
+            <label for="amount" class="text-base work font-medium pb-2"
+              >Amount</label
+            >
+            <input
+              id="amount"
+              autocomplete="off"
+              v-model="amt"
+              @input="filter"
+              class="
+                hover:ring-2
+                items-center
+                w-full
+                border-cyan-200 border
+                text-base
+                work
+                px-4
+                py-3
+                rounded-md
+                focus:border-cyan-500 focus:shadow-outline
+                outline-none outline-none
+              "
+              type="text"
+              placeholder="Enter Amount"
+            />
+          </div>
         </div>
       </div>
-      <div class="input_box  my-2  flex flex-col">
-        <label
-          for="amount"
-          class="text-base work font-medium pb-2"
-        >Amount</label>
-          <input
-            id="amount"
-            autocomplete="off"
-            @input="filter"
-            class="hover:ring-2 items-center w-full border-cyan-200 border text-base work px-4 py-3 rounded-md focus:border-cyan-500 focus:shadow-outline outline-none outline-none"
-            type="text"
-            placeholder="Enter Amount"
-          />
-      </div>
-     
-    </div>
-    </div>
-    <div class="file_price_container flex flex-col ">
-      <div class="w-11/12 sm:w-10/12 mx-auto">
-        <div class="my-4">
-          <span class="block work">You will receive</span>
-          <span class="font-bold text-green-500 text-lg">₦45,000</span>
-        </div>
-        <div class="input_box mx-auto my-2 ">
-          <label
-            for="comment"
-            class="text-base work font-medium"
-          >Comments</label>
+      <div class="file_price_container flex flex-col">
+        <div class="w-11/12 sm:w-10/12 mx-auto">
+          <div class="my-4">
+            <span class="block work">You will receive</span>
+            <span class="font-bold text-green-800 ibm text-xl"
+              >&#8358;{{ formatCurrency(isTotal) }}</span
+            >
+          </div>
+          <div class="input_box mx-auto my-2">
+            <label for="comment" class="text-base work font-medium"
+              >Comments</label
+            >
             <input
               id="comment"
               autocomplete="off"
               @input="filter"
-              class="w-full border text-base work px-4 py-3 rounded-md focus:border-cyan-500 focus:shadow-outline outline-none outline-none"
+              class="
+                w-full
+                border
+                text-base
+                work
+                px-4
+                py-3
+                rounded-md
+                focus:border-cyan-500 focus:shadow-outline
+                outline-none outline-none
+              "
               type="text"
               placeholder="Enter code if not clear"
             />
-        </div>
-        <span class="block py-1 text-base work font-medium">Upload Card or Receipt</span>
-        <div>
-          <template v-if="isUploaded">
-            <div class="border-dashed my-4 relative px-4 py-6 rounded flex flex-col text-center  justify-between items-center border-4">
+          </div>
+          <span class="block py-1 text-base work font-medium"
+            >Upload Card or Receipt</span
+          >
+          <div>
+            <div
+              class="
+                border-dashed
+                my-4
+                px-4
+                py-6
+                rounded
+                flex flex-col
+                text-center
+                justify-between
+                items-center
+                border-4
+              "
+            >
               <div
-                @click="isUploaded = !isUploaded"
-                class="flex justify-center top-0 right-0 absolute h-8 w-8 items-center cursor-pointer rounded-2xl bg-red-500 text-white"
+                v-if="allImages.length >= 1"
+                id="preview"
+                class="grid grid-cols-3"
               >
-                <i class="pi pi-times"></i>
+                <div
+                  v-for="(img, index) in allImages"
+                  :key="index"
+                  class="box m-2 relative"
+                >
+                  <div
+                    @click="deleteImg(index)"
+                    class="
+                      flex
+                      justify-center
+                      top-0
+                      right-0
+                      absolute
+                      h-4
+                      w-4
+                      p-0.5
+                      z-10
+                      items-center
+                      cursor-pointer
+                      rounded-2xl
+                      bg-red-500
+                      text-white
+                    "
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6 18L18 6M6 6L18 18"
+                        stroke="#fff"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <img
+                    @click="cropImage(index)"
+                    class="
+                      w-full
+                      border
+                      hover:shadow-lg
+                      shadow-md
+                      rounded
+                      border-cyan-500
+                    "
+                    :src="img"
+                  />
+                </div>
               </div>
-              <img id="preview" />
-            </div>
-          </template>
-          <template v-else>
-            <div class="border-dashed my-4 px-4 py-6 rounded flex flex-col text-center  justify-between items-center border-4">
+              <div v-else class="items-center py-4">
+                <img src="/img/proof.svg" class="mx-auto" />
+                <p class="py-4 work">
+                  Kindly Upload a Picture of Your Giftcard
+                </p>
+              </div>
 
-              <img src="/img/proof.svg" />
-              <p class="py-4 work">Kindly Upload a Picture of Your Giftcard</p>
               <label
                 for="image"
-                class="bg-cyan flex justify-center h-8 w-8 items-center cursor-pointer rounded-2xl text-white work"
+                class="
+                  bg-cyan
+                  flex
+                  justify-center
+                  h-8
+                  w-8
+                  items-center
+                  cursor-pointer
+                  rounded-2xl
+                  text-white
+                  work
+                "
               >
                 <i class="pi pi-plus"></i>
-                </label>
-                <input
-                  name="image"
-                  id="image"
-                  type="file"
-                  ref="file"
-                  accept="image/*"
-                  @change="preview"
-                  hidden
-                />
+              </label>
+              <input
+                name="image"
+                id="image"
+                type="file"
+                ref="file"
+                accept="image/*"
+                multiple=""
+                @change="handleChange"
+                hidden
+              />
             </div>
-          </template>
+          </div>
+          <input type="file" class="hidden" id="file" name="file" />
         </div>
-          <input
-            type="file"
-            class="hidden"
-            id="file"
-            name="file"
-          />
+        <button
+          class="bg-cyan work rounded mx-auto text-white font-medium px-4 py-2"
+        >
+          Trade Card
+        </button>
       </div>
-       <button class="bg-cyan work rounded mx-auto text-white font-medium px-4 py-2">Trade Card</button>
     </div>
-    
-    </div>
-    </div>
+  </div>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { ExactCardImg } from '../utils/cards';
+// import {r}
+import ListModal from '@/components/reusables_/ListModal.vue'
+import Cropper from "@/components/reusables_/Cropper.vue";
+import { ExactCardImg } from "../utils/cards";
 import BigCard from "../components/Big-Card.vue";
+import { ref } from "vue";
 export default {
   name: "Upload",
   data() {
     return {
-      isShow: false,
+      amt: null,
+      
       isUploaded: false,
-      selectedType: {},
+
+      
       cardTypes: [],
-      selectedCard: { card: { name: "" } }
+
+      selectedCard: { card: { name: "" } },
+    };
+  },
+  setup() {
+    const allImages = ref([]);
+    const file = ref(null);
+    const isTypeModalShow = ref(false);
+    const isShowCropper = ref(false);
+    const selectedImgData = ref(null);
+    const selectedType = ref({})
+    const handleChange = () => {
+      console.log(file.value.files);
+      if (file.value.files) {
+        const allFiles = file.value.files;
+        // let arr = []
+        for (let singleFile of allFiles) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            allImages.value.push(reader.result);
+          };
+
+          reader.readAsDataURL(singleFile);
+        }
+      }
+    };
+    const deleteImg = (id) => {
+      allImages.value.splice(id, 1);
+    };
+    const hideCropper = (any) => {
+      if (any) {
+        console.log(any);
+        allImages.value[any.id] = any.img;
+      }
+      isShowCropper.value = false;
+      //   if (any) {
+      //     cropImg.value = null
+      //     console.log(any)
+      //    return croppedImg.value = any
+      //    }
+      // return cropImg.value = null
+    };
+   const ClickAway = () => {
+      isTypeModalShow.value = false;
+    }
+     const toggleTypeModal = () => {
+      isTypeModalShow.value = !isTypeModalShow.value;
+    }
+    const selectType = (any) => {
+      selectedType.value = any.card
+    }
+    const cropImage = (id) => {
+      console.log(id);
+      selectedImgData.value = {};
+
+      selectedImgData.value.img = allImages.value[id];
+      selectedImgData.value.id = id;
+
+      console.log(selectedImgData);
+      isShowCropper.value = true;
+    };
+    return {
+      allImages,
+      file,
+      isShowCropper,
+      isTypeModalShow,
+      handleChange,
+      selectedType,
+      ClickAway,
+      cropImage,
+      toggleTypeModal,
+      hideCropper,
+      selectType,
+      deleteImg,
+      selectedImgData,
     };
   },
   components: {
-    BigCard
+    BigCard,
+    Cropper,
+    ListModal,
   },
   computed: {
     imgType() {
-     return ExactCardImg(this.selectedCard.card.name)
+      return ExactCardImg(this.selectedCard.card.name);
     },
-    
+
     ...mapGetters({
       allcards: "cards/allCards",
 
-      names: "cards/allNames"
-    })
+      names: "cards/allNames",
+    }),
+    isTotal() {
+      if (this.selectedType.rate) return this.amt * this.selectedType.rate;
+      else return 0;
+    },
+    // selectedTyptName (){
+
+    // }
   },
   methods: {
-    toggleList() {
-      this.isShow = !this.isShow;
-    },
+   
     preview() {
       const img = this.$refs.file.files[0];
       this.img = img;
@@ -218,14 +384,12 @@ export default {
         let preview_box = document.getElementById("preview");
         preview_box.src = reader.result;
       };
-     reader.readAsDataURL(img);
+      reader.readAsDataURL(img);
     },
-    ClickAway() {
-      this.isShow = false;
-    },
+   
     ...mapActions({
       getAllNames: "cards/getNames",
-      isSpin: "cards/ToggleLoader"
+      isSpin: "cards/ToggleLoader",
     }),
     async fetchName() {
       this.isSpin();
@@ -233,12 +397,12 @@ export default {
       await this.getAllNames()
         .then(() => {
           this.selectedCard = this.names.find(
-            card => card.card.uuid.toLowerCase() === params.toLowerCase()
+            (card) => card.card.uuid.toLowerCase() === params.toLowerCase()
           );
           let isSel = this.selectedCard;
-          console.log(this.allcards)
+          console.log(this.allcards);
           this.cardTypes = this.allcards.filter(
-            card =>
+            (card) =>
               card.card.name
                 .toLowerCase()
                 .indexOf(isSel.card.name.toLowerCase()) >= 0
@@ -249,15 +413,20 @@ export default {
         .catch(() => {
           this.$toast.add({ severity: "error", summary: "Check Connection" });
         });
-    }
+    },
   },
   mounted() {
     this.fetchName();
-  }
+  },
 };
 </script>
 <style lang="scss">
 .p-ripple.grey .p-ink {
   background: grey;
+}
+#preview {
+  .box {
+    max-width: 15em;
+  }
 }
 </style>

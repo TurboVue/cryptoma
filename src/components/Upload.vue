@@ -1,145 +1,214 @@
 <template>
-
-  <div
-    id="sideDisplay"
-    :class="sideClass"
-  >
+  <div id="sideDisplay" :class="sideClass">
     <div class="flex justify-between items-center px-8 py-4 flex-row">
-      <div
-        class="cancel"
-        @click="closeSide"
-      >
-        <img
-          src="/img/cancel.svg"
-          alt=""
-        />
-    </div>
+      <div class="cancel" @click="closeSide">
+        <img src="/img/cancel.svg" alt="" />
+      </div>
 
-    <div class="title">
-      <span class="text-md font-medium">Redeem your Giftcard</span>
+      <div class="title">
+        <span class="text-md font-medium">Redeem your Giftcard</span>
+      </div>
     </div>
-    </div>
-<ScrollPanel
-      style="width: 100%; height: calc(85vh - 50px); z-index:5; "
+    <ScrollPanel
+      style="width: 100%; height: calc(85vh - 50px); z-index: 5"
       class="custom"
     >
-    <div class="card_big upload bg-cyan  shadow flex flex-col mx-auto my-8 p-4 w-8/12 h-40  justify-between rounded-md">
-      <div class="card-logo w-10">
-        <img
-          class="w-full"
-          src="/img/amazon-logo.svg"
-          alt=""
-        />
+      <div
+        class="
+          card_big
+          upload
+          bg-cyan
+          shadow
+          flex flex-col
+          mx-auto
+          my-8
+          p-4
+          w-8/12
+          h-40
+          justify-between
+          rounded-md
+        "
+      >
+        <div class="card-logo w-10">
+          <img class="w-full" src="/img/amazon-logo.svg" alt="" />
+        </div>
+        <div class="card-details text-white">
+          <p class="">{{ name }}</p>
+          <!-- <p class="font-medium tracking-wider">&#8358;400</p> -->
+        </div>
       </div>
-      <div class="card-details text-white">
-        <p class=" ">{{name}}</p>
-        <!-- <p class="font-medium tracking-wider">&#8358;400</p> -->
-      </div>
-    </div>
-    
-      <div class="container px-8 pb-6">
 
-        <div class="  my-4">
+      <div class="container px-8 pb-6">
+        <div class="my-4">
           <span class="block py-1">Card Type</span>
           <div class="relative" v-click-away="ClickAway">
-          <div v-if="this.types.length > 0" 
-                                    @click="toggleList" class=" rounded border capitalize bg-white w-full p-2">select card type</div>
-                                    <div v-else class="rounded border capitalize  bg-white w-full p-2">None</div>
-          <template v-if="types">
-          <ul
-            v-if="isShow"
-            class="codes rounded border bg-white w-full p-2 my-2  overflow-hidden"
-          >
-            <li
-              class="px-2 py-2 hover:bg-gray-100 flex items-center relative cursor-pointer"
-              v-for="(type, index) in types"
-             @click="() => {
-               this.isShow = !this.isShow;
-               this.selectedType = type.card;
-               
-                            }"
-              :key="index"
+            <div
+              v-if="this.types.length > 0"
+              @click="toggleList"
+              class="rounded border capitalize bg-white w-full p-2"
             >
-              <div class="font-medium px-2 text-tiny text-gray-800">{{type.card.type}} </div>
-              <div class="font-medium text-sm px-2 absolute bottom-0 right-0 text-gray-400 right-0">+{{type.card.rate}}</div>
-              </li>
+              select card type
+            </div>
+            <div v-else class="rounded border capitalize bg-white w-full p-2">
+              None
+            </div>
+            <template v-if="types">
+              <ul
+                v-if="isShow"
+                class="
+                  codes
+                  rounded
+                  border
+                  bg-white
+                  w-full
+                  p-2
+                  my-2
+                  overflow-hidden
+                "
+              >
+                <li
+                  class="
+                    px-2
+                    py-2
+                    hover:bg-gray-100
+                    flex
+                    items-center
+                    relative
+                    cursor-pointer
+                  "
+                  v-for="(type, index) in types"
+                  @click="
+                    () => {
+                      this.isShow = !this.isShow;
+                      this.selectedType = type.card;
+                    }
+                  "
+                  :key="index"
+                >
+                  <div class="font-medium px-2 text-tiny text-gray-800">
+                    {{ type.card.type }}
+                  </div>
+                  <div
+                    class="
+                      font-medium
+                      text-sm
+                      px-2
+                      absolute
+                      bottom-0
+                      right-0
+                      text-gray-400
+                      right-0
+                    "
+                  >
+                    +{{ type.card.rate }}
+                  </div>
+                </li>
               </ul>
-              
-              </template>
-              <template v-else>
-                 <div  class="rounded border shadow bg-white w-full p-2">no types available</div>
-              </template></div>
+            </template>
+            <template v-else>
+              <div class="rounded border shadow bg-white w-full p-2">
+                no types available
+              </div>
+            </template>
+          </div>
         </div>
-        <span class="block ">Amount</span>
+        <span class="block">Amount</span>
         <div class="counter inline-flex items-center">
           <div
-            class="select-none border w-12 h-12 flex justify-center items-center  text-grey-600 text-lg font-medium hover:text-white cursor-pointer hover:bg-cyan-400 rounded-md"
+            class="
+              select-none
+              border
+              w-12
+              h-12
+              flex
+              justify-center
+              items-center
+              text-grey-600 text-lg
+              font-medium
+              hover:text-white
+              cursor-pointer
+              hover:bg-cyan-400
+              rounded-md
+            "
             @click="decrease"
           >
             -
-        </div>
-        <h4
-          v-if="show"
-          @click="edit"
-          class="mx-4 font-medium "
-        >{{ umber }}</h4>
+          </div>
+          <h4 v-if="show" @click="edit" class="mx-4 font-medium">
+            {{ umber }}
+          </h4>
           <input
             v-else
             @keyup.enter="close"
-            class="border  w-16 mx-4 text-center outline-none"
+            class="border w-16 mx-4 text-center outline-none"
             type="text"
             v-model="number"
           />
           <div
-            class="select-none border w-12 h-12 flex justify-center items-center  text-grey-600 text-lg font-medium hover:text-white cursor-pointer hover:bg-cyan-400 rounded-md"
+            class="
+              select-none
+              border
+              w-12
+              h-12
+              flex
+              justify-center
+              items-center
+              text-grey-600 text-lg
+              font-medium
+              hover:text-white
+              cursor-pointer
+              hover:bg-cyan-400
+              rounded-md
+            "
             @click="increase"
           >
             +
-      </div>
-      </div>
-      <div class="">
-        <span class="block py-1">Comment</span>
-        <InputText
-          type="text"
-          v-model="value"
-          class="p-inputtext-sm font-medium"
-          placeholder="eg Card Code Optional"
-        />
-      </div>
-      <div class="my-4">
-        <span class="block py-1">Upload Card or Receipt</span>
-        <label
-          for="file"
-          class="border bg-white rounded w-4/5 h-32 flex items-center justify-center"
-        >Upload</label>
-          <input
-            type="file"
-            class="hidden"
-            id="file"
-            name="file"
-          />
-      </div>
-      </div>
-</ScrollPanel>
-      <div class="footer px-8 bg-white w-full flex items-center justify-between">
+          </div>
+        </div>
         <div class="">
-          <span class="block">You will receive</span>
-          <span class="font-medium">N{{rateCalc}}</span>
+          <span class="block py-1">Comment</span>
+          <InputText
+            type="text"
+            v-model="value"
+            class="p-inputtext-sm font-medium"
+            placeholder="eg Card Code Optional"
+          />
         </div>
-        <div>
-          <button
-            class="button"
-            disabled="disabled"
-          >Redeem</button>
+        <div class="my-4">
+          <span class="block py-1">Upload Card or Receipt</span>
+          <label
+            for="file"
+            class="
+              border
+              bg-white
+              rounded
+              w-4/5
+              h-32
+              flex
+              items-center
+              justify-center
+            "
+            >Upload</label
+          >
+          <input type="file" class="hidden" id="file" name="file" />
         </div>
       </div>
-      
+    </ScrollPanel>
+    <div class="footer px-8 bg-white w-full flex items-center justify-between">
+      <div class="">
+        <span class="block">You will receive</span>
+        <span class="font-medium">N{{ rateCalc }}</span>
       </div>
+      <div>
+        <button class="button" disabled="disabled">Redeem</button>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
 import ScrollPanel from "primevue/scrollpanel";
-import Dropdown from "primevue/dropdown";
+// import Dropdown from "primevue/dropdown";
 import InputText from "primevue/inputtext";
 export default {
   name: "Upload",
@@ -158,39 +227,36 @@ export default {
     types: Array,
   },
   computed: {
-    selected(){
-      if(this.types.length > 0){
-        return this.types[0].card.type
-      }
-      else{
-        return 'none'
+    selected() {
+      if (this.types.length > 0) {
+        return this.types[0].card.type;
+      } else {
+        return "none";
       }
     },
-    rateCalc(){
-      
-      return this.number * (this.selectedType.rate || 1)
+    rateCalc() {
+      return this.number * (this.selectedType.rate || 1);
     },
     ...mapGetters({
       allCard: "cards/allCards",
-      names: "cards/allName"
+      names: "cards/allName",
     }),
     umber() {
       return "$" + this.number;
     },
   },
   methods: {
-    ClickAway(event){
-            this.isShow = false;
-            
-        },
+    ClickAway() {
+      this.isShow = false;
+    },
     closeSide() {
       this.$emit("closeSide");
     },
     edit() {
       this.show = !this.show;
     },
-     toggleList() {
-      this.isShow = !this.isShow
+    toggleList() {
+      this.isShow = !this.isShow;
     },
     close(val) {
       console.log(val.target.value);
@@ -203,16 +269,15 @@ export default {
     increase() {
       this.number = +this.number + 25;
     },
-    
   },
   components: {
     ScrollPanel,
-    Dropdown,
+    // Dropdown,
     InputText,
   },
 };
 </script>
-<style lang="scss" >
+<style lang="scss">
 .p-dropdown,
 .p-inputtext {
   width: 100%;
