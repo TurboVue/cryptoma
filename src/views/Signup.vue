@@ -71,6 +71,7 @@
                 @blur="v$.email.$touch"
                 placeholder="Email Address"
               />
+              <p class="text-red-500 text-tiny work">{{ errMessage ? errMessage.email[0] : '' }}</p>
               <div class="error_box" v-if="v$.email.$errors.length">
                 <span
                   v-for="(error, index) of v$.email.$errors"
@@ -270,18 +271,21 @@ import {
   minLength,
   numeric,
   maxLength,
+  sameAs,
+  helpers
 } from "@vuelidate/validators";
 // import axios from "axios";
 // import Dropdown from "primevue/dropdown";
 import { validName } from "@/utils/validate";
 import { useStore } from "vuex";
-import {ref, reactive} from 'vue'
+import {ref, reactive, computed} from 'vue'
 import User from "../models/user";
 // import ProgressSpinner from "primevue/progressspinner";
 
   
   const isLoading = ref(false)
   // const countries = ref([])
+  const errMessage = ref(null)
   const passwordType = ref(true)
   // const isShow = ref(false)
   const user = ref(new User("", "", "", "", ""))
@@ -290,6 +294,7 @@ import User from "../models/user";
         code: "234",
         flag: "/img/ngn-icon.svg",
       })
+      const password = computed(() => {return user.value.password})
   const store = useStore()
   // const toggleList = () => {
   //     isShow.value = !isShow.value;
@@ -329,12 +334,14 @@ import User from "../models/user";
               })
               .catch((err) => {
                 isLoading.value = false
-                this.errMessage = err.response.data.message;
+
+                errMessage.value = err.response.data.errors;
+                console.log(Object.entries(errMessage.value))
               })
           );
         }, 1000)
       );
-      isLoading.value = !isLoading.value;
+      // isLoading.value = !isLoading.value;
     }
     // const selectCountry = (any) => {
     //   //   console.log(any);
@@ -363,10 +370,13 @@ import User from "../models/user";
             $message: "Invalid format.",
           }
         },
-        phone: { required, numeric, max: maxLength(11) },
+        phone: { required, numeric, max: helpers.withMessage('Please Enter a valid phone number', maxLength(11)), min: helpers.withMessage('Please Enter a valid phone number', minLength(10)) },
         email: { required, email },
         password: { required, min: minLength(6) },
-        password_confirmation: { required },
+        password_confirmation: {
+           required,
+           sameAsPassword: helpers.withMessage('Passwords must be the same', sameAs(password))
+         },
       }
    const v$ = useVuelidate(rules, user) 
 

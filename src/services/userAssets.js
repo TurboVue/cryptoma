@@ -6,9 +6,9 @@ export default {
         return apiClient().get("/banks", { headers: authHeader() });
     },
     verifyBankDetails(data) {
-        return apiClient().post("/banks", data, { headers: authHeader() });
+        return apiClient().post("/vet-bank", data, { headers: authHeader() });
     },
     uploadPaymentDetails(data) {
-        return apiClient().post("/users/account", data, { headers: authHeader() });
+        return apiClient().put("/users/account", data, { headers: authHeader() });
     }
 }

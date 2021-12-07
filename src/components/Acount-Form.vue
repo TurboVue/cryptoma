@@ -275,7 +275,7 @@ const verify = () => {
     .dispatch("auth/verifyBankDetails", data)
     .then(
       (response) =>
-        (details.account_name = response.data.data.account_name)
+        (details.account_name = response.data.data.acc_name)
     )
     .catch((err) => console.log(err));
 };
