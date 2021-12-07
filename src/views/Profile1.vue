@@ -6,7 +6,7 @@ const user = store.getters['auth/user']
 </script>
 
 <template>
-  <div>
+  <div class="px-2">
     <div class="flex flex-row justify-between items-center mx-4">
       <div class="my-1">
         <GoBack />
@@ -28,7 +28,7 @@ const user = store.getters['auth/user']
             <div class="input_card_container">
                 <div class="input_box">
                     <label class="font-medium">Fullname</label>
-                    <input class="rounded p-3" type="text" :value="user.fullname" disabled/>
+                    <input class="rounded capitalize p-3" type="text" :value="user.fullname" disabled/>
                 </div>
                 <div class="input_box">
                     <label class="font-medium">Email</label>
@@ -49,8 +49,9 @@ const user = store.getters['auth/user']
 </template>
 
 <style lang="scss" scoped>
+
 .box_container {
-    width: 80%;
+    // width: 80%;
 }
 .input_card_container {
     margin: 1em 0;
@@ -63,7 +64,7 @@ const user = store.getters['auth/user']
         }
     input {
             width: 100%;
-            text-transform: capitalize;
+            // text-transform: capitalize;
             // border: .5px solid grey;
         }
     }
