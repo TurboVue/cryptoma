@@ -76,6 +76,16 @@ const routes = [{
                 component: Transactions,
                 meta: { authorize: [Role.User, Role.Admin] },
             },
+            {
+                path: "/profile",
+                name: "Profile",
+                component: () =>
+                    import (
+                        /* webpackChunkName: "Transactions" */
+                        "../views/Profile1.vue"
+                    ),
+                meta: { authorize: [Role.User, Role.Admin] },
+            },
             //{
             //     path: '/mobile',
             //     name: 'Mobile',
@@ -106,16 +116,6 @@ const routes = [{
                 component: Settings,
                 meta: { authorize: [Role.User, Role.Admin] },
                 children: [{
-                        path: "",
-                        name: "Profile",
-                        component: () =>
-                            import (
-                                /* webpackChunkName: "Transactions" */
-                                "../views/Profile.vue"
-                            ),
-                        meta: { authorize: [Role.User, Role.Admin] },
-                    },
-                    {
                         path: "paymentdetails",
                         name: "Payment",
                         component: () =>
