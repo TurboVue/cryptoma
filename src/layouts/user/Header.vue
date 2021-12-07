@@ -53,7 +53,7 @@ export default {
     "
   >
     <div class="logo mx-2" @click="toggleSideBar">
-      <div class="sm:hidden">
+      <div class="myHidden">
         <svg
             width="30"
             height="30"
@@ -124,6 +124,11 @@ export default {
 <style lang="scss" scoped>
 header {
   z-index: 5;
+}
+@media (min-width: 769px){
+  .myHidden {
+    display: none
+  }
 }
 .fade-enter-active,
 .fade-leave-active {

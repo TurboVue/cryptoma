@@ -51,7 +51,7 @@ const user = store.getters['auth/user']
 <style lang="scss" scoped>
 
 .box_container {
-    // width: 80%;
+     width: 100%;
 }
 .input_card_container {
     margin: 1em 0;
