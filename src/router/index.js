@@ -76,6 +76,16 @@ const routes = [{
                 component: Transactions,
                 meta: { authorize: [Role.User, Role.Admin] },
             },
+            {
+                path: "/profile",
+                name: "Profile",
+                component: () =>
+                    import (
+                        /* webpackChunkName: "Transactions" */
+                        "../views/Profile1.vue"
+                    ),
+                meta: { authorize: [Role.User, Role.Admin] },
+            },
             //{
             //     path: '/mobile',
             //     name: 'Mobile',
@@ -106,16 +116,6 @@ const routes = [{
                 component: Settings,
                 meta: { authorize: [Role.User, Role.Admin] },
                 children: [{
-                        path: "",
-                        name: "Profile",
-                        component: () =>
-                            import (
-                                /* webpackChunkName: "Transactions" */
-                                "../views/Profile.vue"
-                            ),
-                        meta: { authorize: [Role.User, Role.Admin] },
-                    },
-                    {
                         path: "paymentdetails",
                         name: "Payment",
                         component: () =>
@@ -191,16 +191,19 @@ const routes = [{
         // which is lazy-loaded when the route is visited.
         component: () =>
             import ( /* webpackChunkName: "Giftcard" */ "../views/Signup.vue"),
-        children: [{
-            path: "emailverification",
-            name: "EmailVerification",
-            // route level code-splitting
-            // this generates a separate chunk (giftcard.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () =>
-                import ( /* webpackChunkName: "Giftcard" */ "../views/EmailVerification.vue"),
-        }, ]
-    }, {
+
+    },
+    {
+        path: "/completeregistration/emailverification",
+        name: "EmailVerification",
+        query: { status: 'success' },
+        // route level code-splitting
+        // this generates a separate chunk (giftcard.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import ( /* webpackChunkName: "Giftcard" */ "../views/EmailVerification.vue"),
+    },
+    {
         path: "/forgotpassword",
         name: "ForgotPassword",
         // route level code-splitting
@@ -216,7 +219,7 @@ const routes = [{
         // which is lazy-loaded when the route is visited.
         component: () =>
             import ( /* webpackChunkName: "Giftcard" */ "../views/Reset.vue"),
-    },
+    }
 ];
 
 const router = createRouter({

@@ -58,7 +58,7 @@
         </div>
         <span>Account Details</span>
       </li>
-      <li @click="changeRoute('/settings')">
+      <li @click="changeRoute('/profile')">
         <div class="link_icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M12.012 14.8301C10.4075 14.8301 9.10962 13.5801 9.10962 12.0101C9.10962 10.4401 10.4075 9.1801 12.012 9.1801C13.6165 9.1801 14.8837 10.4401 14.8837 12.0101C14.8837 13.5801 13.6165 14.8301 12.012 14.8301Z" fill="#130F26"/>

@@ -2,7 +2,7 @@
   <div class="flex items-center h-full justify-center">
     <div class="overlay">
       <form class="form relative" @submit.prevent = "submit" v-click-away="FormClickAway">
-        <div v-if="$route.path !== '/'" @click="FormClickAway" class="absolute right-0 top-0 m-4">
+        <div v-if="$route.path === '/account-details'" @click="FormClickAway" class="absolute right-0 top-0 m-4">
           <svg
             width="24"
             height="24"
@@ -256,7 +256,7 @@ const fetchBanks = () => {
 //       emit("toggleModal");
 //     }
     const FormClickAway = () => {
-      if(route.path != '/')
+      if(route.path === '/account-details')
        emit("FormClickAway");
     }
  const selectBank = (any, code) => {
@@ -275,7 +275,7 @@ const verify = () => {
     .dispatch("auth/verifyBankDetails", data)
     .then(
       (response) =>
-        (details.account_name = response.data.data.account_name)
+        (details.account_name = response.data.data.acc_name)
     )
     .catch((err) => console.log(err));
 };
